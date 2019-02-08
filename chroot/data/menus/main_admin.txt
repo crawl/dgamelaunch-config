@@ -12,9 +12,9 @@ Logged in as: $USERNAME (admin)
 W) Watch games in progress
 
 T) Dungeon Crawl Stone Soup Trunk
-R) Dungeon Crawl Stone Soup Current Released Version 0.22
+R) Dungeon Crawl Stone Soup Current Released Version 0.23
 
-1) 0.21   0) 0.20   9) 0.19   8) 0.18   7) 0.17   6) 0.16   5) 0.15   
+2) 0.22   1) 0.21   0) 0.20   9) 0.19   8) 0.18   7) 0.17   6) 0.16   5) 0.15   
 X) Older Versions (0.14 to 0.10)
 
 k) robotfindskitten  c) Change password  e) Change email address
