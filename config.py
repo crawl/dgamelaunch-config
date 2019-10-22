@@ -36,6 +36,30 @@ watch_socket_dirs = True
 # Game configs
 # %n in paths is replaced by the current username
 games = OrderedDict([
+    ("dcss-git", dict(
+        name = "DCSS trunk",
+        crawl_binary = "/bin/crawl-git-launcher.sh",
+        send_json_options = True,
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
+        morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
+        morgue_url = "http://crawl.akrasiac.org/rawdata/%n/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%-crawl-git/",
+        ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
+        socket_path = "%%CHROOT_WEBDIR%%/sockets")),
+    ("spr-git", dict(
+        name = "Sprint trunk",
+        crawl_binary = "/bin/crawl-git-launcher.sh",
+        send_json_options = True,
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
+        morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
+        morgue_url = "http://crawl.akrasiac.org/rawdata/%n/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%-crawl-git-sprint/",
+        ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
+        socket_path = "%%CHROOT_WEBDIR%%/sockets",
+        options = ["-sprint"])),
+
     ("dcss-0.23", dict(
         name = "DCSS 0.23",
         crawl_binary = "/bin/crawl-stable-launcher.sh",
@@ -214,31 +238,6 @@ games = OrderedDict([
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
         morgue_url = "http://crawl.akrasiac.org/rawdata/%n/",
         inprogress_path = "%%CHROOT_INPROGRESSDIR%%-crawl17-sprint/",
-        ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
-        socket_path = "%%CHROOT_WEBDIR%%/sockets",
-        options = ["-sprint"])),
-    
-
-    ("dcss-git", dict(
-        name = "DCSS trunk",
-        crawl_binary = "/bin/crawl-git-launcher.sh",
-        send_json_options = True,
-        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
-        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
-        morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
-        morgue_url = "http://crawl.akrasiac.org/rawdata/%n/",
-        inprogress_path = "%%CHROOT_INPROGRESSDIR%%-crawl-git/",
-        ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
-        socket_path = "%%CHROOT_WEBDIR%%/sockets")),
-    ("spr-git", dict(
-        name = "Sprint trunk",
-        crawl_binary = "/bin/crawl-git-launcher.sh",
-        send_json_options = True,
-        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
-        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
-        morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
-        morgue_url = "http://crawl.akrasiac.org/rawdata/%n/",
-        inprogress_path = "%%CHROOT_INPROGRESSDIR%%-crawl-git-sprint/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets",
         options = ["-sprint"])),
