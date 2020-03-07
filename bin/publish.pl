@@ -19,6 +19,8 @@ GetOptions(\%OPT, "match=s", "skip=s", "confirm", "target=s")
 my $CHROOT = $ENV{DGL_CHROOT};
 die "DGL chroot not specified in environment\n" unless $CHROOT;
 
+# Paths starting with // are relative to the system root
+# Paths starting with / are relative to the chroot's root
 my @COPY_TARGETS = ([ 'dgamelaunch.conf', '//etc' ],
                     [ 'utils/auth-save-downloader.pl', '//usr/lib/cgi-bin' ],
                     [ 'utils/trigger-rebuild.pl', '//usr/lib/cgi-bin' ],
