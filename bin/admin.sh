@@ -14,7 +14,7 @@ assert-login-db-exists
 
 SUBCOMMAND=$1
 shift
-[[ -z "$SUBCOMMAND" ]] && SUBCOMMAND=ls
+[[ -z "$SUBCOMMAND" ]] && SUBCOMMAND="ls"
 
 admin-ls() {
     echo "Existing admin users:"
@@ -58,7 +58,7 @@ admin-add() {
     dgl-user-make-admin "$new_admin"
 
     if dgl-user-is-admin "$new_admin"; then
-        printf "\nDone, $new_admin is now a DGL admin.\n"
+        printf "%s" "\nDone, $new_admin is now a DGL admin.\n"
         exit 0
     else
         echo -e "Oops, couldn't make $new_admin a DGL admin.\n"
@@ -79,7 +79,7 @@ admin-rm() {
     dgl-user-unmake-admin "$ex_admin"
 
     if ! dgl-user-is-admin "$ex_admin"; then
-        printf "\nDone, $ex_admin is now a regular DGL non-admin user.\n"
+        printf "%s" "\nDone, $ex_admin is now a regular DGL non-admin user.\n"
         exit 0
     else
         echo -e "Oops, couldn't make $ex_admin a regular DGL non-admin user."

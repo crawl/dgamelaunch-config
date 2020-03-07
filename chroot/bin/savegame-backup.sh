@@ -58,14 +58,15 @@ savedir-containing() {
     local char="$1"
     local -a saves
     saves=($PREFIX/$BINARY_SAVE_NAME{,-*}/saves/$char{,-$USER_ID}.{cs,chr,sav})
-    local savefile="$(first-existing-file "${saves[@]}")"
+	local savefile
+    savefile="$(first-existing-file "${saves[@]}")"
     [[ -n "$savefile" ]] && dirname "$savefile"
     return 0
 }
 
-SAVES="$(savedir-containing $CHAR_NAME)"
-SPRINT_SAVES="$(savedir-containing sprint/$CHAR_NAME)"
-ZOTDEF_SAVES="$(savedir-containing zotdef/$CHAR_NAME)"
+SAVES="$(savedir-containing "$CHAR_NAME")"
+SPRINT_SAVES="$(savedir-containing sprint/"$CHAR_NAME")"
+ZOTDEF_SAVES="$(savedir-containing zotdef/"$CHAR_NAME")"
 
 if [[ -z "$SAVES" && -z "$SPRINT_SAVES" && -z "$ZOTDEF_SAVES" ]]; then
     echo "No saves to backup for $CHAR_NAME"
@@ -76,7 +77,6 @@ SAVE_QUALIFIER=""
 CHAR=Character
 
 C_NORMAL="\033[0m"
-C_YELLOW="\033[1;33m"
 C_GREEN="\033[1;32m"
 C_RED="\033[1;31m"
 
@@ -86,7 +86,7 @@ PROMPT="Backup"
 [[ -n "$ZOTDEF_SAVES" ]] && PROMPT="$PROMPT [z]otdef"
 PROMPT="$PROMPT character?"
 
-read -n 1 -s -p "$PROMPT" REPLY
+read -r -n 1 -s -p "$PROMPT" REPLY
 echo
 
 REPLY="$(echo "$REPLY" | sed 's/\([A-Z]\)/\L\1/g')"
@@ -114,20 +114,20 @@ SAVE_MATCHES=(${SAVE_MATCHES[@]##*\*})
 SAVE_FOUND=${SAVE_MATCHES[0]}
 
 if [[ -n "$SAVE_FOUND" && -f "$SAVE_FOUND" ]]; then
-    GAME_NAME=${SAVES%/zotdef}
-    GAME_NAME=${GAME_NAME%/sprint}
-    GAME_NAME="$(dirname $GAME_NAME)"
+    GAME_NAME="${SAVES%/zotdef}"
+    GAME_NAME="${GAME_NAME%/sprint}"
+    GAME_NAME="$(dirname "$GAME_NAME")"
     GAME_NAME="${GAME_NAME##*/}"
 
     echo
     echo "$CHAR \"${CHAR_NAME}\" in $GAME_NAME. "
 
     echo -n "Backing up:"
-    cd $SAVES
+    cd "$SAVES"
 
     TARNAME=${CHAR_NAME}${SAVE_QUALIFIER}-$GAME_NAME-${TODAY}.tar.bz2
-    tar -cjf ${TARGET_DIR}/$TARNAME \
-        $(existing-files ${CHAR_NAME}{,-${USER_ID}}.*)
+    tar -cjf "${TARGET_DIR}/$TARNAME" \
+        "$(existing-files "${CHAR_NAME}"{,-"${USER_ID}"}.*)"
 
     if test $? -ne 0
     then

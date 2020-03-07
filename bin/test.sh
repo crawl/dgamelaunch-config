@@ -8,7 +8,7 @@ valid-dgl() {
     [[ -n "$DGAMELAUNCH" && -x "$DGAMELAUNCH" ]]
 }
 
-valid-dgl || DGAMELAUNCH="$(which dgamelaunch 2>/dev/null || true)"
+valid-dgl || DGAMELAUNCH="$(command -v dgamelaunch 2>/dev/null || true)"
 valid-dgl || DGAMELAUNCH=/usr/local/sbin/dgamelaunch
 valid-dgl || abort-saying "Cannot find dgamelaunch binary"
 
@@ -32,10 +32,11 @@ fi
 TEST_FILE=dgamelaunch.conf
 TMP_DIR=.tmp
 
+# shellcheck disable=SC2064
 trap "rm $TMP_DIR/$TEST_FILE && rmdir $TMP_DIR" EXIT
 
 mkdir -p $TMP_DIR
-dgl-run publish-conf --target /$PWD/$TMP_DIR
+dgl-run publish-conf --target "/$PWD/$TMP_DIR"
 
 if [[ -z "$STRACE" ]]; then
     "$DGAMELAUNCH" -f "$TMP_DIR/$TEST_FILE"

@@ -5,4 +5,4 @@
 
 assert-chroot-exists
 set -- "--confirm" "--match" "dgamelaunch.conf" "$@"
-source $DGL_CONF_HOME/bin/publish.sh
+source "$DGL_CONF_HOME/bin/publish.sh"
