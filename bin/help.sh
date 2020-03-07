@@ -1,6 +1,5 @@
 #! /bin/bash
 
-GIVE_HELP=1
 COMMAND="$1"
 
 if [[ -z "$COMMAND" ]]; then
@@ -13,7 +12,7 @@ Where <command> is one of: $(list-all-actions)
 EOF
 fi
 
-SCRIPT="$(resolve-action $COMMAND)"
+SCRIPT="$(resolve-action "$COMMAND")"
 [[ -z "$SCRIPT" ]] && exit 1
 
 HELPFILE="help/$COMMAND.txt"

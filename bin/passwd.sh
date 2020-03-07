@@ -42,7 +42,8 @@ change-password() {
     local password_clear="$2"
 
     assert-password-safe "$password_clear"
-    local password_crypt="$(perl -le 'print crypt($ARGV[0], substr($ARGV[0], 0, 2))' "$password_clear")"
+	local password_crypt
+    password_crypt="$(perl -le 'print crypt($ARGV[0], substr($ARGV[0], 0, 2))' "$password_clear")"
     sqlite3 "$LOGIN_DB" <<EOF
 UPDATE dglusers
 SET password='$password_crypt'
@@ -52,9 +53,10 @@ EOF
 
 assert-sane-user-match() {
     local user=$1
-    local count=$(count-users $user)
-    if (( $count != 1 )); then
-        if (( $count == 0 )); then
+	local count
+    count=$(count-users "$user")
+    if (( count != 1 )); then
+        if (( count == 0 )); then
             abort-saying "Can't find user matching '$user'"
         else
             abort-saying "Too many user matches for '$user'"
@@ -65,16 +67,16 @@ assert-sane-user-match() {
 USER=$1
 assert-sane-user-match "$USER"
 
-echo "Password hint for $USER: '$(password-hint $USER)'"
+echo "Password hint for $USER: '$(password-hint "$USER")'"
 
 if [[ "$UID" == "0" ]]; then
     echo
-    read -s -p "Enter new password for $USER: " PASSWORD
+    read -s -p -r "Enter new password for $USER: " PASSWORD
     echo
     if [[ -z "$PASSWORD" ]]; then
         abort-saying "Empty password"
     fi
-    read -s -p "Retype password for $USER: " CONFIRM_PASSWORD
+    read -s -p -r "Retype password for $USER: " CONFIRM_PASSWORD
     echo
 
     if [[ "$PASSWORD" != "$CONFIRM_PASSWORD" ]]; then

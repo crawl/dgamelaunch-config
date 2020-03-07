@@ -1,6 +1,7 @@
 #! /bin/bash
 
-source $DGL_CONF_HOME/crawl-git.conf
+# shellcheck source=crawl-git.conf
+source "$DGL_CONF_HOME/crawl-git.conf"
 
 if [[ $UID != 0 ]]; then
     echo "$0 must be run as root!"
@@ -28,23 +29,23 @@ for ttyrec in "$TTYRECDIR"/*/*.ttyrec; do
     # If anyone has it open, skip it.
     if quietly lsof "$ttyrec"; then
         verbiate -n "."
-        let ++skip
+        (( ++skip ))
         continue
     fi
     if bzip2 "$ttyrec"; then
-        let ++succ
+		(( ++succ ))
         verbiate -n "+"
     else
-        let ++fail
+        (( ++fail ))
         verbiate -n "X"
         failures+=( "$ttyrec" )
     fi
 done
 verbiate
 
-if (( failed || verbose )); then
+if (( fail || verbose )); then
     printf "%d succeeded\t%d failed\t%d skipped\n" "$succ" "$fail" "$skip"
-    if (( failed )); then
+    if (( fail )); then
         printf "\nFailing files:\n"
         printf "  %s\n" "${failures[@]}"
         exit 1
