@@ -1,5 +1,4 @@
-dgamelaunch-config
-------------------
+# dgamelaunch-config
 
 This is a collection of scripts to manage a dgamelaunch
 (http://nethackwiki.com/wiki/Dgamelaunch) install, all run from an
@@ -10,19 +9,29 @@ These are still very incomplete, WIP.
 Currently available commands:
 
 1. Update your dgamelaunch config from the repository:
+   ```
    $ sudo dgl publish --confirm
+   ```
 
 2. Change a dgl user's password:
+   ```
    $ sudo dgl passwd johndoe
+   ```
 
 3. Update Crawl alpha build from git master:
+   ```
    $ dgl update-trunk
+   ```
 
 4. Remove stale Crawl alpha versions:
+   ```
    $ dgl remove-trunks
+   ```
 
 5. Run dgl-whereis inotify daemon:
+   ```
    $ sudo dgl crawl-inotify-dglwhere
+   ```
 
    This inotify daemon monitors the dgamelaunch in-progress dirs to keep
    track of active players, and monitors their morgue directories for
@@ -43,8 +52,7 @@ The ultimate goal for this project is to become a one-stop shop for
 all your dgamelaunch+Crawl needs, starting from installing dgamelaunch
 itself
 
-TODO
-----
+# TODO
 
 1. `dgl install-dgl` command to fetch and install the latest dgamelaunch.
 
@@ -55,8 +63,11 @@ TODO
 3. Support for installing different games, including fetching their sources
    from their respective source repositories, compiling, installing into the
    chroot, etc.
-       `dgl install crawl master`,
-       `dgl install nethack 3.4.3` etc.)
+   ```
+   dgl install crawl master`
+   dgl install nethack 3.4.3`
+   ```
+   Etc.
 
    Installing a game should also (eventually) add a suitable entry to
    the various menu files and update the dgamelaunch config
