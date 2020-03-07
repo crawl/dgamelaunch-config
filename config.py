@@ -7,11 +7,9 @@ except ImportError:
 dgl_mode = True
 
 bind_nonsecure = True # Set to false to only use SSL
-bind_address = "66.111.46.147"
-bind_port = 80
 
 bind_pairs = (
-    ("66.111.46.147", 80),
+    ("127.0.0.1", 80),
 )
 
 logging_config = {
@@ -29,7 +27,7 @@ template_path = "%%CHROOT_WEBDIR%%/templates/"
 server_socket_path = None # Uses global temp dir
 
 # Server name, so far only used in the ttyrec metadata
-server_id = "cszo"
+server_id = ""
 
 # Disable caching of game data files
 game_data_no_cache = False
@@ -501,17 +499,15 @@ max_connections = 500
 # at the moment.
 init_player_program = "/bin/init-webtiles.sh"
 
-#ssl_options = None # No SSL
+# ssl_options = None # No SSL
 ssl_options = {
     "certfile": "/etc/ssl/private/s-z.org.crt",
     "keyfile": "/etc/ssl/private/s-z.org.key",
     "ca_certs": "/etc/ssl/private/cas.pem"
 }
-ssl_address = "66.111.46.147"
-ssl_port = 443
 
-ssl_bind_pairs = (
-    ("66.111.46.147", 443),
+ssl_bind_pairs = tuple(
+    (pair[0], 443) for pair in bind_pairs
 )
 
 connection_timeout = 600
@@ -525,6 +521,28 @@ kill_timeout = 10 # Seconds until crawl is killed after HUP is sent
 
 nick_regex = r"^[a-zA-Z0-9]{3,20}$"
 max_passwd_length = 20
+
+allow_password_reset = False # Set to true to allow users to request a password reset email. Some settings must be properly configured for this to work
+
+# Set to the primary URL where a player would reach the main lobby
+# For example: "http://crawl.akrasiac.org/"
+# This is required for for password reset, as it will be the base URL for
+# recovery URLs.
+lobby_url = None
+
+# Proper SMTP settings are required for password reset to function properly.
+# if smtp_host is anything other than `localhost`, you may need to adjust the
+# timeout settings (see server.py, calls to ioloop.set_blocking_log_threshold).
+# Ideally, test out these settings carefully in a non-production setting
+# before enabling this, as there's a bunch of ways for this to go wrong and you
+# don't want to get your SMTP server blacklisted.
+smtp_host = "localhost"
+smtp_port = 25
+smtp_use_ssl = False
+smtp_user = "" # set to None for no auth
+smtp_password = ""
+smtp_from_addr = "noreply@crawl.example.org" # The address from which automated
+                                             # emails will be sent
 
 # crypt() algorithm, e.g. "1" for MD5 or "6" for SHA-512; see crypt(3).
 # If false, use traditional DES (but then only the first eight characters
@@ -546,4 +564,14 @@ chroot = "%%DGL_CHROOT%%"
 pidfile = "%%CHROOT_WEBDIR%%/run/webtiles.pid"
 daemon = True # If true, the server will detach from the session after startup
 
+# Set to a URL with %s where lowercased player name should go in order to
+# hyperlink WebTiles spectator names to their player pages.
+# For example: "http://crawl.akrasiac.org/scoring/players/%s.html"
+# Set to None to disable player page hyperlinks
 player_url = "http://crawl.akrasiac.org/scoring/players/%s.html"
+
+# Only for development:
+# Disable caching of static files which are not part of game data.
+no_cache = False
+# Automatically log in all users with the username given here.
+autologin = None
