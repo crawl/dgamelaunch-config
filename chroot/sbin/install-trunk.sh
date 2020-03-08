@@ -84,10 +84,26 @@ link-logfiles() {
     done
 }
 
+create-dgl-directories() {
+    mkdir -p "$CHROOT/gldir/inprogress/crawl-git-sprint/"
+    mkdir -p "$CHROOT/gldir/inprogress/crawl-git-tut/"
+    mkdir -p "$CHROOT/gldir/inprogress/crawl-git-zotdef/"
+    mkdir -p "$CHROOT/gldir/inprogress/crawl-git/"
+    mkdir -p "$CHROOT/gldir/rcfiles/crawl-git/"
+    mkdir -p "$CHROOT/gldir/data/crawl-git-settings/"
+}
+
+fix-chroot-directory-permissions() {
+    chown -R crawl:crawl crawl-master
+    chown -R crawl:crawl dgldir
+}
+
 install-game() {
     mkdir -p $SAVEDIR/{,sprint,zotdef}
     mkdir -p $DATADIR
 
+    create-dgl-directories
+    fix-chroot-directory-permissions
     copy-game-binary
     copy-data-files
     link-logfiles

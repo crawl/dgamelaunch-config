@@ -74,10 +74,29 @@ copy-data-files() {
     cp docs/crawl_changelog.txt "$ABS_COMMON_DIR/data/docs"
 }
 
+create-dgl-directories() {
+	local short_version
+	short_version="${short_version//0./}"  # 0.17 --> 17
+	# TODO: use long version (0.17) for everything.
+	mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version-sprint/"
+	mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version-tut/"
+	mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version-zotdef/"
+	mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version/"
+	mkdir -p "$CHROOT/dgldir/rcfiles/crawl-0.$short_version/"
+	mkdir -p "$CHROOT/dgldir/data/crawl-0.$short_version-settings/"
+}
+
+fix-chroot-directory-permissions() {
+	chown -R crawl:crawl crawl-master
+	chown -R crawl:crawl dgldir
+}
+
 install-game() {
     mkdir -p $SAVEDIR/{,sprint,zotdef}
     mkdir -p $DATADIR
 
+	create-dgl-directories
+	fix-chroot-directory-permissions
     copy-game-binary
     copy-data-files
 
