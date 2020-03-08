@@ -554,8 +554,8 @@ crypt_salt_length = 16
 
 login_token_lifetime = 7 # Days
 
-uid = "%%DGL_UID%%"  # If this is not None, the server will setuid to that (numeric) id
-gid = "%%DGL_GID%%"  # after binding its sockets.
+uid = int("%%DGL_UID%%")  # If this is not None, the server will setuid to that (numeric) id
+gid = int("%%DGL_GID%%")  # after binding its sockets.
 
 umask = None # e.g. 0077
 
