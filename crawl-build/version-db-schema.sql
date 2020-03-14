@@ -1,3 +1,5 @@
+-- If you change this, also update all 'INSERT OR REPLACE' statements.
+
 CREATE TABLE versions(hash TEXT(7) PRIMARY KEY,
                       description STRING,
                       time INTEGER,
