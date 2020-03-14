@@ -115,8 +115,9 @@ install-game() {
 register-game-version() {
     echo
     echo "Adding version (${SGV_MAJOR}.${SGV_MINOR}) to database..."
+    # NOTE: fields not mentioned will be replaced, not updated!
     sqlite3 ${VERSIONS_DB} <<SQL
-INSERT INTO VERSIONS VALUES ('${REVISION}', '$DESCRIPTION', $(date +%s),
+INSERT OR REPLACE INTO VERSIONS VALUES ('${REVISION}', '$DESCRIPTION', $(date +%s),
                              ${SGV_MAJOR}, ${SGV_MINOR}, 1);
 SQL
 }
