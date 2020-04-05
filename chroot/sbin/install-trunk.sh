@@ -85,17 +85,17 @@ link-logfiles() {
 }
 
 create-dgl-directories() {
-    mkdir -p "$CHROOT/gldir/inprogress/crawl-git-sprint/"
-    mkdir -p "$CHROOT/gldir/inprogress/crawl-git-tut/"
-    mkdir -p "$CHROOT/gldir/inprogress/crawl-git-zotdef/"
-    mkdir -p "$CHROOT/gldir/inprogress/crawl-git/"
-    mkdir -p "$CHROOT/gldir/rcfiles/crawl-git/"
-    mkdir -p "$CHROOT/gldir/data/crawl-git-settings/"
+    mkdir -p "$CHROOT/dgldir/inprogress/crawl-git-sprint/"
+    mkdir -p "$CHROOT/dgldir/inprogress/crawl-git-tut/"
+    mkdir -p "$CHROOT/dgldir/inprogress/crawl-git-zotdef/"
+    mkdir -p "$CHROOT/dgldir/inprogress/crawl-git/"
+    mkdir -p "$CHROOT/dgldir/rcfiles/crawl-git/"
+    mkdir -p "$CHROOT/dgldir/data/crawl-git-settings/"
 }
 
 fix-chroot-directory-permissions() {
-    chown -R crawl:crawl crawl-master
-    chown -R crawl:crawl dgldir
+    chown -R crawl:crawl "$CHROOT/crawl-master"
+    chown -R crawl:crawl "$CHROOT/dgldir"
 }
 
 install-game() {
