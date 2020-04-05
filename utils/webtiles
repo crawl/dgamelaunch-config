@@ -35,7 +35,11 @@ start_webtiles() {
 	log_daemon_msg "Starting webtiles server" "webtiles"
 	ulimit -n 4096
 
-	PYTHONPATH=/home/crawl-dev/tornado/ python ./server.py
+	# modify `python3` here as needed -- but this *should* be the
+	# standard value for now.
+	# For a custom tornado install, you can start the server as follows:
+	#PYTHONPATH=/home/crawl-dev/tornado/ python3 ./server.py
+	python3 ./server.py
 	local result=$?
 	log_end_msg $result
 	return $result
