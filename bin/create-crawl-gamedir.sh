@@ -21,6 +21,6 @@ mkdir -p "$GAME_DIR"/saves/{sprint,zotdef}
 
 # Only the saves dir is chowned games: data dir is not supposed to be
 # games writable.
-chown -R "$CRAWL_UGRP $GAME_DIR/saves"
+chown -R $CRAWL_UGRP "$GAME_DIR/saves"
 
 echo "Created $GAME_DIR"
