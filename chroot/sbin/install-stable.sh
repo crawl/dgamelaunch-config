@@ -76,7 +76,7 @@ copy-data-files() {
 
 create-dgl-directories() {
 	local short_version
-	short_version="${short_version//0./}"  # 0.17 --> 17
+	short_version="${VERSION//0./}"  # 0.17 --> 17
 	# TODO: use long version (0.17) for everything.
 	mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version-sprint/"
 	mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version-tut/"
@@ -87,8 +87,8 @@ create-dgl-directories() {
 }
 
 fix-chroot-directory-permissions() {
-	chown -R crawl:crawl crawl-master
-	chown -R crawl:crawl dgldir
+	chown -R crawl:crawl "$CHROOT/crawl-master"
+	chown -R crawl:crawl "$CHROOT/dgldir"
 }
 
 install-game() {
