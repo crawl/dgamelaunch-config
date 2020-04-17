@@ -17,7 +17,7 @@ jobs:
     # be started healthily
     - name: Docker container test
       run: |
-        utils/build-testing-container.sh
+        utils/build-testing-container.sh --no-tty
         docker run -d --privileged dgl-test --background
         wait 32 # TODO: can we check this more quickly?
         docker ps --filter "health=healthy" | grep `docker ps -lq`
