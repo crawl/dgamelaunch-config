@@ -1,0 +1,23 @@
+name: dgamelaunch-config CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    # Try to build the testing-container setup and see if it can
+    # be started healthily
+    - name: Docker container test
+      run: |
+        utils/build-testing-container.sh
+        docker run -d --privileged dgl-test --background
+        wait 32 # TODO: can we check this more quickly?
+        docker ps --filter "health=healthy" | grep `docker ps -lq`
