@@ -1,5 +1,5 @@
 #!/bin/bash
-  
+
 # this script assumes a default dgamelaunch-config configuration
 
 test -e /home/crawl/DGL/crawl-master/webserver/run/webtiles.pid || exit 1
