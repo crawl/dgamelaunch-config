@@ -45,6 +45,8 @@ JUST_RUN_CRAWL_ALREADY=
 # If set, this script will not event report the existence of newer versions.
 [[ "$@" =~ -print-charset$wb ]] && JUST_RUN_CRAWL_ALREADY=1
 [[ "$@" =~ -print-webtiles-options$wb ]] && JUST_RUN_CRAWL_ALREADY=1
+[[ "$@" =~ -gametypes-json$wb ]] && JUST_RUN_CRAWL_ALREADY=1
+[[ "$@" =~ -save-json$wb ]] && JUST_RUN_CRAWL_ALREADY=1
 
 WEBTILES=
 [[ "$@" =~ -await-connection$wb ]] && WEBTILES=1
