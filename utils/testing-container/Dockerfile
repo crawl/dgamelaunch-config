@@ -8,6 +8,8 @@ FROM ubuntu:latest
 COPY utils/testing-container/healthcheck.sh /
 
 ENV DGL_CHROOT=/home/crawl/DGL
+ARG DEBIAN_FRONTEND=noninteractive
+ARG TERM=dumb
 
 # basic prerequisites
 # TODO: actually set up ccache, this just installs it
