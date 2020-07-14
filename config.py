@@ -40,42 +40,42 @@ watch_socket_dirs = True
 # Game configs
 # %n in paths is replaced by the current username
 games = OrderedDict([
-    ("dcss-0.24", dict(
-        name = "DCSS 0.24",
+    ("dcss-0.25", dict(
+        name = "DCSS 0.25",
         crawl_binary = "/bin/crawl-stable-launcher.sh",
         send_json_options = True,
-        pre_options  = [ "0.24" ],
-        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.24/",
-        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.24/",
+        pre_options  = [ "0.25" ],
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
         # Update this with the URL where your server morgues are published.
         morgue_url = None,
-        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-24/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-25/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets")),
-    ("spr-0.24", dict(
-        name = "Sprint 0.24",
+    ("spr-0.25", dict(
+        name = "Sprint 0.25",
         crawl_binary = "/bin/crawl-stable-launcher.sh",
         send_json_options = True,
-        pre_options  = [ "0.24" ],
-        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.24/",
-        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.24/",
+        pre_options  = [ "0.25" ],
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
         morgue_url = None,
-        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-24-sprint/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-25-sprint/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets",
         options = ["-sprint"])),
-    ("tut-0.24", dict(
-        name = "Tutorial 0.24",
+    ("tut-0.25", dict(
+        name = "Tutorial 0.25",
         crawl_binary = "/bin/crawl-stable-launcher.sh",
         send_json_options = True,
-        pre_options  = [ "0.24" ],
-        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.24/",
-        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.24/",
+        pre_options  = [ "0.25" ],
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
         morgue_url = None,
-        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-24-tut/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-25-tut/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets",
         options = ["-tutorial"])),
@@ -121,9 +121,9 @@ dgl_status_file = "%%CHROOT_WEBDIR%%/run/status"
 
 # Set to None not to read milestones
 milestone_file = [
-    "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.24/saves/milestones",
-    "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.24/saves/milestones-tutorial",
-    "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.24/saves/milestones-sprint",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.25/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.25/saves/milestones-tutorial",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.25/saves/milestones-sprint",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-tutorial",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-sprint"
