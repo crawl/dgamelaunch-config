@@ -48,7 +48,8 @@ games = OrderedDict([
         rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.24/",
         macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.24/",
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
-        morgue_url = "http://dobrazupa.org/morgue/%n/",
+        # Update this with the URL where your server morgues are published.
+        morgue_url = None,
         inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-24/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets")),
@@ -60,7 +61,7 @@ games = OrderedDict([
         rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.24/",
         macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.24/",
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
-        morgue_url = "http://dobrazupa.org/morgue/%n/",
+        morgue_url = None,
         inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-24-sprint/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets",
@@ -73,7 +74,7 @@ games = OrderedDict([
         rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.24/",
         macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.24/",
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
-        morgue_url = "http://dobrazupa.org/morgue/%n/",
+        morgue_url = None,
         inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-24-tut/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets",
@@ -86,7 +87,7 @@ games = OrderedDict([
         rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
         macro_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
-        morgue_url = "http://dobrazupa.org/morgue/%n/",
+        morgue_url = None,
         inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-git/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets")),
@@ -97,7 +98,7 @@ games = OrderedDict([
         rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
         macro_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
-        morgue_url = "http://dobrazupa.org/morgue/%n/",
+        morgue_url = None,
         inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-git-sprint/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets",
@@ -109,7 +110,7 @@ games = OrderedDict([
         rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
         macro_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
-        morgue_url = "http://dobrazupa.org/morgue/%n/",
+        morgue_url = None,
         inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-git-tut/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets",
@@ -142,8 +143,8 @@ init_player_program = "/bin/init-webtiles.sh"
 ssl_options = None # No SSL
 # in a production server, you really do want to use SSL...
 # ssl_options = {
-#    "certfile": "/etc/ssl/private/s-z.org.crt",
-#    "keyfile": "/etc/ssl/private/s-z.org.key",
+#    "certfile": "/etc/ssl/private/SERVER.crt",
+#    "keyfile": "/etc/ssl/private/SERVER.key",
 #    "ca_certs": "/etc/ssl/private/cas.pem"
 #}
 

@@ -1,6 +1,6 @@
-Crawl server (North America) hosted and maintained by Neil Moore (|amethyst).
+Crawl server (SERVER_REGION) hosted and maintained by SERVER_ADMIN.
 ------------------------------------------------------------------------------
-Webtiles:           https://crawl.s-z.org/
+Webtiles:           SERVER_URL
 Crawl information:  http://crawl.develz.org/
 ------------------------------------------------------------------------------
 ** Games on this server are recorded for in-progress viewing and playback! **
@@ -13,10 +13,6 @@ WARNING: Experimental branches have limited save compatibility! Updates to the
 branches may cause the loss of existing games, and branches may be removed
 without warning: don't get too attached to your character. Thanks for helping
 us evaluate potential new features!
-
-C)hunkless
-I)ashol
-S)mith God (updated)
 
 q) Return to trunk menu
 => 
