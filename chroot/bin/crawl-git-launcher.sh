@@ -238,8 +238,9 @@ if [[ -n "$SAVE" ]]; then
 		cecho "There's a newer version ($new_ver) that can load your save."
                 cecho -n "[T]ransfer your save to this version?"
                 wcat <<EOF
-<p>There's a newer version (<a href='$compare_url' target='_blank'>$new_ver</a>) that can load your save.</p>
+<p>There's a newer version ($new_ver) that can load your save.</p>
 <p>[T]ransfer your save to this version?</p>
+<a href='$compare_url' target='_blank'>Changes since your save</a>
 <input type='button' class='button' data-key='N' value='No' style='float:right;'>
 <input type='button' class='button' data-key='T' value='Yes' style='float:right;'>
 "}
@@ -249,7 +250,8 @@ EOF
 	    else
                 cecho -n "[T]ransfer your save to the latest version ($new_ver)?"
                 wcat <<EOF
-<p>[T]ransfer your save to the latest version (<a href='$compare_url' target='_blank'>$new_ver</a>)?</p>
+<p>[T]ransfer your save to the latest version ($new_ver)?</p>
+<a href='$compare_url' target='_blank'>Changes since your save</a>
 <input type='button' class='button' data-key='N' value='No' style='float:right;'>
 <input type='button' class='button' data-key='T' value='Yes' style='float:right;'>
 "}
