@@ -133,9 +133,10 @@ LIMIT 1;
 EOF
 }
 
-github-commit-url() {
-    local hash=$1
-    echo $CRAWL_GIT_HTTPS_URL/commit/$hash
+github-compare-url() {
+    local our_hash=$1
+    local new_hash=$2
+    echo $CRAWL_GIT_HTTPS_URL/compare/$our_hash...$new_hash
 }
 
 user-is-admin() {
@@ -226,7 +227,7 @@ if [[ -n "$SAVE" ]]; then
 	OUR_SGV_MAJOR="$(major-version-for-game $OUR_GAME_HASH)"
 	NEW_GAME_HASH="$(newest-version-with-major-version $OUR_SGV_MAJOR)"
         new_ver="$(hash-description $NEW_GAME_HASH)"
-	commit_url="$(github-commit-url $NEW_GAME_HASH)"
+	compare_url="$(github-compare-url $OUR_GAME_HASH $NEW_GAME_HASH)"
 
         if [[ "$OUR_GAME_HASH" != "$NEW_GAME_HASH" &&
                     "$TRANSFER_ENABLED" == "1" ]]; then
@@ -237,7 +238,7 @@ if [[ -n "$SAVE" ]]; then
 		cecho "There's a newer version ($new_ver) that can load your save."
                 cecho -n "[T]ransfer your save to this version?"
                 wcat <<EOF
-<p>There's a newer version (<a href='$commit_url' target='_blank'>$new_ver</a>) that can load your save.</p>
+<p>There's a newer version (<a href='$compare_url' target='_blank'>$new_ver</a>) that can load your save.</p>
 <p>[T]ransfer your save to this version?</p>
 <input type='button' class='button' data-key='N' value='No' style='float:right;'>
 <input type='button' class='button' data-key='T' value='Yes' style='float:right;'>
@@ -248,7 +249,7 @@ EOF
 	    else
                 cecho -n "[T]ransfer your save to the latest version ($new_ver)?"
                 wcat <<EOF
-<p>[T]ransfer your save to the latest version (<a href='$commit_url' target='_blank'>$new_ver</a>)?</p>
+<p>[T]ransfer your save to the latest version (<a href='$compare_url' target='_blank'>$new_ver</a>)?</p>
 <input type='button' class='button' data-key='N' value='No' style='float:right;'>
 <input type='button' class='button' data-key='T' value='Yes' style='float:right;'>
 "}
