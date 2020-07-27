@@ -127,7 +127,7 @@ if [[ -n "$SAVE_FOUND" && -f "$SAVE_FOUND" ]]; then
 
     TARNAME=${CHAR_NAME}${SAVE_QUALIFIER}-$GAME_NAME-${TODAY}.tar.bz2
     tar -cjf "${TARGET_DIR}/$TARNAME" \
-        "$(existing-files "${CHAR_NAME}"{,-"${USER_ID}"}.*)"
+        $(existing-files "${CHAR_NAME}"{,-"${USER_ID}"}.*)
 
     if test $? -ne 0
     then
