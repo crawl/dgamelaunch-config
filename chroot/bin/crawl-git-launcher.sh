@@ -287,7 +287,7 @@ fi
 BINARY_NAME="$CRAWL_BINARY_PATH/$BINARY_BASE_NAME-$OUR_GAME_HASH"
 GAME_FOLDER="$CRAWL_GIT_DIR/$BINARY_BASE_NAME-$OUR_GAME_HASH"
 
-if user-is-admin; then
+if user-is-admin && [[ $* != *-wizard* ]]; then
     set -- "$@" -wizard
 fi
 
