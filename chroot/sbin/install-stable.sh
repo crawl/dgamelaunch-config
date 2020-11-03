@@ -80,7 +80,6 @@ create-dgl-directories() {
     # TODO: use long version (0.17) for everything.
     mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version-sprint/"
     mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version-tut/"
-    mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version-zotdef/"
     mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version/"
     mkdir -p "$CHROOT/dgldir/rcfiles/crawl-0.$short_version/"
     mkdir -p "$CHROOT/dgldir/data/crawl-0.$short_version-settings/"
@@ -92,7 +91,7 @@ fix-chroot-directory-permissions() {
 }
 
 install-game() {
-    mkdir -p $SAVEDIR/{,sprint,zotdef}
+    mkdir -p $SAVEDIR/{,sprint}
     mkdir -p $DATADIR
 
     create-dgl-directories
