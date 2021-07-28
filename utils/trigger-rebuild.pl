@@ -154,7 +154,7 @@ sub main() {
     do_prompt 'trunk', '0.24', '0.23', '0.22', '0.21', '0.20', '0.19', '0.18', '0.17', '0.16', '0.15', '0.14', '0.13', '0.12', '0.11', '0.10';
   } elsif ($ver eq 'trunk') {
     do_update 'trunk';
-  } elsif ($ver =~ /^0.1[0123456789]$|^0.2[01234]$/) {
+  } elsif ($ver =~ /^0.[12][0-9]$/) {
     do_update 'stable', $ver;
   } else {
     do_fail "Unknown version " . escapeHTML($ver);
