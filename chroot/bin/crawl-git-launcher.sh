@@ -144,41 +144,41 @@ transfer-save() {
     local game_hash=$2
     local target="$CRAWL_GIT_DIR/$BINARY_BASE_NAME-$game_hash/$SAVES"
     local src_save_dir=$(dirname $save)
-    
+
     wecho -n '{"msg":"show_dialog", "html":"'
-    
+
     if [[ -d "$target" ]]; then
         # It's okay if moving the .prf fails (it might not exist one day).
         mv "$src_save_dir/start-$CHAR_NAME-ns.prf" "$target" 2>/dev/null || true
         mv "$src_save_dir/$CHAR_NAME".cs "$target"
 
-	if test $? -eq 0
-	then
+        if test $? -eq 0
+        then
             wcat <<EOF
 <p>Transferring successful!</p>
 <input type='button' class='button' data-key=' ' value='Continue' style='float:right;'>
 "}
 EOF
-	    cecho ": successful!"
-	    cecho
-	    OUR_GAME_HASH="${game_hash}"
+            cecho ": successful!"
+            cecho
+            OUR_GAME_HASH="${game_hash}"
             cecho -n "--- any key to continue ---"
-	    read -n 1 -t 5 -s
-	    cecho
-	else
+            read -n 1 -t 5 -s
+            cecho
+        else
             wcat <<EOF
 <p>Transferring failed!</p>
 <p>Transferring your save failed! Continuing with former version.</p>
 <input type='button' class='button' data-key=' ' value='Continue' style='float:right;'>
 "}
 EOF
-	    cecho ": failed!"
-	    cecho
-	    cecho "Transferring your save failed! Continuing with former version."
+            cecho ": failed!"
+            cecho
+            cecho "Transferring your save failed! Continuing with former version."
             cecho -n "--- any key to continue ---"
-	    read -n 1 -s
-	    cecho
-	fi
+            read -n 1 -s
+            cecho
+        fi
     else
         wcat <<EOF
 <p>Transferring failed!</p>
@@ -186,12 +186,12 @@ EOF
 <input type='button' class='button' data-key=' ' value='Continue' style='float:right;'>
 "}
 EOF
-	cecho ": failed!"
-	cecho
-	cecho "Target version is corrupt! Continuing with former version."
+        cecho ": failed!"
+        cecho
+        cecho "Target version is corrupt! Continuing with former version."
         cecho -n "--- any key to continue ---"
-	read -n 1 -s
-	cecho
+        read -n 1 -s
+        cecho
     fi
     wecho '{"msg":"hide_dialog"}'
 }
@@ -215,10 +215,10 @@ if [[ -n "$SAVE" ]]; then
     then
         current_ver="$(hash-description $OUR_GAME_HASH)"
         cecho "Hi, you have a $current_ver save game:"
-	cecho
+        cecho
 
-	OUR_SGV_MAJOR="$(major-version-for-game $OUR_GAME_HASH)"
-	NEW_GAME_HASH="$(newest-version-with-major-version $OUR_SGV_MAJOR)"
+        OUR_SGV_MAJOR="$(major-version-for-game $OUR_GAME_HASH)"
+        NEW_GAME_HASH="$(newest-version-with-major-version $OUR_SGV_MAJOR)"
         new_ver="$(hash-description $NEW_GAME_HASH)"
 
         if [[ "$OUR_GAME_HASH" != "$NEW_GAME_HASH" &&
@@ -226,8 +226,8 @@ if [[ -n "$SAVE" ]]; then
             wecho '{"msg":"layer", "layer":"crt"}'
             wecho -n '{"msg":"show_dialog", "html":"'
 
-	    if [[ "${NEW_GAME_HASH}" != "${LATEST_GAME_HASH}" ]]; then
-		cecho "There's a newer version ($new_ver) that can load your save."
+            if [[ "${NEW_GAME_HASH}" != "${LATEST_GAME_HASH}" ]]; then
+                cecho "There's a newer version ($new_ver) that can load your save."
                 cecho -n "[T]ransfer your save to this version?"
                 wcat <<EOF
 <p>There's a newer version ($new_ver) that can load your save.</p>
@@ -237,8 +237,8 @@ if [[ -n "$SAVE" ]]; then
 "}
 EOF
                 read -n 1 -s REPLY
-		cecho
-	    else
+                cecho
+            else
                 cecho -n "[T]ransfer your save to the latest version ($new_ver)?"
                 wcat <<EOF
 <p>[T]ransfer your save to the latest version ($new_ver)?</p>
@@ -246,30 +246,30 @@ EOF
 <input type='button' class='button' data-key='T' value='Yes' style='float:right;'>
 "}
 EOF
-		read -n 1 -s REPLY
-		cecho
-	    fi
+                read -n 1 -s REPLY
+                cecho
+            fi
             wecho '{"msg":"hide_dialog"}'
 
-	    if test "$REPLY" = "t" -o "$REPLY" = "T" -o "$REPLY" = "y" -o "$REPLY" = "Y"
-	    then
-		cecho -n "Transferring..."
+            if test "$REPLY" = "t" -o "$REPLY" = "T" -o "$REPLY" = "y" -o "$REPLY" = "Y"
+            then
+                cecho -n "Transferring..."
                 transfer-save "$SAVE" "$NEW_GAME_HASH"
-	    fi
-	else
-	    if test "${TRANSFER_ENABLED}" != "1"
-	    then
-		cecho "Transfering of saves is currently disabled."
-		cecho "Finish your game or end your character to play in latest version."
-	    else
-		cecho "Your save cannot be tranferred though because of incompatibility."
-		cecho "Finish your game or end your character to play in latest version."
-	    fi
+            fi
+        else
+            if test "${TRANSFER_ENABLED}" != "1"
+            then
+                cecho "Transfering of saves is currently disabled."
+                cecho "Finish your game or end your character to play in latest version."
+            else
+                cecho "Your save cannot be tranferred though because of incompatibility."
+                cecho "Finish your game or end your character to play in latest version."
+            fi
 
             cecho -n "--- any key to continue ---"
-	    [[ -z "$WEBTILES" ]] && read -n 1 -t 5 -s
-	    cecho
-	fi
+            [[ -z "$WEBTILES" ]] && read -n 1 -t 5 -s
+            cecho
+        fi
     fi
 else
     OUR_GAME_HASH="${LATEST_GAME_HASH}"

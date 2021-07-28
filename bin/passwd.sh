@@ -61,7 +61,7 @@ assert-sane-user-match() {
         fi
     fi
 }
-    
+
 USER=$1
 assert-sane-user-match "$USER"
 

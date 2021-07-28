@@ -131,14 +131,13 @@ if [[ -n "$SAVE_FOUND" && -f "$SAVE_FOUND" ]]; then
 
     if test $? -ne 0
     then
-	echo -e " ${C_RED}failed!${C_NORMAL}"
+        echo -e " ${C_RED}failed!${C_NORMAL}"
     else
-	echo -e " ${C_GREEN}successful.${C_NORMAL}"
-	echo "- ${HTTP_LINK}/$TARNAME"
-	echo
-	echo "Please provide this link in your bug-report or give it to a developer."
+        echo -e " ${C_GREEN}successful.${C_NORMAL}"
+        echo "- ${HTTP_LINK}/$TARNAME"
+        echo
+        echo "Please provide this link in your bug-report or give it to a developer."
     fi
 else
     echo "Your character ($CHAR_NAME) was not found in $SAVES."
 fi
-

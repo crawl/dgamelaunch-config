@@ -80,7 +80,7 @@ install-game() {
 
     copy-game-binary
     copy-data-files
-    
+
     chown -R $CRAWL_UGRP $SAVEDIR
 }
 

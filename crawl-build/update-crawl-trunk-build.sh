@@ -67,7 +67,7 @@ if [[ "$(uname)" != "Darwin" ]] && {
         ps -fC ${GAME}-${REVISION} |
         awk '{ print $1" "$2"\t "$5" "$7"\t "$8" "$9" "$10 }' |
         grep ^"$DGL_USER";
-    } 
+    }
 then
     abort-saying "There are already active instances of this version (${REVISION_FULL}) running"
 fi

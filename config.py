@@ -400,7 +400,7 @@ games = OrderedDict([
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets",
         options = ["-sprint"])),
-    
+
     ("dcss-0.17", dict(
         name = "DCSS 0.17",
         crawl_binary = "/bin/crawl-stable-launcher.sh",
@@ -426,7 +426,7 @@ games = OrderedDict([
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets",
         options = ["-sprint"])),
-    
+
     ("dcss-0.16", dict(
         name = "DCSS 0.16",
         crawl_binary = "/bin/crawl-stable-launcher.sh",
@@ -530,7 +530,7 @@ games = OrderedDict([
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets",
         options = ["-zotdef"])),
-    
+
     ("dcss-0.13", dict(
         name = "DCSS 0.13",
         crawl_binary = "/bin/crawl-stable-launcher.sh",
