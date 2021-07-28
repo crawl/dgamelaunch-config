@@ -91,7 +91,7 @@ count-saves-in-dir() {
 }
 
 strip-save-uid-extension() {
-    sed 's/-'${USER_ID}'//g;s/\.\(sav\|chr\|cs\)//g;'
+    sed 's/\.\(sav\|chr\|cs\)//g;'
 }
 
 savegame-dirs() {
@@ -173,7 +173,8 @@ do
 
     GAME_VER="$GAME-$version"
     GAME_SAVEDIR="$BASE_DIR/$GAME_VER"
-    if test -f $BINPATH/$GAME_VER -a -d $GAME_SAVEDIR; then
+    #if test -f $BINPATH/$GAME_VER -a -d $GAME_SAVEDIR; then
+    if test -d $GAME_SAVEDIR; then
         if [[ "$(count-saves-in-dir "$GAME_SAVEDIR")" > 0 && -z "$FORCE" ]]
         then
             echo "$GAME_SAVEDIR contains save games, use -f to delete anyway"
