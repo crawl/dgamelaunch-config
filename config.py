@@ -10,6 +10,8 @@ bind_nonsecure = True # Set to false to only use SSL
 bind_address = ""
 bind_port = 8080
 
+lobby_url = "http://crawl.akrasiac.org:8080"
+
 logging_config = {
     "filename": "%%CHROOT_WEBDIR%%/run/webtiles.log",
     "level": logging.INFO,
