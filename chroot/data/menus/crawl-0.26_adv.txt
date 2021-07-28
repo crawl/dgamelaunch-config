@@ -8,16 +8,16 @@ Crawl information:  http://crawl.develz.org
 ------------------------------------------------------------------------------
 
 Logged in as: $USERNAME
-W) Watch games in progress
 
-T) Dungeon Crawl Stone Soup Trunk
-R) Dungeon Crawl Stone Soup Current Released Version 0.26
+Game selected: Dungeon Crawl Stone Soup 0.26
 
-5) 0.25   4) 0.24   3) 0.23   2) 0.22   1) 0.21   0) 0.20
-X) Older versions (0.19 to 0.10)
+B)ackup your save-game (for bug reports and debugging)
 
-k) robotfindskitten  c) Change password  e) Change email address
+The next option allows you to reset your options.
+ALL CHANGES YOU'VE MADE TO YOUR OPTIONS WILL BE LOST.
 
-Q)uit or P)lay or S)print in Crawl 0.26 now
+O) Reset options
+
+q) Return to previous menu
 
 => 
