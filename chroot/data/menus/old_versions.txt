@@ -11,7 +11,8 @@ Logged in as: $USERNAME
 
 Old Crawl Versions
 
-5) 0.15  4) 0.14  3) 0.13   2) 0.12   1) 0.11   0) 0.10
+9) 0.19   8) 0.18   7) 0.17   6) 0.16   5) 0.15
+4) 0.14   3) 0.13   2) 0.12   1) 0.11   0) 0.10
 
 B)ack to previous menu
 

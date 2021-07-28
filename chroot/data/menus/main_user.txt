@@ -13,8 +13,8 @@ W) Watch games in progress
 T) Dungeon Crawl Stone Soup Trunk
 R) Dungeon Crawl Stone Soup Current Released Version 0.24
 
-3) 0.23   2) 0.22   1) 0.21   0) 0.20   9) 0.19   8) 0.18   7) 0.17   6) 0.16
-X) Older versions (0.15 to 0.10)
+3) 0.23   2) 0.22   1) 0.21   0) 0.20
+X) Older versions (0.19 to 0.10)
 
 k) robotfindskitten  c) Change password  e) Change email address
 
