@@ -139,6 +139,13 @@ user-is-admin() {
     [[ -n "$found" ]]
 }
 
+user-is-wizard() {
+    local found="$(echo "SELECT username FROM dglusers
+                         WHERE username='$CHAR_NAME' AND (flags & 32) = 32;" |
+                   sqlite3 "$USER_DB")"
+    [[ -n "$found" ]]
+}
+
 transfer-save() {
     local save=$1
     local game_hash=$2
@@ -287,7 +294,7 @@ fi
 BINARY_NAME="$CRAWL_BINARY_PATH/$BINARY_BASE_NAME-$OUR_GAME_HASH"
 GAME_FOLDER="$CRAWL_GIT_DIR/$BINARY_BASE_NAME-$OUR_GAME_HASH"
 
-if user-is-admin && [[ $* != *-wizard* ]]; then
+if ( user-is-admin || user-is-wizard ) && [[ $* != *-wizard* ]]; then
     set -- "$@" -wizard
 fi
 
