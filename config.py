@@ -16,7 +16,7 @@ bind_pairs = (
 
 logging_config = {
     "filename": "%%CHROOT_WEBDIR%%/run/webtiles.log",
-    "level": logging.INFO,
+    "level": logging.DEBUG,
     "format": "%(asctime)s %(levelname)s: %(message)s"
 }
 
@@ -40,46 +40,31 @@ watch_socket_dirs = True
 # Game configs
 # %n in paths is replaced by the current username
 games = OrderedDict([
-    ("dcss-0.25", dict(
-        name = "DCSS 0.25",
+    ("dcss-0.18", dict(
+        name = "DCSS 0.18",
         crawl_binary = "/bin/crawl-stable-launcher.sh",
         send_json_options = True,
-        pre_options  = [ "0.25" ],
-        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
-        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
+        pre_options  = [ "0.18" ],
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.18/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.18/",
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
         # Update this with the URL where your server morgues are published.
         morgue_url = None,
-        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-25/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-0.18/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets")),
-    ("spr-0.25", dict(
-        name = "Sprint 0.25",
+    ("dcssca", dict(
+        name = "DCSS Circus Animals",
         crawl_binary = "/bin/crawl-stable-launcher.sh",
         send_json_options = True,
-        pre_options  = [ "0.25" ],
-        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
-        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
+        pre_options  = [ "dcssca" ],
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-dcssca/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-dcssca/",
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
         morgue_url = None,
-        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-25-sprint/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-dcssca/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
-        socket_path = "%%CHROOT_WEBDIR%%/sockets",
-        options = ["-sprint"])),
-    ("tut-0.25", dict(
-        name = "Tutorial 0.25",
-        crawl_binary = "/bin/crawl-stable-launcher.sh",
-        send_json_options = True,
-        pre_options  = [ "0.25" ],
-        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
-        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
-        morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
-        morgue_url = None,
-        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-25-tut/",
-        ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
-        socket_path = "%%CHROOT_WEBDIR%%/sockets",
-        options = ["-tutorial"])),
-
+        socket_path = "%%CHROOT_WEBDIR%%/sockets")),
     ("dcss-git", dict(
         name = "DCSS trunk",
         crawl_binary = "/bin/crawl-git-launcher.sh",
@@ -121,9 +106,8 @@ dgl_status_file = "%%CHROOT_WEBDIR%%/run/status"
 
 # Set to None not to read milestones
 milestone_file = [
-    "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.25/saves/milestones",
-    "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.25/saves/milestones-tutorial",
-    "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.25/saves/milestones-sprint",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.18/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-dcssca/saves/milestones",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-tutorial",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-sprint"

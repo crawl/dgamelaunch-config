@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:18.04
 
 # See README.md for what this does and why
 
@@ -13,7 +13,7 @@ ARG TERM=dumb
 
 # basic prerequisites
 # TODO: actually set up ccache, this just installs it
-RUN apt-get update && apt-get install -y sudo git build-essential autoconf automake bison libncursesw5-dev flex liblua5.1-0-dev libsqlite3-dev libz-dev locales vim locales-all pkg-config python3 python3-pip python3-yaml ccache libpng-dev sqlite3 libpcre3 libpcre3-dev apache2 advancecomp pngcrush debootstrap openssh-server curl \
+RUN apt-get update && apt-get install -y sudo git build-essential autoconf automake bison libncursesw5-dev flex liblua5.1-0-dev libsqlite3-dev libz-dev locales vim locales-all pkg-config python3 python3-pip python3-yaml ccache libpng-dev sqlite3 libpcre3 libpcre3-dev apache2 advancecomp pngcrush debootstrap openssh-server gcc-6 g++-6 curl \
     && pip3 install tornado \
     && ln -s /usr/bin/python3 /usr/bin/python \
     && useradd -m crawl \
@@ -42,11 +42,13 @@ WORKDIR /home/crawl-dev
 
 # TODO: what are these directories in ~crawl-dev used for? `run` doesn't exist
 # on CAO?
+RUN git config --global url."https://github".insteadOf git://github 
+# The unauthenticated git protocol on port 9418 is no longer supported.
 USER crawl-dev
 RUN mkdir logs \
     && mkdir run \
     && mkdir dgamelaunch-config dgamelaunch-config/utils/ \
-    && git clone git://github.com/crawl/dgamelaunch.git \
+    && git clone https://github.com/crawl/dgamelaunch.git \
     && cd dgamelaunch && ./autogen.sh --enable-debugfile --enable-sqlite --enable-shmem && make
 
 USER root
@@ -63,7 +65,7 @@ RUN cd dgamelaunch \
 
 # these COPYs are a bit messy. When setting up a system for non-testing
 # purposes, normally you would want to instead do (as user crawl-dev):
-#     git clone git://github.com/crawl/dgamelaunch-config.git
+#     git clone https://github.com/crawl/dgamelaunch-config.git
 # note that after this point, changing any file in the copied material will
 # invalidate the build cache (annoying!). For that reason, we manually select
 # everything but utils to copy at this point.
@@ -82,9 +84,12 @@ RUN ls dgamelaunch-config/bin -al && sed -i -e 's/"127.0.0.1"/"0.0.0.0"/' dgamel
 
 # set up trunk and one stable version
 # TODO: a bit more flexibility here
-RUN cp -a $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-0.25 \
-    && dgamelaunch-config/bin/dgl update-trunk \
-    && dgamelaunch-config/bin/dgl update-stable 0.25
+RUN cp -a $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-0.18
+RUN cp -a $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-dcssca
+RUN dgamelaunch-config/bin/dgl update-trunk
+# RUN dgamelaunch-config/bin/dgl update-gcc6 0.18 origin/stone_soup-0.18 
+RUN ls
+RUN dgamelaunch-config/bin/dgl update-gcc6 dcssca dcssca/master
 
 # TODO: could add apache setup here
 
