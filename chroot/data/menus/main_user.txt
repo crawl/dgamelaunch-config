@@ -10,11 +10,11 @@ Logged in as: $USERNAME
 W) Watch games in progress
 
 T) Dungeon Crawl Stone Soup Trunk
-R) Dungeon Crawl Stone Soup Released Version 0.18
+R) Dungeon Crawl Stone Soup Released Version 0.25
 
 
 c) Change password  e) Change email address
 
-Q)uit or P)lay or S)print in Crawl 0.18 now
+Q)uit or P)lay or S)print in Crawl 0.25 now
 
 => 

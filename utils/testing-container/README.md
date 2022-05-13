@@ -33,7 +33,7 @@ indicates that webtiles is up and running, and that sshd is as well.
 
 Extra notes:
 * the ssh username/password is crawler/crawler, running on port 2222.
-* the webtiles server is running versions 0.18 and current trunk, running
+* the webtiles server is running versions 0.25 and current trunk, running
 * on port 8080.
 * If you play around with this, don't forget to rune `docker container prune`
   and `docker image prune` every once in a while.

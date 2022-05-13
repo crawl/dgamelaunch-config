@@ -15,7 +15,8 @@ clone-crawl-ref() {
     say "$CMDLINE"
     $CMDLINE
     say "Add Fork Remotes"
-    git --git-dir="./$CRAWL_REPOSITORY_DIR/.git" remote add dcssca https://github.com/Rytisgit/dcssca.git
+    say "DCSSCA" && git --git-dir="./$CRAWL_REPOSITORY_DIR/.git" remote add dcssca https://github.com/Rytisgit/dcssca.git
+    say "HellCrawl" && git --git-dir="./$CRAWL_REPOSITORY_DIR/.git" remote add dcssca https://github.com/Rytisgit/hellcrawl.git
     say "Update branches for all forks"
     git --git-dir="./$CRAWL_REPOSITORY_DIR/.git" fetch --all
 }

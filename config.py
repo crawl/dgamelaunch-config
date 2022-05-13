@@ -40,17 +40,17 @@ watch_socket_dirs = True
 # Game configs
 # %n in paths is replaced by the current username
 games = OrderedDict([
-    ("dcss-0.18", dict(
-        name = "DCSS 0.18",
+    ("dcss-0.25", dict(
+        name = "DCSS 0.25",
         crawl_binary = "/bin/crawl-stable-launcher.sh",
         send_json_options = True,
-        pre_options  = [ "0.18" ],
-        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.18/",
-        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.18/",
+        pre_options  = [ "0.25" ],
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
         # Update this with the URL where your server morgues are published.
         morgue_url = None,
-        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-0.18/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-0.25/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets")),
     ("dcssca", dict(
@@ -106,7 +106,7 @@ dgl_status_file = "%%CHROOT_WEBDIR%%/run/status"
 
 # Set to None not to read milestones
 milestone_file = [
-    "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.18/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.25/saves/milestones",
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-dcssca/saves/milestones",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-tutorial",

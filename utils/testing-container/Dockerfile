@@ -84,11 +84,10 @@ RUN ls dgamelaunch-config/bin -al && sed -i -e 's/"127.0.0.1"/"0.0.0.0"/' dgamel
 
 # set up trunk and one stable version
 # TODO: a bit more flexibility here
-RUN cp -a $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-0.18
+RUN cp -a $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-0.25
 RUN cp -a $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-dcssca
 RUN dgamelaunch-config/bin/dgl update-trunk
-# RUN dgamelaunch-config/bin/dgl update-gcc6 0.18 origin/stone_soup-0.18 
-RUN ls
+RUN dgamelaunch-config/bin/dgl update-gcc6 0.25 origin/stone_soup-0.25 
 RUN dgamelaunch-config/bin/dgl update-gcc6 dcssca dcssca/master
 
 # TODO: could add apache setup here
