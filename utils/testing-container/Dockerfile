@@ -7,14 +7,16 @@ FROM ubuntu:18.04
 
 COPY utils/testing-container/healthcheck.sh /
 
-ENV DGL_CHROOT=/home/crawl/DGL
+ENV DGL_CHROOT=""
 ARG DEBIAN_FRONTEND=noninteractive
 ARG TERM=dumb
 
 # basic prerequisites
 # TODO: actually set up ccache, this just installs it
-RUN apt-get update && apt-get install -y sudo git build-essential autoconf automake bison libncursesw5-dev flex liblua5.1-0-dev libsqlite3-dev libz-dev locales vim locales-all pkg-config python3 python3-pip python3-yaml ccache libpng-dev sqlite3 libpcre3 libpcre3-dev apache2 advancecomp pngcrush debootstrap openssh-server gcc-6 g++-6 curl \
+RUN apt-get update && apt-get install -y sudo git bash build-essential autoconf automake bison libncursesw5-dev flex liblua5.1-0-dev libsqlite3-dev libz-dev locales vim locales-all pkg-config python3 python3-pip python3-yaml ccache libpng-dev sqlite3 libpcre3 libpcre3-dev apache2 advancecomp pngcrush debootstrap openssh-server gcc-6 g++-6 curl libfl-dev \
     && pip3 install tornado \
+    && apt-get clean \
+   #&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && ln -s /usr/bin/python3 /usr/bin/python \
     && useradd -m crawl \
     && useradd -m crawl-dev \
@@ -76,25 +78,8 @@ COPY --chown=crawl-dev:crawl-dev ./help /home/crawl-dev/dgamelaunch-config/help/
 COPY --chown=crawl-dev:crawl-dev ./lib /home/crawl-dev/dgamelaunch-config/lib/
 COPY --chown=crawl-dev:crawl-dev ./config.py ./crawl-git.conf ./dgamelaunch.conf ./dgl-manage.conf sh-utils /home/crawl-dev/dgamelaunch-config/
 COPY --chown=crawl-dev:crawl-dev ./utils/webtiles ./utils/trigger-rebuild.pl ./utils/auth-save-downloader.pl /home/crawl-dev/dgamelaunch-config/utils/
-
-RUN ls dgamelaunch-config/bin -al && sed -i -e 's/"127.0.0.1"/"0.0.0.0"/' dgamelaunch-config/config.py \
-    && dgamelaunch-config/bin/dgl create-versions-db \
-    && dgamelaunch-config/bin/dgl create-crawl-gamedir \
-    && dgamelaunch-config/bin/dgl publish --confirm
-
-# set up trunk and one stable version
-# TODO: a bit more flexibility here
-RUN cp -a $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-0.25
-RUN cp -a $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-dcssca
-RUN dgamelaunch-config/bin/dgl update-trunk
-RUN dgamelaunch-config/bin/dgl update-gcc6 0.25 origin/stone_soup-0.25 
-RUN dgamelaunch-config/bin/dgl update-gcc6 dcssca dcssca/master
-
+RUN ls -al && sed -i -e 's/"127.0.0.1"/"0.0.0.0"/' /home/crawl-dev/dgamelaunch-config/config.py 
 # TODO: could add apache setup here
-
-# at this point, the chroot still needs to be provisioned. You can trigger this
-# by calling the entrypoint script with --provision-chroot in a privileged
-# container, then committing the output.
 
 # set up entry point -- this script starts webtiles and sshd, and sets up the
 # bind mounts.
@@ -103,6 +88,10 @@ COPY utils/testing-container/docker-entrypoint.sh /
 # finally copy in utils, which will be often invalidated while working on the
 # docker setup itself.
 COPY utils/* /home/crawl-dev/dgamelaunch-config/utils/
+
+ENV DGL_CONF_HOME=/home/crawl-dev/dgamelaunch-config/
+ENV DGL_CHROOT=""
+ENV LANG=en_US.UTF-8
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 HEALTHCHECK CMD /healthcheck.sh

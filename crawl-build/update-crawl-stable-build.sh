@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VERSION=${1:-}
-
+BRANCH=${2:"origin/stone_soup-$VERSION"}
 # Quoting for =~ changed from bash 3.0 to 3.2; using a variable for the
 # regexp works with both.
 # VERS_RE='^[0-9]+.[0-9]+$'

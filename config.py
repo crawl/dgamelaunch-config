@@ -8,6 +8,8 @@ dgl_mode = True
 
 bind_nonsecure = True # Set to false to only use SSL
 
+games_config_dir = None # Don't try to load Base.yaml
+
 bind_pairs = (
     # for a docker setup, you will probably need to use 0.0.0.0.
     #("0.0.0.0", 8080),

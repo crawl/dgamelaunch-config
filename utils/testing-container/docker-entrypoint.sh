@@ -1,18 +1,28 @@
 #!/bin/bash
+#/home/crawl-dev/dgamelaunch-config/utils/provision-chroot.sh
+source "$DGL_CONF_HOME/dgl-manage.conf"
 if [ "$1" = '--provision-chroot' ]; then
-    /home/crawl-dev/dgamelaunch-config/utils/provision-chroot.sh
-    exit 0
+    /home/crawl-dev/dgamelaunch-config/bin/dgl create-versions-db
+    /home/crawl-dev/dgamelaunch-config/bin/dgl create-crawl-gamedir
+    /home/crawl-dev/dgamelaunch-config/bin/dgl publish --confirm
+    cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-0.25
+    cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-dcssca
+    /home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk
+    /home/crawl-dev/dgamelaunch-config/bin/dgl update-stable 0.25 origin/stone_soup-0.25 
+    /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 dcssca dcssca/master
 fi
 
-if [ -d "/home/crawl/DGL/proc/" ]; then
-    mount --bind /proc/ /home/crawl/DGL/proc/
-    mount --bind /dev/pts/ /home/crawl/DGL/dev/pts/
-    /etc/init.d/ssh start
-    /etc/init.d/webtiles start
-else
-    echo "chroot not initialized; skipping container startup."
+if [ "$1" = '--provision-single' ]; then
+    cd /home/crawl-dev/dgamelaunch-config/bin
+    cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-$2
+    /home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk
+    /home/crawl-dev/dgamelaunch-config/bin/dgl update-stable $2 $3 
 fi
 
+/home/crawl-dev/dgamelaunch-config/bin/dgl publish --confirm
+/etc/init.d/ssh start
+/etc/init.d/webtiles start
+sleep infinity # gnu-specific trick
 # would probably be more docker-ish if webtiles were running in the foreground
 # for this case...
 if [ "$1" = '--background' ]; then
