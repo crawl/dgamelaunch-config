@@ -1,7 +1,9 @@
 version: "3.3"
 services:
   dlg-forks-server:
-    image: dgl-forks:latest
+    image: rytisgit/dgl-forks:latest
+    tty: true
+    stdin_open: true
     ports:
       - "127.0.0.1:8080:8080"
       - "127.0.0.1:2222:22"

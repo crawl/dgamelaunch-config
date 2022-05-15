@@ -5,19 +5,12 @@ source "$DGL_CONF_HOME/dgl-manage.conf"
 /home/crawl-dev/dgamelaunch-config/bin/dgl create-crawl-gamedir
 /home/crawl-dev/dgamelaunch-config/bin/dgl publish --confirm
 
-if [ "$1" = '--provision-chroot' ]; then
-    cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-0.25
-    cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-dcssca
-    /home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk
-    /home/crawl-dev/dgamelaunch-config/bin/dgl update-stable 0.25 origin/stone_soup-0.25 
-    /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 dcssca dcssca/master
-fi
+cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-0.25
+cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-dcssca
+/home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk
+/home/crawl-dev/dgamelaunch-config/bin/dgl update-stable 0.25 origin/stone_soup-0.25 
+/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 dcssca dcssca/master
 
-if [ "$1" = '--provision-single' ]; then
-    cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-$2
-    /home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk
-    /home/crawl-dev/dgamelaunch-config/bin/dgl update-stable $2 $3 
-fi
 
 /etc/init.d/ssh start
 rm "$CHROOT_WEBDIR/run/webtiles.pid" #in case the container was stopped without cleaning up pid file in volume

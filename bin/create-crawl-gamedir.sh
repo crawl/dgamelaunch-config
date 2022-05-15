@@ -14,7 +14,7 @@ echo "Crawl basedir to create: $GAME_DIR"
 # ensure some basic preconditions.
 # TODO: perhaps do these unconditionally? It's not very risky. In fact, one
 # could pretty safely just run this entire script unconditionally.
-echo "Crawl basedir creating cores $DGL_CHROOT/cores "
+
 mkdir -p "$DGL_CHROOT/cores"
 mkdir -p "$DGL_CHROOT/crawl-master" \
          "$DGL_CHROOT/crawl-master/webserver/" \
@@ -31,7 +31,7 @@ mkdir -p "$DGL_CHROOT/crawl-master" \
          "$DGL_CHROOT/dgldir/inprogress/"
 touch "$DGL_CHROOT/dgamelaunch" "$DGL_CHROOT/dgldebug.log"
 chown -R $CRAWL_UGRP "$DGL_CHROOT/dgldebug.log" "$DGL_CHROOT/dgldir" "$DGL_CHROOT/crawl-master"
-echo "Crawl basedir creating cores $GAME_DIR/saves "
+
 mkdir -p "$GAME_DIR"/saves/{sprint,zotdef}
 ( cd "$GAME_DIR/saves" &&
     touch logfile{,-sprint,-zotdef} \

@@ -79,11 +79,14 @@ COPY --chown=crawl-dev:crawl-dev ./lib /home/crawl-dev/dgamelaunch-config/lib/
 COPY --chown=crawl-dev:crawl-dev ./config.py ./crawl-git.conf ./dgamelaunch.conf ./dgl-manage.conf sh-utils /home/crawl-dev/dgamelaunch-config/
 COPY --chown=crawl-dev:crawl-dev ./utils/webtiles ./utils/trigger-rebuild.pl ./utils/auth-save-downloader.pl /home/crawl-dev/dgamelaunch-config/utils/
 RUN ls -al && sed -i -e 's/"127.0.0.1"/"0.0.0.0"/' /home/crawl-dev/dgamelaunch-config/config.py 
+RUN mkdir -p /cores
 # TODO: could add apache setup here
 
 # set up entry point -- this script starts webtiles and sshd, and sets up the
 # bind mounts.
 COPY utils/testing-container/docker-entrypoint.sh /
+COPY utils/testing-container/docker-entrypoint-build-all.sh /
+COPY utils/testing-container/docker-entrypoint-build-trunk.sh /
 
 # finally copy in utils, which will be often invalidated while working on the
 # docker setup itself.
@@ -93,5 +96,5 @@ ENV DGL_CONF_HOME=/home/crawl-dev/dgamelaunch-config/
 ENV DGL_CHROOT=""
 ENV LANG=en_US.UTF-8
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["/docker-entrypoint-build-all.sh"]
 HEALTHCHECK CMD /healthcheck.sh
