@@ -151,11 +151,15 @@ sub main() {
   my $ver = param('v');
 
   if (not $ver) {
-    do_prompt 'trunk', '0.25', 'dcssca';
+    do_prompt 'trunk', '0.25', 'dcssca', 'hellcrawl';
   } elsif ($ver eq 'trunk') {
     do_update 'trunk';
   } elsif ($ver =~ /^0.2[5]$/) {
     do_update 'stable', $ver;
+  } elsif ($ver eq 'dcssca') {
+    do_update 'gcc6', 'dcssca dcssca/master';
+  } elsif ($ver eq 'hellcrawl') {
+    do_update 'gcc6', 'hellcrawl hellcrawl/bugfix';
   } else {
     do_fail "Unknown version " . escapeHTML($ver);
   }

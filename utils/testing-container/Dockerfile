@@ -96,5 +96,5 @@ ENV DGL_CONF_HOME=/home/crawl-dev/dgamelaunch-config/
 ENV DGL_CHROOT=""
 ENV LANG=en_US.UTF-8
 
-ENTRYPOINT ["/docker-entrypoint-build-all.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
 HEALTHCHECK CMD /healthcheck.sh

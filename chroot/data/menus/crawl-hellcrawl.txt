@@ -7,14 +7,17 @@ Crawl information:  http://crawl.develz.org/
 ------------------------------------------------------------------------------
 
 Logged in as: $USERNAME
-W) Watch games in progress
 
-A) DCSS Trunk
-B) DCSS 0.25
-C) DCSS Circus Animals
-D) HellCrawl
+Game selected: HellCrawl
 
+P)lay Crawl    S)print    T)utorial
 
-Z) Change password  X) Change email address
+o) Edit options    O) with Virus
+m) Edit macros     M) with Virus
+v) View changelog  V) with Virus
+
+A)dvanced options
+
+q) Return to main menu
 
 => 

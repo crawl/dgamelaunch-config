@@ -7,14 +7,16 @@ Crawl information:  http://crawl.develz.org/
 ------------------------------------------------------------------------------
 
 Logged in as: $USERNAME
-W) Watch games in progress
 
-A) DCSS Trunk
-B) DCSS 0.25
-C) DCSS Circus Animals
-D) HellCrawl
+Game selected: HellCrawl
 
+B)ackup your save-game (for bug reports and debugging)
 
-Z) Change password  X) Change email address
+The next option allows you to reset your options.
+ALL CHANGES YOU'VE MADE TO YOUR OPTIONS WILL BE LOST.
+
+O) Reset options
+
+q) Return to previous menu
 
 => 

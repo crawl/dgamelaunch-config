@@ -10,12 +10,14 @@ Rebuild:            SERVER_REBUILD_URL
 Logged in as: $USERNAME (admin)
 W) Watch games in progress
 
-T) Dungeon Crawl Stone Soup Trunk
-R) Dungeon Crawl Stone Soup Released Version 0.25
+A) DCSS Trunk
+B) DCSS 0.25
+C) DCSS Circus Animals
+D) HellCrawl
 
 
-c) Change password  e) Change email address
+Z) Change password  X) Change email address
 
-Q)uit or P)lay or S)print in Crawl 0.25 now
+Q)uit
 
 => 
