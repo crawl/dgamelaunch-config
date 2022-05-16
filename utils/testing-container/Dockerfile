@@ -42,6 +42,8 @@ WORKDIR /home/crawl-dev
 
 # TODO: what are these directories in ~crawl-dev used for? `run` doesn't exist
 # on CAO?
+RUN git config --global url."https://github".insteadOf git://github 
+# The unauthenticated git protocol on port 9418 is no longer supported.
 USER crawl-dev
 RUN mkdir logs \
     && mkdir run \
