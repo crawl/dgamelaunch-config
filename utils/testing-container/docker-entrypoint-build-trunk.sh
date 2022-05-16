@@ -4,7 +4,7 @@ source "$DGL_CONF_HOME/dgl-manage.conf"
 /home/crawl-dev/dgamelaunch-config/bin/dgl create-versions-db
 /home/crawl-dev/dgamelaunch-config/bin/dgl create-crawl-gamedir
 /home/crawl-dev/dgamelaunch-config/bin/dgl publish --confirm
-
+/home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk
 if [ "$1" = '--provision-chroot' ]; then
     cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-0.25
     cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-dcssca
