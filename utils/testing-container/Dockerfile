@@ -42,13 +42,13 @@ WORKDIR /home/crawl-dev
 
 # TODO: what are these directories in ~crawl-dev used for? `run` doesn't exist
 # on CAO?
-RUN git config --global url."https://github".insteadOf git://github 
+RUN git config --global url.https://github.com/.insteadOf git://github.com/
 # The unauthenticated git protocol on port 9418 is no longer supported.
 USER crawl-dev
 RUN mkdir logs \
     && mkdir run \
     && mkdir dgamelaunch-config dgamelaunch-config/utils/ \
-    && git clone git://github.com/crawl/dgamelaunch.git \
+    && git clone https://github.com/crawl/dgamelaunch.git \
     && cd dgamelaunch && ./autogen.sh --enable-debugfile --enable-sqlite --enable-shmem && make
 
 USER root
@@ -65,7 +65,7 @@ RUN cd dgamelaunch \
 
 # these COPYs are a bit messy. When setting up a system for non-testing
 # purposes, normally you would want to instead do (as user crawl-dev):
-#     git clone git://github.com/crawl/dgamelaunch-config.git
+#     git clone https://github.com/crawl/dgamelaunch-config.git
 # note that after this point, changing any file in the copied material will
 # invalidate the build cache (annoying!). For that reason, we manually select
 # everything but utils to copy at this point.
