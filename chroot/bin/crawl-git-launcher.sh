@@ -28,6 +28,7 @@ export LC_ALL=en_US.UTF-8
 set -o nounset
 
 CRAWL_GIT_DIR="%%CHROOT_CRAWL_BASEDIR%%"
+CRAWL_GIT_HTTPS_URL="%%CHROOT_CRAWL_GIT_HTTPS_URL%%"
 USER_DB="%%CHROOT_LOGIN_DB%%"
 CRAWL_BINARY_PATH="%%CHROOT_CRAWL_BINARY_PATH%%"
 BINARY_BASE_NAME="%%GAME%%"
@@ -132,6 +133,12 @@ LIMIT 1;
 EOF
 }
 
+github-compare-url() {
+    local our_hash=$1
+    local new_hash=$2
+    echo $CRAWL_GIT_HTTPS_URL/compare/$our_hash...$new_hash
+}
+
 user-is-admin() {
     local found="$(echo "SELECT username FROM dglusers
                          WHERE username='$CHAR_NAME' AND (flags & 1) = 1;" |
@@ -220,6 +227,7 @@ if [[ -n "$SAVE" ]]; then
 	OUR_SGV_MAJOR="$(major-version-for-game $OUR_GAME_HASH)"
 	NEW_GAME_HASH="$(newest-version-with-major-version $OUR_SGV_MAJOR)"
         new_ver="$(hash-description $NEW_GAME_HASH)"
+	compare_url="$(github-compare-url $OUR_GAME_HASH $NEW_GAME_HASH)"
 
         if [[ "$OUR_GAME_HASH" != "$NEW_GAME_HASH" &&
                     "$TRANSFER_ENABLED" == "1" ]]; then
@@ -232,6 +240,7 @@ if [[ -n "$SAVE" ]]; then
                 wcat <<EOF
 <p>There's a newer version ($new_ver) that can load your save.</p>
 <p>[T]ransfer your save to this version?</p>
+<a href='$compare_url' target='_blank'>Changes since your save</a>
 <input type='button' class='button' data-key='N' value='No' style='float:right;'>
 <input type='button' class='button' data-key='T' value='Yes' style='float:right;'>
 "}
@@ -242,6 +251,7 @@ EOF
                 cecho -n "[T]ransfer your save to the latest version ($new_ver)?"
                 wcat <<EOF
 <p>[T]ransfer your save to the latest version ($new_ver)?</p>
+<a href='$compare_url' target='_blank'>Changes since your save</a>
 <input type='button' class='button' data-key='N' value='No' style='float:right;'>
 <input type='button' class='button' data-key='T' value='Yes' style='float:right;'>
 "}
