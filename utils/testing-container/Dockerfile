@@ -13,10 +13,10 @@ ARG TERM=dumb
 
 # basic prerequisites
 # TODO: actually set up ccache, this just installs it
-RUN apt-get update && apt-get install -y sudo git bash build-essential autoconf automake bison libncursesw5-dev flex liblua5.1-0-dev libsqlite3-dev libz-dev locales vim locales-all pkg-config python3 python3-pip python3-yaml ccache libpng-dev sqlite3 libpcre3 libpcre3-dev apache2 advancecomp pngcrush debootstrap openssh-server gcc-6 g++-6 curl libfl-dev \
+RUN apt-get update && apt-get install -y --no-install-recommends sudo git bash build-essential autoconf automake bison libncursesw5-dev flex liblua5.1-0-dev libsqlite3-dev libz-dev locales vim locales-all pkg-config python3 python3-pip python3-yaml ccache libpng-dev sqlite3 libpcre3 libpcre3-dev apache2 advancecomp pngcrush debootstrap openssh-server gcc-6 g++-6 curl libfl-dev \
     && pip3 install tornado \
     && apt-get clean \
-   #&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && ln -s /usr/bin/python3 /usr/bin/python \
     && useradd -m crawl \
     && useradd -m crawl-dev \
@@ -95,6 +95,7 @@ COPY utils/* /home/crawl-dev/dgamelaunch-config/utils/
 ENV DGL_CONF_HOME=/home/crawl-dev/dgamelaunch-config/
 ENV DGL_CHROOT=""
 ENV LANG=en_US.UTF-8
-
-ENTRYPOINT ["/docker-entrypoint.sh"]
+# Next steps for creating versionsdb/crawl gamedir/publishing dgl files and building crawl is done after starting,
+# because volumes need to be mounted to preserve state.
+ENTRYPOINT ["/docker-entrypoint-build-trunk.sh"]
 HEALTHCHECK CMD /healthcheck.sh
