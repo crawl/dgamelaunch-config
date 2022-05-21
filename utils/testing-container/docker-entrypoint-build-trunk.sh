@@ -9,16 +9,18 @@ if [ "$1" = '--provision-chroot' ]; then
     cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-0.25
     cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-dcssca
     cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-hellcrawl
+    cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-gnollcrawl
     /home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk
     /home/crawl-dev/dgamelaunch-config/bin/dgl update-stable 0.25
-    /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 dcssca dcssca/master
-    /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 hellcrawl hellcrawl/bugfix
+    /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 dcssca crawl-forks/dcssca/bugfix
+    /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 hellcrawl crawl-forks/hellcrawl/bugfix
+    /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc gnollcrawl crawl-forks/gnollcrawl/bugfix
 fi
 
 if [ "$1" = '--provision-single' ]; then
     cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-$2
     /home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk
-    /home/crawl-dev/dgamelaunch-config/bin/dgl update-stable $2 $3 
+    /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc $2 $3 
 fi
 
 /etc/init.d/ssh start

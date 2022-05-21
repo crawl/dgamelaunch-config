@@ -14,6 +14,7 @@ A) DCSS Trunk
 B) DCSS 0.25
 C) DCSS Circus Animals
 D) HellCrawl
+E) GnollCrawl
 
 
 Z) Change password  X) Change email address
