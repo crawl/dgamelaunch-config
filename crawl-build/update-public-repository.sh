@@ -14,12 +14,20 @@ clone-crawl-ref() {
     CMDLINE="git clone $CRAWL_GIT_URL $CRAWL_REPOSITORY_DIR"
     say "$CMDLINE"
     $CMDLINE
+    say "Add Fork Remotes"
+    say "Crawl-forks" && git --git-dir="./$CRAWL_REPOSITORY_DIR/.git" remote add crawl-forks https://github.com/Rytisgit/crawl-forks.git
+    say "GoonCrawl" && git --git-dir="./$CRAWL_REPOSITORY_DIR/.git" remote add gooncrawl https://github.com/Floodkiller/crawl.git
+    say "BloatCrawl 2" && git --git-dir="./$CRAWL_REPOSITORY_DIR/.git" remote add bloatcrawl2 https://github.com/Hellmonk/bloatcrawl2.git
+    say "Stoat Soup" && git --git-dir="./$CRAWL_REPOSITORY_DIR/.git" remote add stoatsoup https://github.com/damerell/crawl.git
+    say "Update branches for all forks"
+    git --git-dir="./$CRAWL_REPOSITORY_DIR/.git" fetch --all
 }
 
 update-crawl-ref() {
     say "Updating git repository $REPO_DIR"
     ( cd $REPO_DIR && git checkout -f &&
-        git checkout $BRANCH &&
+        git fetch --all &&
+        git checkout -B $BRANCH refs/remotes/$BRANCH &&
         git pull )
     if [[ -n "$REVISION" ]]; then
         say "Checking out requested revision: $REVISION"

@@ -1,6 +1,6 @@
 #! /bin/bash
 
-assert-chroot-exists
+#assert-chroot-exists
 cat-error <<EOF
 $SCRIPT_NAME: Monitors Crawl .where files and creates .dglwhere files for the
               dgamelaunch menu to display

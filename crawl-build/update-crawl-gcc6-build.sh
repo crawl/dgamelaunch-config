@@ -2,6 +2,8 @@
 
 VERSION=${1:-}
 
+BRANCH=${2:-}
+
 # Quoting for =~ changed from bash 3.0 to 3.2; using a variable for the
 # regexp works with both.
 # VERS_RE='^[0-9]+.[0-9]+$'
@@ -17,10 +19,6 @@ source $DGL_CONF_HOME/crawl-git.conf
 GAME=crawl-$VERSION
 
 export DESTDIR=$CRAWL_BASEDIR
-BRANCH=origin/stone_soup-$VERSION
-if [[ $VERSION != [0-9]* ]]; then
-    BRANCH=origin/$VERSION
-fi
 
 check-crawl-basedir-exists
 enable-prompts $*
@@ -61,10 +59,10 @@ fi
 
 prompt "compile ${GAME} (${REVISION})"
 
-# REMEMBER to adjust /var/lib/dgamelaunch/sbin/install-stable.sh as well if make parameters change!
+# REMEMBER to adjust /var/lib/dgamelaunch/sbin/install-gcc6.sh as well if make parameters change!
 ##################################################################################################
 
-say-do crawl-do nice make -C source \
+say-do crawl-do nice make CC=gcc-6 CXX=g++-6 -C source \
     GAME=${GAME} \
     GAME_MAIN=${GAME} MCHMOD=0755 MCHMOD_SAVEDIR=755 \
     INSTALL_UGRP=$CRAWL_UGRP \
@@ -78,7 +76,7 @@ say-do crawl-do nice make -C source \
 
 prompt "install ${GAME} (${REVISION})"
 
-say-do sudo -H $DGL_CHROOT/sbin/install-stable.sh "$VERSION"
+say-do sudo -H $DGL_CHROOT/sbin/install-gcc6.sh "$VERSION"
 
 if [[ $VERSION = [0-9]* ]]; then
     SUPER_VER="Stable"
