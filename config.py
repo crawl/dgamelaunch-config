@@ -42,7 +42,7 @@ watch_socket_dirs = True
 # Game configs
 # %n in paths is replaced by the current username
 games = OrderedDict([
-    ("dcss-0.25", dict(
+    ("crawl-0.25", dict(
         name = "DCSS 0.25",
         crawl_binary = "/bin/crawl-stable-launcher.sh",
         send_json_options = True,

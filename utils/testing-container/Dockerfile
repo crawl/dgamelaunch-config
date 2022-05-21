@@ -8,6 +8,7 @@ FROM ubuntu:18.04
 COPY utils/testing-container/healthcheck.sh /
 
 ENV DGL_CHROOT=""
+ENV DGL_CONF_HOME=/home/crawl-dev/dgamelaunch-config/
 ARG DEBIAN_FRONTEND=noninteractive
 ARG TERM=dumb
 
@@ -45,6 +46,8 @@ WORKDIR /home/crawl-dev
 # TODO: what are these directories in ~crawl-dev used for? `run` doesn't exist
 # on CAO?
 RUN git config --global url."https://github".insteadOf git://github 
+RUN git config --global url."https://github.com".insteadOf "git://gitorious.org"
+
 # The unauthenticated git protocol on port 9418 is no longer supported.
 USER crawl-dev
 RUN mkdir logs \
@@ -79,6 +82,7 @@ COPY --chown=crawl-dev:crawl-dev ./lib /home/crawl-dev/dgamelaunch-config/lib/
 COPY --chown=crawl-dev:crawl-dev ./config.py ./crawl-git.conf ./dgamelaunch.conf ./dgl-manage.conf sh-utils /home/crawl-dev/dgamelaunch-config/
 COPY --chown=crawl-dev:crawl-dev ./utils/webtiles ./utils/trigger-rebuild.pl ./utils/auth-save-downloader.pl /home/crawl-dev/dgamelaunch-config/utils/
 RUN ls -al && sed -i -e 's/"127.0.0.1"/"0.0.0.0"/' /home/crawl-dev/dgamelaunch-config/config.py 
+# this is taken from build-crawl-dirs to here because it's the only directory that's outside of volumes due to not storing state
 RUN mkdir -p /cores
 # TODO: could add apache setup here
 
@@ -92,10 +96,7 @@ COPY utils/testing-container/docker-entrypoint-build-trunk.sh /
 # docker setup itself.
 COPY utils/* /home/crawl-dev/dgamelaunch-config/utils/
 
-ENV DGL_CONF_HOME=/home/crawl-dev/dgamelaunch-config/
-ENV DGL_CHROOT=""
-ENV LANG=en_US.UTF-8
 # Next steps for creating versionsdb/crawl gamedir/publishing dgl files and building crawl is done after starting,
 # because volumes need to be mounted to preserve state.
-ENTRYPOINT ["/docker-entrypoint-build-trunk.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
 HEALTHCHECK CMD /healthcheck.sh
