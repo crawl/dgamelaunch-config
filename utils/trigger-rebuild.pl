@@ -151,7 +151,7 @@ sub main() {
   my $ver = param('v');
 
   if (not $ver) {
-    do_prompt 'trunk', '0.25', 'dcssca', 'hellcrawl', 'gnollcrawl';
+    do_prompt 'trunk', '0.25', 'dcssca', 'hellcrawl', 'gnollcrawl', 'bloatcrawl2';
   } elsif ($ver eq 'trunk') {
     do_update 'trunk';
   } elsif ($ver =~ /^0.2[5]$/) {
@@ -162,6 +162,8 @@ sub main() {
     do_update 'gcc6', 'hellcrawl crawl-forks/hellcrawl/bugfix';
   } elsif ($ver eq 'gnollcrawl') {
     do_update 'gcc6', 'gnollcrawl crawl-forks/gnollcrawl/bugfix';
+  } elsif ($ver eq 'bloatcrawl2') {
+    do_update 'gcc6', 'bloatcrawl2 crawl-forks/bloatcrawl2/bugfix';
   } else {
     do_fail "Unknown version " . escapeHTML($ver);
   }

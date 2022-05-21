@@ -14,6 +14,7 @@ B) DCSS 0.25
 C) DCSS Circus Animals
 D) HellCrawl
 E) GnollCrawl
+F) BloatCrawl 2
 
 
 Z) Change password  X) Change email address

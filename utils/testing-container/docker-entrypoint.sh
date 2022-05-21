@@ -10,11 +10,13 @@ if [ "$1" = '--provision-chroot' ]; then
     cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-dcssca
     cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-hellcrawl
     cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-gnollcrawl
+    cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-bloatcrawl2
     /home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk
     /home/crawl-dev/dgamelaunch-config/bin/dgl update-stable 0.25
     /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 dcssca crawl-forks/dcssca/bugfix
     /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 hellcrawl crawl-forks/hellcrawl/bugfix
     /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc gnollcrawl crawl-forks/gnollcrawl/bugfix
+    /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc bloatcrawl2 crawl-forks/bloatcrawl2/bugfix
 fi
 
 if [ "$1" = '--provision-single' ]; then

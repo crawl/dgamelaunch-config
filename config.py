@@ -91,6 +91,18 @@ games = OrderedDict([
         inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-gnollcrawl/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets")),
+    ("bloatcrawl2", dict(
+        name = "BloatCrawl 2",
+        crawl_binary = "/bin/crawl-stable-launcher.sh",
+        send_json_options = True,
+        pre_options  = [ "bloatcrawl2" ],
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-bloatcrawl2/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-bloatcrawl2/",
+        morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
+        morgue_url = None,
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-bloatcrawl2/",
+        ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
+        socket_path = "%%CHROOT_WEBDIR%%/sockets")),
     ("dcss-git", dict(
         name = "DCSS trunk",
         crawl_binary = "/bin/crawl-git-launcher.sh",
