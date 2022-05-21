@@ -12,7 +12,7 @@ W) Watch games in progress Z) Change password  X) Change email address Q)uit
 
 A) DCSS Trunk                 I) Stoat Soup
 B) DCSS 0.25                  J) KimchiCrawl
-C) DCSS Circus Animals
+C) DCSS Circus Animals        K) BcadrenCrawl
 D) HellCrawl
 E) GnollCrawl
 F) BloatCrawl 2

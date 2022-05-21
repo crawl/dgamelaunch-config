@@ -8,7 +8,7 @@ Crawl information:  http://crawl.develz.org/
 
 Logged in as: $USERNAME
 
-Game selected: HellCrawl
+Game selected: Stoat Soup
 
 B)ackup your save-game (for bug reports and debugging)
 

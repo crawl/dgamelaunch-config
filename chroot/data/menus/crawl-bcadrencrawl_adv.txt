@@ -8,16 +8,15 @@ Crawl information:  http://crawl.develz.org/
 
 Logged in as: $USERNAME
 
-Game selected: GoonCrawl
+Game selected: BcadrenCrawl
 
-P)lay Crawl    S)print    T)utorial
+B)ackup your save-game (for bug reports and debugging)
 
-o) Edit options    O) with Virus
-m) Edit macros     M) with Virus
-v) View changelog  V) with Virus
+The next option allows you to reset your options.
+ALL CHANGES YOU'VE MADE TO YOUR OPTIONS WILL BE LOST.
 
-A)dvanced options
+O) Reset options
 
-q) Return to main menu
+q) Return to previous menu
 
 => 

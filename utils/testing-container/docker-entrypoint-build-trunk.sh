@@ -15,6 +15,7 @@ if [ "$1" = '--provision-chroot' ]; then
     cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-xcrawl
     cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-stoatsoup
     cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-kimchicrawl
+    cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-bcadrencrawl
     /home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk
     /home/crawl-dev/dgamelaunch-config/bin/dgl update-stable 0.25
     /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 dcssca crawl-forks/dcssca/bugfix
@@ -25,6 +26,7 @@ if [ "$1" = '--provision-chroot' ]; then
     /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc xcrawl crawl-forks/xcrawl/bugfix
     /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc stoatsoup stoatsoup/master
     /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc kimchicrawl crawl-forks/kimchicrawl/bugfix
+    /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc bcadrencrawl crawl-forks/bcadrencrawl/bugfix
 fi
 
 if [ "$1" = '--provision-single' ]; then

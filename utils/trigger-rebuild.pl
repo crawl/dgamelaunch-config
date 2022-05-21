@@ -151,7 +151,7 @@ sub main() {
   my $ver = param('v');
 
   if (not $ver) {
-    do_prompt 'trunk', '0.25', 'dcssca', 'hellcrawl', 'gnollcrawl', 'bloatcrawl2', 'xcrawl', 'gooncrawl', 'stoatsoup', 'kimchicrawl';
+    do_prompt 'trunk', '0.25', 'dcssca', 'hellcrawl', 'gnollcrawl', 'bloatcrawl2', 'xcrawl', 'gooncrawl', 'stoatsoup', 'kimchicrawl', 'bcadrencrawl';
   } elsif ($ver eq 'trunk') {
     do_update 'trunk';
   } elsif ($ver =~ /^0.2[5]$/) {
@@ -163,15 +163,17 @@ sub main() {
   } elsif ($ver eq 'gnollcrawl') {
     do_update 'gcc', 'gnollcrawl crawl-forks/gnollcrawl/bugfix';
   } elsif ($ver eq 'bloatcrawl2') {
-    do_update 'gcc', 'bloatcrawl2 crawl-forks/bloatcrawl2/bugfix';
+    do_update 'gcc', 'bloatcrawl2 bloatcrawl2/master';
   } elsif ($ver eq 'gooncrawl') {
-    do_update 'gcc', 'gooncrawl crawl-forks/gooncrawl/bugfix';
+    do_update 'gcc', 'gooncrawl gooncrawl/gooncrawl_stable';
   } elsif ($ver eq 'xcrawl') {
     do_update 'gcc', 'xcrawl crawl-forks/xcrawl/bugfix';
   } elsif ($ver eq 'stoatsoup') {
-    do_update 'gcc', 'stoatsoup crawl-forks/stoatsoup/bugfix';
+    do_update 'gcc', 'stoatsoup stoatsoup/master';
   } elsif ($ver eq 'kimchicrawl') {
     do_update 'gcc', 'kimchicrawl crawl-forks/kimchicrawl/bugfix';
+  } elsif ($ver eq 'bcadrencrawl') {
+    do_update 'gcc', 'bcadrencrawl crawl-forks/bcadrencrawl/bugfix';
   } else {
     do_fail "Unknown version " . escapeHTML($ver);
   }

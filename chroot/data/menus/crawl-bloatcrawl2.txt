@@ -8,7 +8,7 @@ Crawl information:  http://crawl.develz.org/
 
 Logged in as: $USERNAME
 
-Game selected: GnollCrawl
+Game selected: BloatCrawl 2
 
 P)lay Crawl    S)print    T)utorial
 
