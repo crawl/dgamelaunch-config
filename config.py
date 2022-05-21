@@ -139,6 +139,18 @@ games = OrderedDict([
         inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-stoatsoup/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets")),
+    ("kimchicrawl", dict(
+        name = "KimchiCrawl",
+        crawl_binary = "/bin/crawl-stable-launcher.sh",
+        send_json_options = True,
+        pre_options  = [ "kimchicrawl" ],
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-kimchicrawl/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-kimchicrawl/",
+        morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
+        morgue_url = None,
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-kimchicrawl/",
+        ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
+        socket_path = "%%CHROOT_WEBDIR%%/sockets")),
     ("dcss-git", dict(
         name = "DCSS trunk",
         crawl_binary = "/bin/crawl-git-launcher.sh",

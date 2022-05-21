@@ -10,7 +10,7 @@ Logged in as: $USERNAME
 W) Watch games in progress
 
 A) DCSS Trunk                 I) Stoat Soup
-B) DCSS 0.25
+B) DCSS 0.25                  J) KimchiCrawl
 C) DCSS Circus Animals
 D) HellCrawl
 E) GnollCrawl
