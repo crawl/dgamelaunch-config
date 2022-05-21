@@ -9,7 +9,7 @@ Crawl information:  http://crawl.develz.org/
 Logged in as: $USERNAME
 W) Watch games in progress
 
-A) DCSS Trunk
+A) DCSS Trunk                 I) Stoat Soup
 B) DCSS 0.25
 C) DCSS Circus Animals
 D) HellCrawl

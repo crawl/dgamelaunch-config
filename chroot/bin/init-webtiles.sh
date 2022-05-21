@@ -27,5 +27,8 @@ cp --no-clobber "%%CHROOT_DGLDIR%%/data/crawl-git.macro" "%%CHROOT_RCFILESDIR%%/
 cp --no-clobber "%%CHROOT_DGLDIR%%/data/crawl-xcrawl-settings/init.txt" "%%CHROOT_RCFILESDIR%%/crawl-xcrawl/$NAME.rc"
 cp --no-clobber "%%CHROOT_DGLDIR%%/data/crawl-git.macro" "%%CHROOT_RCFILESDIR%%/crawl-xcrawl/$NAME.macro"
 
+cp --no-clobber "%%CHROOT_DGLDIR%%/data/crawl-stoatsoup-settings/init.txt" "%%CHROOT_RCFILESDIR%%/crawl-stoatsoup/$NAME.rc"
+cp --no-clobber "%%CHROOT_DGLDIR%%/data/crawl-git.macro" "%%CHROOT_RCFILESDIR%%/crawl-stoatsoup/$NAME.macro"
+
 mkdir -p "%%CHROOT_MORGUEDIR%%/$NAME"
 mkdir -p "%%CHROOT_TTYRECDIR%%/$NAME"
