@@ -8,10 +8,12 @@ source "$DGL_CONF_HOME/dgl-manage.conf"
 cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-0.25
 cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-dcssca
 cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-hellcrawl
+cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-gnollcrawl
 /home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk
-/home/crawl-dev/dgamelaunch-config/bin/dgl update-stable 0.25 origin/stone_soup-0.25
-/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 dcssca dcssca/master
-/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 hellcrawl hellcrawl/bugfix
+/home/crawl-dev/dgamelaunch-config/bin/dgl update-stable 0.25
+/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 dcssca crawl-forks/dcssca/bugfix
+/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 hellcrawl crawl-forks/hellcrawl/bugfix
+/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 gnollcrawl crawl-forks/gnollcrawl/bugfix
 
 
 /etc/init.d/ssh start

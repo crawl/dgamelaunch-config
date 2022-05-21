@@ -10,7 +10,7 @@ if [ "$1" = '--provision-chroot' ]; then
     cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-dcssca
     cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-hellcrawl
     /home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk
-    /home/crawl-dev/dgamelaunch-config/bin/dgl update-stable 0.25 origin/stone_soup-0.25
+    /home/crawl-dev/dgamelaunch-config/bin/dgl update-stable 0.25
     /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 dcssca dcssca/master
     /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 hellcrawl hellcrawl/bugfix
 fi
