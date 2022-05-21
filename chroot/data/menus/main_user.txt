@@ -15,7 +15,8 @@ C) DCSS Circus Animals
 D) HellCrawl
 E) GnollCrawl
 F) BloatCrawl 2
-
+G) GoonCrawl
+H) X-Crawl
 
 Z) Change password  X) Change email address
 
