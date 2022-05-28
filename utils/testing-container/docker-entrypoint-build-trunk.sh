@@ -16,6 +16,8 @@ if [ "$1" = '--provision-single' ]; then
     /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc $2 $3 
 fi
 
+/enable-apache.sh
+
 /etc/init.d/ssh start
 rm "$CHROOT_WEBDIR/run/webtiles.pid" #in case the container was stopped without cleaning up pid file in volume
 /etc/init.d/webtiles restart
