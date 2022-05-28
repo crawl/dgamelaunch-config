@@ -13,8 +13,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ARG TERM=dumb
 
 # basic prerequisites
-# TODO: actually set up ccache, this just installs it
-RUN apt-get update && apt-get install -y --no-install-recommends sudo git bash build-essential autoconf automake bison libncursesw5-dev flex liblua5.1-0-dev libsqlite3-dev libz-dev locales vim locales-all pkg-config python3 python3-pip python3-yaml ccache libpng-dev sqlite3 libpcre3 libpcre3-dev apache2 advancecomp pngcrush debootstrap openssh-server gcc-6 g++-6 curl libfl-dev \
+RUN apt-get update && apt-get install -y --no-install-recommends sudo git bash build-essential autoconf automake bison libncursesw5-dev flex liblua5.1-0-dev libsqlite3-dev libz-dev locales vim locales-all pkg-config python3 python3-pip python3-yaml ccache libpng-dev sqlite3 libpcre3 libpcre3-dev apache2 advancecomp pngcrush openssh-server gcc-6 g++-6 curl libfl-dev \
     && pip3 install tornado \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
@@ -34,6 +33,15 @@ ENV LANG=en_US.UTF-8
 RUN sed -i -e "s/# $LANG.*/$LANG.UTF-8 UTF-8/" /etc/locale.gen \
     && dpkg-reconfigure --frontend=noninteractive locales \
     && update-locale LANG=$LANG
+
+# CCache
+# Update symlinks
+RUN /usr/sbin/update-ccache-symlinks
+
+# Prepend ccache into the PATH
+RUN echo 'export PATH="/usr/lib/ccache:$PATH"' | tee -a ~/.bashrc
+RUN ccache -F 0
+RUN ccache -M 0
 
 # allow crawl-dev to run various things with sudo without a password. These
 # permissions may be too open for a production server.
@@ -82,6 +90,8 @@ COPY --chown=crawl-dev:crawl-dev ./lib /home/crawl-dev/dgamelaunch-config/lib/
 COPY --chown=crawl-dev:crawl-dev ./config.py ./crawl-git.conf ./dgamelaunch.conf ./dgl-manage.conf sh-utils /home/crawl-dev/dgamelaunch-config/
 COPY --chown=crawl-dev:crawl-dev ./utils/webtiles ./utils/trigger-rebuild.pl ./utils/auth-save-downloader.pl /home/crawl-dev/dgamelaunch-config/utils/
 RUN ls -al && sed -i -e 's/"127.0.0.1"/"0.0.0.0"/' /home/crawl-dev/dgamelaunch-config/config.py 
+COPY utils/testing-container/httpd.conf /etc/apache2/sites-available
+
 # this is taken from build-crawl-dirs to here because it's the only directory that's outside of volumes due to not storing state
 RUN mkdir -p /cores
 # TODO: could add apache setup here
@@ -91,6 +101,8 @@ RUN mkdir -p /cores
 COPY utils/testing-container/docker-entrypoint.sh /
 COPY utils/testing-container/docker-entrypoint-build-all.sh /
 COPY utils/testing-container/docker-entrypoint-build-trunk.sh /
+COPY utils/testing-container/enable-apache.sh /
+COPY utils/testing-container/install-crawl-versions.sh /
 
 # finally copy in utils, which will be often invalidated while working on the
 # docker setup itself.
