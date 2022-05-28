@@ -207,6 +207,13 @@ milestone_file = [
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.25/saves/milestones",
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-dcssca/saves/milestones",
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-hellcrawl/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-gnollcrawl/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-bloatcrawl2/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-gooncrawl/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-xcrawl/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-stoatsoup/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-kimchicrawl/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-bcadrencrawl/saves/milestones",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-tutorial",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-sprint"
