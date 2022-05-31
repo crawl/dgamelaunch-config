@@ -14,6 +14,7 @@ set -e
 lock-or-die crawl-update "someone is already updating the crawl build"
 
 source $DGL_CONF_HOME/crawl-git.conf
+source ~/.bashrc
 GAME=crawl-$VERSION
 
 export DESTDIR=$CRAWL_BASEDIR
