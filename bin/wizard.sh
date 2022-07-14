@@ -48,9 +48,9 @@ EOF
 wizard-add() {
     local new_wizard="$1"
     dgl-user-exists "$new_wizard" || \
-        abort-saying "Cannot find user $new_wizard in dgl login db"
+        abort-saying "Cannot find user $new_wizard in dgl login db."
     if dgl-user-is-wizard "$new_wizard"; then
-        echo -e "User $new_wizard is already an wizard"
+        echo "User $new_wizard is already an wizard."
         exit 0
     fi
 
@@ -58,10 +58,10 @@ wizard-add() {
     dgl-user-make-wizard "$new_wizard"
 
     if dgl-user-is-wizard "$new_wizard"; then
-        printf "%s" "\nDone, $new_wizard is now a DGL wizard.\n"
+        printf 'Done, %s is now a DGL wizard.\n' "$new_wizard"
         exit 0
     else
-        echo -e "Oops, couldn't make $new_wizard a DGL wizard.\n"
+        echo "Oops, couldn't make $new_wizard a DGL wizard."
         exit 1
     fi
 }
@@ -69,9 +69,9 @@ wizard-add() {
 wizard-rm() {
     local ex_wizard="$1"
     dgl-user-exists "$ex_wizard" || \
-        abort-saying "Cannot find user $ex_wizard in dgl login db"
+        abort-saying "Cannot find user $ex_wizard in dgl login db."
     if ! dgl-user-is-wizard "$ex_wizard"; then
-        echo -e "User $ex_wizard is not an wizard, nothing to do"
+        echo "User $ex_wizard is not an wizard, nothing to do."
         exit 0
     fi
 
@@ -79,7 +79,7 @@ wizard-rm() {
     dgl-user-unmake-wizard "$ex_wizard"
 
     if ! dgl-user-is-wizard "$ex_wizard"; then
-        printf "%s" "\nDone, $ex_wizard is now a regular DGL non-wizard user.\n"
+        printf 'Done, %s is now a regular DGL non-wizard user.\n' "$ex_wizard"
         exit 0
     else
         echo -e "Oops, couldn't make $ex_wizard a regular DGL non-wizard user."

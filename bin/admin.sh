@@ -48,9 +48,9 @@ EOF
 admin-add() {
     local new_admin="$1"
     dgl-user-exists "$new_admin" || \
-        abort-saying "Cannot find user $new_admin in dgl login db"
+        abort-saying "Cannot find user $new_admin in dgl login db."
     if dgl-user-is-admin "$new_admin"; then
-        echo -e "User $new_admin is already an admin"
+        echo "User $new_admin is already an admin."
         exit 0
     fi
 
@@ -58,10 +58,10 @@ admin-add() {
     dgl-user-make-admin "$new_admin"
 
     if dgl-user-is-admin "$new_admin"; then
-        printf "%s" "\nDone, $new_admin is now a DGL admin.\n"
+        printf 'Done, %s is now a DGL admin.\n' "$new_admin"
         exit 0
     else
-        echo -e "Oops, couldn't make $new_admin a DGL admin.\n"
+        echo "Oops, couldn't make $new_admin a DGL admin."
         exit 1
     fi
 }
@@ -69,9 +69,9 @@ admin-add() {
 admin-rm() {
     local ex_admin="$1"
     dgl-user-exists "$ex_admin" || \
-        abort-saying "Cannot find user $ex_admin in dgl login db"
+        abort-saying "Cannot find user $ex_admin in dgl login db."
     if ! dgl-user-is-admin "$ex_admin"; then
-        echo -e "User $ex_admin is not an admin, nothing to do"
+        echo "User $ex_admin is not an admin, nothing to do."
         exit 0
     fi
 
@@ -79,10 +79,10 @@ admin-rm() {
     dgl-user-unmake-admin "$ex_admin"
 
     if ! dgl-user-is-admin "$ex_admin"; then
-        printf "%s" "\nDone, $ex_admin is now a regular DGL non-admin user.\n"
+        printf 'Done, %s is now a regular DGL non-admin user.\n' "$ex_admin"
         exit 0
     else
-        echo -e "Oops, couldn't make $ex_admin a regular DGL non-admin user."
+        echo "Oops, couldn't make $ex_admin a regular DGL non-admin user."
         exit 1
     fi
 }
