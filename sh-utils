@@ -179,3 +179,11 @@ dgl-user-is-wizard() {
                    login-query)"
     [[ -n "$found" ]]
 }
+
+dgl-user-is-bot() {
+    local user="$1"
+    local found="$(echo "SELECT username FROM dglusers
+                         WHERE username='$user' AND (flags & 64) = 64;" |
+                   login-query)"
+    [[ -n "$found" ]]
+}
