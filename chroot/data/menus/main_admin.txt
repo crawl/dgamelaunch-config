@@ -14,7 +14,6 @@ W) Watch games in progress
 T) Dungeon Crawl Stone Soup Trunk
 R) Dungeon Crawl Stone Soup Current Released Version 0.29
 
-
 8) 0.28   7) 0.27   6) 0.26   5) 0.25   4) 0.24   3) 0.23   2) 0.22   1) 0.21
 X) Older Versions (0.20 to 0.11)
 
