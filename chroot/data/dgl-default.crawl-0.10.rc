@@ -4,7 +4,7 @@
 # init.txt to ~/.crawlrc or ~/.crawl/init.txt as:
 #   cp init.txt ~/.crawlrc
 #
-# Lines beginning with '#' are comments.  The basic syntax is:
+# Lines beginning with '#' are comments. The basic syntax is:
 #
 # field = value         or      field.subfield = value
 #
