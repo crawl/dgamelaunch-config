@@ -3,22 +3,21 @@ Crawl server (North America) hosted and maintained by Rax E. Dillon.
 Server information: http://crawl.akrasiac.org
 Webtiles:           http://webtiles.akrasiac.org/
 Crawl information:  http://crawl.develz.org
-Rebuild:            http://crawl.akrasiac.org/rebuild/
 ------------------------------------------------------------------------------
 ** Games on this server are recorded for in-progress viewing and playback! **
 ------------------------------------------------------------------------------
 
-Logged in as: $USERNAME (admin)
-W) Watch games in progress
+Logged in as: $USERNAME
 
-T) Dungeon Crawl Stone Soup Trunk
-R) Dungeon Crawl Stone Soup Current Released Version 0.29
+Game selected: Dungeon Crawl Stone Soup 0.29
 
+B)ackup your save-game (for bug reports and debugging)
 
-8) 0.28   7) 0.27   6) 0.26   5) 0.25   4) 0.24   3) 0.23   2) 0.22   1) 0.21
-X) Older Versions (0.20 to 0.11)
+The next option allows you to reset your options.
+ALL CHANGES YOU'VE MADE TO YOUR OPTIONS WILL BE LOST.
 
-k) robotfindskitten  c) Change password  e) Change email address
+O) Reset options
 
-Q)uit or P)lay or S)print in Crawl 0.29 now
+q) Return to previous menu
+
 =>

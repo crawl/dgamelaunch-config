@@ -7,11 +7,11 @@ Crawl information:  http://crawl.develz.org
 ** Games on this server are recorded for in-progress viewing and playback! **
 ------------------------------------------------------------------------------
 
-Not logged in.
+Not logged in. New user registration available via webtiles:
+http://crawl.akrasiac.org:8080/
 
 W) Watch games in progress
 
-R) Register as new user
 L) Login
 
 Q) Quit
