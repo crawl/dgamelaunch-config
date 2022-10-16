@@ -1,49 +1,12 @@
 #! /bin/sh
 
-ifnxcp() {
-    [ -e "$2" ] || cp "$1" "$2";
-}
-
 NAME=$1
+VERSIONS="git $(seq 11 29 | sed 's/^/0./')"
 
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-git-settings/init.txt %%CHROOT_RCFILESDIR%%/crawl-git/"$NAME".rc
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-git.macro %%CHROOT_RCFILESDIR%%/crawl-git/"$NAME".macro
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-0.27-settings/init.txt %%CHROOT_RCFILESDIR%%/crawl-0.27/"$NAME".rc
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-git.macro %%CHROOT_RCFILESDIR%%/crawl-0.27/"$NAME".macro
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-0.26-settings/init.txt %%CHROOT_RCFILESDIR%%/crawl-0.26/"$NAME".rc
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-git.macro %%CHROOT_RCFILESDIR%%/crawl-0.26/"$NAME".macro
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-0.25-settings/init.txt %%CHROOT_RCFILESDIR%%/crawl-0.25/"$NAME".rc
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-git.macro %%CHROOT_RCFILESDIR%%/crawl-0.25/"$NAME".macro
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-0.24-settings/init.txt %%CHROOT_RCFILESDIR%%/crawl-0.24/"$NAME".rc
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-git.macro %%CHROOT_RCFILESDIR%%/crawl-0.24/"$NAME".macro
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-0.23-settings/init.txt %%CHROOT_RCFILESDIR%%/crawl-0.23/"$NAME".rc
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-git.macro %%CHROOT_RCFILESDIR%%/crawl-0.23/"$NAME".macro
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-0.22-settings/init.txt %%CHROOT_RCFILESDIR%%/crawl-0.22/"$NAME".rc
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-git.macro %%CHROOT_RCFILESDIR%%/crawl-0.22/"$NAME".macro
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-0.21-settings/init.txt %%CHROOT_RCFILESDIR%%/crawl-0.21/"$NAME".rc
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-git.macro %%CHROOT_RCFILESDIR%%/crawl-0.21/"$NAME".macro
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-0.20-settings/init.txt %%CHROOT_RCFILESDIR%%/crawl-0.20/"$NAME".rc
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-git.macro %%CHROOT_RCFILESDIR%%/crawl-0.20/"$NAME".macro
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-0.19-settings/init.txt %%CHROOT_RCFILESDIR%%/crawl-0.19/"$NAME".rc
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-git.macro %%CHROOT_RCFILESDIR%%/crawl-0.19/"$NAME".macro
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-0.18-settings/init.txt %%CHROOT_RCFILESDIR%%/crawl-0.18/"$NAME".rc
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-git.macro %%CHROOT_RCFILESDIR%%/crawl-0.18/"$NAME".macro
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-0.17-settings/init.txt %%CHROOT_RCFILESDIR%%/crawl-0.17/"$NAME".rc
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-git.macro %%CHROOT_RCFILESDIR%%/crawl-0.17/"$NAME".macro
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-0.16-settings/init.txt %%CHROOT_RCFILESDIR%%/crawl-0.16/"$NAME".rc
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-git.macro %%CHROOT_RCFILESDIR%%/crawl-0.16/"$NAME".macro
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-0.15-settings/init.txt %%CHROOT_RCFILESDIR%%/crawl-0.15/"$NAME".rc
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-git.macro %%CHROOT_RCFILESDIR%%/crawl-0.15/"$NAME".macro
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-0.14-settings/init.txt %%CHROOT_RCFILESDIR%%/crawl-0.14/"$NAME".rc
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-git.macro %%CHROOT_RCFILESDIR%%/crawl-0.14/"$NAME".macro
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-0.13-settings/init.txt %%CHROOT_RCFILESDIR%%/crawl-0.13/"$NAME".rc
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-git.macro %%CHROOT_RCFILESDIR%%/crawl-0.13/"$NAME".macro
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-0.12-settings/init.txt %%CHROOT_RCFILESDIR%%/crawl-0.12/"$NAME".rc
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-git.macro %%CHROOT_RCFILESDIR%%/crawl-0.12/"$NAME".macro
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-0.11-settings/init.txt %%CHROOT_RCFILESDIR%%/crawl-0.11/"$NAME".rc
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-git.macro %%CHROOT_RCFILESDIR%%/crawl-0.11/"$NAME".macro
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-0.10-settings/init.txt %%CHROOT_RCFILESDIR%%/crawl-0.10/"$NAME".rc
-ifnxcp %%CHROOT_DGLDIR%%/data/crawl-git.macro %%CHROOT_RCFILESDIR%%/crawl-0.10/"$NAME".macro
+for v in $VERSIONS; do
+    cp --no-clobber "%%CHROOT_DGLDIR%%/data/crawl-$v-settings/init.txt" "%%CHROOT_RCFILESDIR%%/crawl-$v/$NAME.rc"
+    cp --no-clobber "%%CHROOT_DGLDIR%%/data/crawl-git.macro" "%%CHROOT_RCFILESDIR%%/crawl-$v/$NAME.macro"
+done
 
-mkdir -p %%CHROOT_MORGUEDIR%%/"$NAME"
-mkdir -p %%CHROOT_TTYRECDIR%%/"$NAME"
+mkdir -p "%%CHROOT_MORGUEDIR%%/$NAME"
+mkdir -p "%%CHROOT_TTYRECDIR%%/$NAME"
