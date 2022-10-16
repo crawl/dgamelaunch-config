@@ -102,8 +102,9 @@ install-game() {
     mkdir -p $SAVEDIR/{,sprint,zotdef}
     mkdir -p $DATADIR
 
-    create-dgl-directories
-    fix-chroot-directory-permissions
+    # These functions are incorrect for cao-specific reasons, disable
+    # create-dgl-directories
+    # fix-chroot-directory-permissions
     copy-game-binary
     copy-data-files
     link-logfiles
