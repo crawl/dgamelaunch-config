@@ -15,11 +15,11 @@
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 # ===========================================================================
 #
 
@@ -107,7 +107,7 @@ install-game() {
     copy-game-binary
     copy-data-files
     link-logfiles
-    
+
     chown -R $CRAWL_UGRP $SAVEDIR
     ln -snf $GAME_BINARY $CHROOT$CHROOT_CRAWL_BASEDIR/crawl-latest
 }
@@ -176,7 +176,7 @@ if [[ -n "${SGV_MAJOR}" && -n "${SGV_MINOR}" ]]; then
 
     GAME_BINARY=$GAME-$REVISION
     BINARIES_DIR=$CHROOT$CHROOT_BINARIES
-    
+
     WEBDIR=$CHROOT$CHROOT_CRAWL_BASEDIR/webserver
     GAMEDIR=$CHROOT$CHROOT_CRAWL_BASEDIR/$GAME_BINARY
     # Absolute path to save game directory

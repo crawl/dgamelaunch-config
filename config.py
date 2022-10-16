@@ -190,7 +190,7 @@ smtp_from_addr = "noreply@crawl.example.org" # The address from which automated
 # If false, use traditional DES (but then only the first eight characters
 # are significant).
 crypt_algorithm = "6"
-# If crypt_algorithm is true, the length of the salt string to use.  If
+# If crypt_algorithm is true, the length of the salt string to use. If
 # crypt_algorithm is false, a two-character salt is used.
 crypt_salt_length = 16
 

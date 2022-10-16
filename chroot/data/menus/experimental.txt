@@ -15,4 +15,4 @@ without warning: don't get too attached to your character. Thanks for helping
 us evaluate potential new features!
 
 q) Return to trunk menu
-=> 
+=>

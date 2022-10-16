@@ -11,11 +11,11 @@
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 # ===========================================================================
 #
 
@@ -58,7 +58,7 @@ savedir-containing() {
     local char="$1"
     local -a saves
     saves=($PREFIX/$BINARY_SAVE_NAME{,-*}/saves/$char{,-$USER_ID}.{cs,chr,sav})
-	local savefile
+        local savefile
     savefile="$(first-existing-file "${saves[@]}")"
     [[ -n "$savefile" ]] && dirname "$savefile"
     return 0
@@ -131,14 +131,13 @@ if [[ -n "$SAVE_FOUND" && -f "$SAVE_FOUND" ]]; then
 
     if test $? -ne 0
     then
-	echo -e " ${C_RED}failed!${C_NORMAL}"
+        echo -e " ${C_RED}failed!${C_NORMAL}"
     else
-	echo -e " ${C_GREEN}successful.${C_NORMAL}"
-	echo "- ${HTTP_LINK}/$TARNAME"
-	echo
-	echo "Please provide this link in your bug-report or give it to a developer."
+        echo -e " ${C_GREEN}successful.${C_NORMAL}"
+        echo "- ${HTTP_LINK}/$TARNAME"
+        echo
+        echo "Please provide this link in your bug-report or give it to a developer."
     fi
 else
     echo "Your character ($CHAR_NAME) was not found in $SAVES."
 fi
-

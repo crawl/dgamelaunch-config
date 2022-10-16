@@ -42,7 +42,7 @@ change-password() {
     local password_clear="$2"
 
     assert-password-safe "$password_clear"
-	local password_crypt
+        local password_crypt
     password_crypt="$(perl -le 'print crypt($ARGV[0], substr($ARGV[0], 0, 2))' "$password_clear")"
     sqlite3 "$LOGIN_DB" <<EOF
 UPDATE dglusers
@@ -53,7 +53,7 @@ EOF
 
 assert-sane-user-match() {
     local user=$1
-	local count
+        local count
     count=$(count-users "$user")
     if (( count != 1 )); then
         if (( count == 0 )); then
@@ -63,7 +63,7 @@ assert-sane-user-match() {
         fi
     fi
 }
-    
+
 USER=$1
 assert-sane-user-match "$USER"
 

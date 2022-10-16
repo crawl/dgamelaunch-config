@@ -15,11 +15,11 @@
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 # ===========================================================================
 #
 
@@ -75,31 +75,31 @@ copy-data-files() {
 }
 
 create-dgl-directories() {
-	local short_version
-	short_version="${VERSION//0./}"  # 0.17 --> 17
-	# TODO: use long version (0.17) for everything.
-	mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version-sprint/"
-	mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version-tut/"
-	mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version-zotdef/"
-	mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version/"
-	mkdir -p "$CHROOT/dgldir/rcfiles/crawl-0.$short_version/"
-	mkdir -p "$CHROOT/dgldir/data/crawl-0.$short_version-settings/"
+        local short_version
+        short_version="${VERSION//0./}"  # 0.17 --> 17
+        # TODO: use long version (0.17) for everything.
+        mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version-sprint/"
+        mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version-tut/"
+        mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version-zotdef/"
+        mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version/"
+        mkdir -p "$CHROOT/dgldir/rcfiles/crawl-0.$short_version/"
+        mkdir -p "$CHROOT/dgldir/data/crawl-0.$short_version-settings/"
 }
 
 fix-chroot-directory-permissions() {
-	chown -R crawl:crawl "$CHROOT/crawl-master"
-	chown -R crawl:crawl "$CHROOT/dgldir"
+        chown -R crawl:crawl "$CHROOT/crawl-master"
+        chown -R crawl:crawl "$CHROOT/dgldir"
 }
 
 install-game() {
     mkdir -p $SAVEDIR/{,sprint,zotdef}
     mkdir -p $DATADIR
 
-	create-dgl-directories
-	fix-chroot-directory-permissions
+        create-dgl-directories
+        fix-chroot-directory-permissions
     copy-game-binary
     copy-data-files
-    
+
     chown -R $CRAWL_UGRP $SAVEDIR
 }
 
