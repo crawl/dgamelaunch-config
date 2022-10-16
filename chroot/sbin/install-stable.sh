@@ -95,8 +95,8 @@ install-game() {
     mkdir -p $SAVEDIR/{,sprint,zotdef}
     mkdir -p $DATADIR
 
-        create-dgl-directories
-        fix-chroot-directory-permissions
+    create-dgl-directories
+    fix-chroot-directory-permissions
     copy-game-binary
     copy-data-files
 
