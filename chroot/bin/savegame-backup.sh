@@ -58,7 +58,7 @@ savedir-containing() {
     local char="$1"
     local -a saves
     saves=($PREFIX/$BINARY_SAVE_NAME{,-*}/saves/$char{,-$USER_ID}.{cs,chr,sav})
-        local savefile
+    local savefile
     savefile="$(first-existing-file "${saves[@]}")"
     [[ -n "$savefile" ]] && dirname "$savefile"
     return 0
