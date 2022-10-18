@@ -74,6 +74,7 @@ COPY --chown=crawl-dev:crawl-dev ./chroot /home/crawl-dev/dgamelaunch-config/chr
 COPY --chown=crawl-dev:crawl-dev ./crawl-build /home/crawl-dev/dgamelaunch-config/crawl-build/
 COPY --chown=crawl-dev:crawl-dev ./help /home/crawl-dev/dgamelaunch-config/help/
 COPY --chown=crawl-dev:crawl-dev ./lib /home/crawl-dev/dgamelaunch-config/lib/
+COPY --chown=crawl-dev:crawl-dev ./games.d /home/crawl-dev/dgamelaunch-config/games.d/
 COPY --chown=crawl-dev:crawl-dev ./config.py ./crawl-git.conf ./dgamelaunch.conf ./dgl-manage.conf sh-utils /home/crawl-dev/dgamelaunch-config/
 COPY --chown=crawl-dev:crawl-dev ./utils/webtiles ./utils/trigger-rebuild.pl ./utils/auth-save-downloader.pl /home/crawl-dev/dgamelaunch-config/utils/
 
