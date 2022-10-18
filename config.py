@@ -10,13 +10,6 @@ bind_nonsecure = True # Set to false to only use SSL
 bind_address = ""
 bind_port = 8080
 
-# ugh, sucks that this is necessary.
-# overmatches on "snigger" and probably other stuff but I don't care
-def nick_check_fun(s):
-    s = s.replace("3", "e").replace("1", "i").replace("2", "r").replace("6", "g").lower()
-    # could also check more systematically for letter repeats
-    return "nigger" not in s and "niger" not in s
-
 # new_accounts_disabled = True
 #new_accounts_hold = True
 new_accounts_hold = False
