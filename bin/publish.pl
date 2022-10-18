@@ -26,10 +26,28 @@ my @COPY_TARGETS = ([ 'dgamelaunch.conf', '//etc' ],
                     [ 'utils/trigger-rebuild.pl', '//usr/lib/cgi-bin' ],
                     [ 'utils/webtiles', '//etc/init.d' ],
                     [ 'config.py', "/crawl-master/webserver" ],
+                    [ 'config.yml', "/crawl-master/webserver" ],
+                    [ 'games.d/*.{yml,yaml}', "/crawl-master/webserver/games.d" ],
+                    [ 'banned_players.yml', "/crawl-master/webserver" ],
+                    [ 'banned_players.txt', "/crawl-master/webserver" ],
                     [ 'chroot/data/menus/*.txt', "/dgldir/data/menus" ],
                     [ 'chroot/data/*.{rc,macro}', "/dgldir/data" ],
                     [ 'chroot/bin/*.sh', '/bin' ],
                     [ 'chroot/sbin/*.sh', '/sbin' ]);
+
+# if a file is in this list, it will be ignored if it doesn't exist, rather
+# than erroring. globs not expanded.
+my @OPTIONAL_TARGETS = ('config.yml',
+                        'banned_players.yml',
+                        'banned_players.txt');
+my @optional_skipped = ();
+
+foreach my $targ ( @OPTIONAL_TARGETS ) {
+  if (! -e $targ) {
+    @COPY_TARGETS = grep($$_[0] !~ /\Q$targ/, @COPY_TARGETS);
+    push(@optional_skipped, $targ);
+  }
+}
 
 if ($OPT{match}) {
   @COPY_TARGETS = grep($$_[0] =~ /\Q$OPT{match}/, @COPY_TARGETS);
@@ -119,6 +137,9 @@ sub summarize_publishees() {
     my ($summary, $stat) = publishee_summary($copy_target);
     print("$index) $summary\n");
     $dirty = 1 if change_exists($stat);
+  }
+  if (@optional_skipped > 0) {
+    print("Skipping optional files: @optional_skipped");
   }
   $dirty
 }
