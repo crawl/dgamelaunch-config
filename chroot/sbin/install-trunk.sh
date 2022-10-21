@@ -186,6 +186,9 @@ if [[ -n "${SGV_MAJOR}" && -n "${SGV_MINOR}" ]]; then
     echo "Installing game"
     install-game
     register-game-version
+
+    echo "Cleaning up source dir"
+    rm -f source/$GAME_BINARY
 else
     echo "Could not figure out version tags. Installation cancelled."
     echo "Aborting installation!"
