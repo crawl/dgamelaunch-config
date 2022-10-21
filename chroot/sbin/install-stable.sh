@@ -92,6 +92,7 @@ fix-chroot-directory-permissions() {
 
 install-game() {
     mkdir -p $SAVEDIR/{,sprint}
+    rm -rf $DATADIR
     mkdir -p $DATADIR
 
     create-dgl-directories
