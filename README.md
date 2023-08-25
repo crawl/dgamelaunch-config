@@ -1,5 +1,7 @@
 # dgamelaunch-config
 
+These scripts have been dockerised, with volumes to store permanent data, to allow for ease of deployment along with a very simple azure template to host the docker container on a vm.
+
 This is a collection of scripts to manage a dgamelaunch
 (http://nethackwiki.com/wiki/Dgamelaunch) install, all run from an
 umbrella `dgl` script.

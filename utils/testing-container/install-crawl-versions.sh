@@ -31,4 +31,4 @@ sleep 5
 sleep 5
 /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc kimchicrawl crawl-forks/kimchicrawl/bugfix
 sleep 5
-/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc bcadrencrawl crawl-forks/bcadrencrawl/bugfix
+/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc bcadrencrawl bcadrencrawl/bcrawl
