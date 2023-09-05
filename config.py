@@ -13,6 +13,7 @@ bind_port = 8080
 # new_accounts_disabled = True
 #new_accounts_hold = True
 new_accounts_hold = False
+allow_anon_spectate = False
 
 hup_reloads_config = True
 load_logging_rate = 30 # seconds, set to 0 to explicitly disable
@@ -25,6 +26,8 @@ logging_config = {
     "level": logging.INFO,
     "format": "%(asctime)s %(levelname)s: %(message)s"
 }
+
+enable_ttyrecs = False
 
 password_db = "%%CHROOT_LOGIN_DB%%"
 
@@ -112,9 +115,13 @@ games = dict([
         inprogress_path = "%%CHROOT_INPROGRESSDIR%%-crawl-git-sprint/",
         options = ["-sprint"])),
 
-    ("dcss-0.29", dict(
-        template = "stable", version = "0.29",
+    ("dcss-0.30", dict(
+        template = "stable", version = "0.30",
         name = "DCSS %v (current release)")),
+    ("seeded-0.30", dict(template = "stable_seeded", version = "0.30")),
+    ("spr-0.30", dict(template = "stable_sprint", version = "0.30")),
+
+    ("dcss-0.29", dict(template = "stable", version = "0.29")),
     ("seeded-0.29", dict(template = "stable_seeded", version = "0.29")),
     ("spr-0.29", dict(template = "stable_sprint", version = "0.29")),
 
@@ -234,7 +241,7 @@ milestone_file = [
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-sprint"
 ]
 
-status_file_update_rate = 5
+status_file_update_rate = 30
 
 recording_term_size = (80, 24)
 

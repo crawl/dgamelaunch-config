@@ -12,7 +12,10 @@
 . /lib/lsb/init-functions
 
 # kill -TERM doesn't work
-signal=ABRT
+# signal=ABRT
+
+# -TERM *does* work
+signal=TERM
 
 announce() {
 	echo "$@" >> %%ANNOUNCEMENTS_FILE%%
