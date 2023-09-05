@@ -81,11 +81,13 @@ link-logfiles() {
         ln -sf $COMMON_DIR/saves/$file $SAVEDIR
         ln -sf $COMMON_DIR/saves/$file-sprint $SAVEDIR
         ln -sf $COMMON_DIR/saves/$file-zotdef $SAVEDIR
+        ln -sf $COMMON_DIR/saves/$file-descent $SAVEDIR
     done
 }
 
 create-dgl-directories() {
     mkdir -p "$CHROOT/dgldir/inprogress/crawl-git-sprint/"
+    mkdir -p "$CHROOT/dgldir/inprogress/crawl-git-descent/"
     mkdir -p "$CHROOT/dgldir/inprogress/crawl-git-tut/"
     mkdir -p "$CHROOT/dgldir/inprogress/crawl-git-zotdef/"
     mkdir -p "$CHROOT/dgldir/inprogress/crawl-git/"
@@ -99,7 +101,7 @@ fix-chroot-directory-permissions() {
 }
 
 install-game() {
-    mkdir -p $SAVEDIR/{,sprint,zotdef}
+    mkdir -p $SAVEDIR/{,sprint,zotdef,descent}
     mkdir -p $DATADIR
 
     create-dgl-directories

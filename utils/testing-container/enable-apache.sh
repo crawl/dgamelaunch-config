@@ -16,12 +16,15 @@ sudo mkdir /var/www/crawl/meta/git/
 cd /var/www/crawl/meta/git/
 sudo ln -s $DGL_CHROOT/crawl-master/crawl-git/saves/logfile
 sudo ln -s $DGL_CHROOT/crawl-master/crawl-git/saves/logfile-sprint
+sudo ln -s $DGL_CHROOT/crawl-master/crawl-git/saves/logfile-descent
 sudo ln -s $DGL_CHROOT/crawl-master/crawl-git/saves/logfile-zotdef
 sudo ln -s $DGL_CHROOT/crawl-master/crawl-git/saves/milestones
 sudo ln -s $DGL_CHROOT/crawl-master/crawl-git/saves/milestones-sprint
+sudo ln -s $DGL_CHROOT/crawl-master/crawl-git/saves/milestones-descent
 sudo ln -s $DGL_CHROOT/crawl-master/crawl-git/saves/milestones-zotdef
 sudo ln -s $DGL_CHROOT/crawl-master/crawl-git/saves/scores
 sudo ln -s $DGL_CHROOT/crawl-master/crawl-git/saves/scores-sprint
+sudo ln -s $DGL_CHROOT/crawl-master/crawl-git/saves/scores-descent
 sudo ln -s $DGL_CHROOT/crawl-master/crawl-git/saves/scores-zotdef
 
 sudo mkdir /var/www/crawl/meta/0.25/

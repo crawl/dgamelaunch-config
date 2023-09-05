@@ -42,19 +42,19 @@ watch_socket_dirs = True
 # Game configs
 # %n in paths is replaced by the current username
 games = OrderedDict([
-    ("crawl-0.25", dict(
-        name = "DCSS 0.25",
-        crawl_binary = "/bin/crawl-stable-launcher.sh",
-        send_json_options = True,
-        pre_options  = [ "0.25" ],
-        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
-        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
-        morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
-        # Update this with the URL where your server morgues are published.
-        morgue_url = "http://crawl.uksouth.cloudapp.azure.com:8081/morgue/%n/",
-        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-0.25/",
-        ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
-        socket_path = "%%CHROOT_WEBDIR%%/sockets")),
+    # ("crawl-0.25", dict(
+    #     name = "DCSS 0.25",
+    #     crawl_binary = "/bin/crawl-stable-launcher.sh",
+    #     send_json_options = True,
+    #     pre_options  = [ "0.25" ],
+    #     rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
+    #     macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
+    #     morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
+    #     # Update this with the URL where your server morgues are published.
+    #     morgue_url = "http://crawl.uksouth.cloudapp.azure.com:8081/morgue/%n/",
+    #     inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-0.25/",
+    #     ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
+    #     socket_path = "%%CHROOT_WEBDIR%%/sockets")),
     ("dcssca", dict(
         name = "DCSS Circus Animals",
         crawl_binary = "/bin/crawl-stable-launcher.sh",
@@ -174,6 +174,18 @@ games = OrderedDict([
         inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-git/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets")),
+    ("descent-git", dict(
+        name = "DCSS Descent!",
+        crawl_binary = "/bin/crawl-git-launcher.sh",
+        send_json_options = True,
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
+        morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
+        morgue_url = "http://crawl.uksouth.cloudapp.azure.com:8081/morgue/%n/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-git-descent/",
+        ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
+        socket_path = "%%CHROOT_WEBDIR%%/sockets",
+        options = ["-descent"])),
     ("spr-git", dict(
         name = "Sprint trunk",
         crawl_binary = "/bin/crawl-git-launcher.sh",
@@ -216,7 +228,8 @@ milestone_file = [
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-bcadrencrawl/saves/milestones",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-tutorial",
-    "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-sprint"
+    "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-sprint",
+    "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-descent"
 ]
 
 status_file_update_rate = 5
