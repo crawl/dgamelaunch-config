@@ -9,6 +9,8 @@ source "$DGL_CONF_HOME/dgl-manage.conf"
 
 /enable-apache.sh
 
+/setup-cron.sh
+
 /etc/init.d/ssh start
 
 rm "$CHROOT_WEBDIR/run/webtiles.pid" #in case the container was stopped without cleaning up pid file in volume
