@@ -83,7 +83,7 @@ do
 
                 if test -d ${PREFIX}/${BINARY_MAIN_NAME}-${POSSIBLE_GAME_HASH}/saves/${GAME_MODE}
                 then
-                    mv -n ${PREFIX}/${BINARY_MAIN_NAME}-${OUR_GAME_HASH}/saves/${GAME_MODE}/${CHAR_NAME}* ${PREFIX}/${BINARY_MAIN_NAME}-${OUR_GAME_HASH}/saves/${GAME_MODE}/start-${CHAR_NAME}-ns.prf ${PREFIX}/${BINARY_MAIN_NAME}-${POSSIBLE_GAME_HASH}/saves/${GAME_MODE}/
+                    mv -n ${PREFIX}/${BINARY_MAIN_NAME}-${OUR_GAME_HASH}/saves/${GAME_MODE}/${CHAR_NAME}* ${PREFIX}/${BINARY_MAIN_NAME}-${POSSIBLE_GAME_HASH}/saves/${GAME_MODE}/
                     if test $? -eq 0
                     then
                         echo -e " ${C_GREEN}successful.${C_NORMAL}"
