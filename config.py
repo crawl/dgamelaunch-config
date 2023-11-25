@@ -42,19 +42,6 @@ watch_socket_dirs = True
 # Game configs
 # %n in paths is replaced by the current username
 games = OrderedDict([
-    # ("crawl-0.25", dict(
-    #     name = "DCSS 0.25",
-    #     crawl_binary = "/bin/crawl-stable-launcher.sh",
-    #     send_json_options = True,
-    #     pre_options  = [ "0.25" ],
-    #     rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
-    #     macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
-    #     morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
-    #     # Update this with the URL where your server morgues are published.
-    #     morgue_url = "http://crawl.uksouth.cloudapp.azure.com:8081/morgue/%n/",
-    #     inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-0.25/",
-    #     ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
-    #     socket_path = "%%CHROOT_WEBDIR%%/sockets")),
     ("dcssca", dict(
         name = "DCSS Circus Animals",
         crawl_binary = "/bin/crawl-stable-launcher.sh",
@@ -151,6 +138,18 @@ games = OrderedDict([
         inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-kimchicrawl/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets")),
+    ("testcrawl", dict(
+        name = "TestCrawl",
+        crawl_binary = "/bin/crawl-stable-launcher.sh",
+        send_json_options = True,
+        pre_options  = [ "testcrawl" ],
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-testcrawl/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-testcrawl/",
+        morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
+        morgue_url = "http://crawl.uksouth.cloudapp.azure.com:8081/morgue/%n/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-testcrawl/",
+        ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
+        socket_path = "%%CHROOT_WEBDIR%%/sockets")),
     ("bcadrencrawl", dict(
         name = "BcadrenCrawl",
         crawl_binary = "/bin/crawl-stable-launcher.sh",
@@ -216,7 +215,6 @@ dgl_status_file = "%%CHROOT_WEBDIR%%/run/status"
 
 # Set to None not to read milestones
 milestone_file = [
-    "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.25/saves/milestones",
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-dcssca/saves/milestones",
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-hellcrawl/saves/milestones",
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-gnollcrawl/saves/milestones",
@@ -225,6 +223,7 @@ milestone_file = [
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-xcrawl/saves/milestones",
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-stoatsoup/saves/milestones",
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-kimchicrawl/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-testcrawl/saves/milestones",
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-bcadrencrawl/saves/milestones",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-tutorial",

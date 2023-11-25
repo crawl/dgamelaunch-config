@@ -76,6 +76,8 @@ export LC_CTYPE="en_US.UTF-8"
 SAVES="saves"
 
 [[ "$@" =~ -sprint$wb ]] && SAVES="$SAVES/sprint"
+[[ "$@" =~ -descent$wb ]] && SAVES="$SAVES/descent"
+[[ "$@" =~ -tut$wb ]] && SAVES="$SAVES/tut"
 [[ "$@" =~ -zotdef$wb ]] && SAVES="$SAVES/zotdef"
 
 if [[ $# == 0 || -z "$CHAR_NAME" ]]; then

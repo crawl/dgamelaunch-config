@@ -32,11 +32,11 @@ mkdir -p "$DGL_CHROOT/crawl-master" \
 touch "$DGL_CHROOT/dgamelaunch" "$DGL_CHROOT/dgldebug.log"
 chown -R $CRAWL_UGRP "$DGL_CHROOT/dgldebug.log" "$DGL_CHROOT/dgldir" "$DGL_CHROOT/crawl-master"
 
-mkdir -p "$GAME_DIR"/saves/{sprint,zotdef}
+mkdir -p "$GAME_DIR"/saves/{sprint,descent,zotdef}
 ( cd "$GAME_DIR/saves" &&
-    touch logfile{,-sprint,-zotdef} \
-        milestones{,-sprint,-zotdef} \
-        scores{,-sprint,-zotdef} )
+    touch logfile{,-sprint,-descent,-zotdef} \
+        milestones{,-sprint,-descent,-zotdef} \
+        scores{,-sprint,-descent,-zotdef} )
 
 # Only the saves dir within GAME_DIR is chowned: data dir is not supposed
 # to be writable by CRAWL_UGRP.
