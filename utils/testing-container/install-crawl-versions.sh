@@ -1,7 +1,7 @@
 #!/bin/bash
 source "$DGL_CONF_HOME/dgl-manage.conf"
 
-cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-0.25
+cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-testcrawl
 cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-dcssca
 cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-hellcrawl
 cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-gnollcrawl
@@ -13,7 +13,7 @@ cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-kimch
 cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-bcadrencrawl
 /home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk
 sleep 5
-/home/crawl-dev/dgamelaunch-config/bin/dgl update-stable 0.25
+/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc testcrawl crawl-forks/feat/free_up_the_inventory
 sleep 5
 /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 dcssca crawl-forks/dcssca/bugfix
 sleep 5
