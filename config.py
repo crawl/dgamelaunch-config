@@ -109,6 +109,12 @@ games = dict([
         name = "Custom seed %v",
         inprogress_path = "%%CHROOT_INPROGRESSDIR%%-crawl-git-seeded/",
         options = ["-seed"])),
+    ("descent-git", dict(
+        template = "trunk",
+        show_save_info = False, # buggy...
+        name = "Descent (experimental)",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%-crawl-git-descent/",
+        options = ["-descent"])),
     ("spr-git", dict(
         template = "trunk",
         name = "Sprint %v",

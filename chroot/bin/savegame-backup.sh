@@ -67,8 +67,9 @@ savedir-containing() {
 SAVES="$(savedir-containing "$CHAR_NAME")"
 SPRINT_SAVES="$(savedir-containing sprint/"$CHAR_NAME")"
 ZOTDEF_SAVES="$(savedir-containing zotdef/"$CHAR_NAME")"
+DESCENT_SAVES="$(savedir-containing descent/"$CHAR_NAME")"
 
-if [[ -z "$SAVES" && -z "$SPRINT_SAVES" && -z "$ZOTDEF_SAVES" ]]; then
+if [[ -z "$SAVES" && -z "$SPRINT_SAVES" && -z "$ZOTDEF_SAVES" && -z "$DESCENT_SAVES" ]]; then
     echo "No saves to backup for $CHAR_NAME"
 fi
 
@@ -84,6 +85,7 @@ PROMPT="Backup"
 [[ -n "$SAVES" ]] && PROMPT="$PROMPT [n]ormal save"
 [[ -n "$SPRINT_SAVES" ]] && PROMPT="$PROMPT [s]print"
 [[ -n "$ZOTDEF_SAVES" ]] && PROMPT="$PROMPT [z]otdef"
+[[ -n "$DESCENT_SAVES" ]] && PROMPT="$PROMPT [d]escent"
 PROMPT="$PROMPT character?"
 
 read -r -n 1 -s -p "$PROMPT" REPLY
@@ -99,6 +101,10 @@ elif [[ -n "$ZOTDEF_SAVES" && ( "$REPLY" = "z" ) ]]; then
     SAVE_QUALIFIER="-zotdef"
     SAVES="$ZOTDEF_SAVES"
     CHAR="Zot Defense character"
+elif [[ -n "$DESCENT_SAVES" && ( "$REPLY" = "d" ) ]]; then
+    SAVE_QUALIFIER="-descent"
+    SAVES="$DESCENT_SAVES"
+    CHAR="Descent character"
 elif [[ "$REPLY" != "n" ]]; then
     echo -e "Bad choice, aborting."
     exit 1
@@ -116,6 +122,7 @@ SAVE_FOUND=${SAVE_MATCHES[0]}
 if [[ -n "$SAVE_FOUND" && -f "$SAVE_FOUND" ]]; then
     GAME_NAME="${SAVES%/zotdef}"
     GAME_NAME="${GAME_NAME%/sprint}"
+    GAME_NAME="${GAME_NAME%/descent}"
     GAME_NAME="$(dirname "$GAME_NAME")"
     GAME_NAME="${GAME_NAME##*/}"
 

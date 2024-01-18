@@ -14,6 +14,7 @@ ALL_CHARS="$(ls -1rt "$SAVEBASE"/*-"${DGL_UID}".sav \
                      "$SAVEBASE"/*.cs \
                      "$SAVEBASE"/sprint/*-"${DGL_UID}".chr \
                      "$SAVEBASE"/sprint/*.cs \
+                     "$SAVEBASE"/descent/*.cs \
                      "$SAVEBASE"/zotdef/*.cs 2>/dev/null | \
              grep -v "$LATEST_GAME_HASH" | \
              sed "s|${PREFIX}/${BINARY_BASE_NAME}-.*/saves/\(.*\)\..*|\1|;s|-${DGL_UID}||" | \

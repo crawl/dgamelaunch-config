@@ -77,6 +77,7 @@ SAVES="saves"
 
 [[ "$@" =~ -sprint$wb ]] && SAVES="$SAVES/sprint"
 [[ "$@" =~ -zotdef$wb ]] && SAVES="$SAVES/zotdef"
+[[ "$@" =~ -descent$wb ]] && SAVES="$SAVES/descent"
 
 if [[ $# == 0 || -z "$CHAR_NAME" ]]; then
     if [[ -z "$JUST_RUN_CRAWL_ALREADY" ]]; then
