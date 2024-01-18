@@ -121,6 +121,12 @@ games = dict([
         inprogress_path = "%%CHROOT_INPROGRESSDIR%%-crawl-git-sprint/",
         options = ["-sprint"])),
 
+    ("dcss-0.31", dict(
+        template = "stable", version = "0.31",
+        name = "DCSS %v (current release)")),
+    ("seeded-0.31", dict(template = "stable_seeded", version = "0.31")),
+    ("spr-0.31", dict(template = "stable_sprint", version = "0.31")),
+
     ("dcss-0.30", dict(
         template = "stable", version = "0.30",
         name = "DCSS %v (current release)")),
