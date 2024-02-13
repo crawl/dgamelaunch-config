@@ -102,6 +102,7 @@ COPY utils/testing-container/docker-entrypoint.sh /
 COPY utils/testing-container/docker-entrypoint-build-all.sh /
 COPY utils/testing-container/docker-entrypoint-build-trunk.sh /
 COPY utils/testing-container/enable-apache.sh /
+COPY utils/testing-container/setup-cron.sh /
 COPY utils/testing-container/install-crawl-versions.sh /
 
 # finally copy in utils, which will be often invalidated while working on the
