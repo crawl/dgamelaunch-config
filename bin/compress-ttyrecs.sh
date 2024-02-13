@@ -33,7 +33,7 @@ for ttyrec in "$TTYRECDIR"/*/*.ttyrec; do
         continue
     fi
     if bzip2 "$ttyrec"; then
-		(( ++succ ))
+        (( ++succ ))
         verbiate -n "+"
     else
         (( ++fail ))

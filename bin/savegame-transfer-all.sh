@@ -30,4 +30,3 @@ for char in ${ALL_CHARS}
 do
     dgl savegame-transfer "${char}"
 done
-

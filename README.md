@@ -61,7 +61,7 @@ itself
 2. `dgl create-chroot` command to set up a basic chroot jail with all the
    fixtures dgamelaunch wants (dgamelaunch already has a skeleton script
    that can serve as a basis, although this is unfortunately NetHack-biased).
-   
+
 3. Support for installing different games, including fetching their sources
    from their respective source repositories, compiling, installing into the
    chroot, etc.
