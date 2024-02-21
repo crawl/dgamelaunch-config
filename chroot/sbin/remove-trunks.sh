@@ -11,11 +11,11 @@
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 # ===========================================================================
 #
 
@@ -103,47 +103,47 @@ list_hashes()
     cd $CHROOT/$BASE_DIR
 
     if verbose; then
-	echo "Date             Version                       Amount  Players"
-	echo "**************************************************************"
+        echo "Date             Version                       Amount  Players"
+        echo "**************************************************************"
 
-	for folder in $(savegame-dirs); do
+        for folder in $(savegame-dirs); do
             local hash=${folder/$GAME_BASE/}
             local version_detail="$(hash-version-detail $hash)"
             local save_count="$(count-saves-in-dir "$folder")"
-	    /bin/ls -1tdl ${folder} 2>/dev/null | \
-		sed "s/$GAME_BASE//g;" | \
-		awk '{ printf "%3s %2s  %s    %17s %6s    ",
+            /bin/ls -1tdl ${folder} 2>/dev/null | \
+                sed "s/$GAME_BASE//g;" | \
+                awk '{ printf "%3s %2s  %s    %17s %6s    ",
                     $6, $7, $8,
                     "'"$version_detail"'",
                     "'"$save_count"'" }'
 
-	    for char in $(saves-in-dir "$folder" | strip-save-uid-extension)
-	    do
-		echo -n "${char#$folder/saves/} "
-	    done
+            for char in $(saves-in-dir "$folder" | strip-save-uid-extension)
+            do
+                echo -n "${char#$folder/saves/} "
+            done
 
-	    echo
-	done
+            echo
+        done
     else
-	echo "Date             Version                          Players in Games"
-	echo "*******************************************************************"
+        echo "Date             Version                          Players in Games"
+        echo "*******************************************************************"
 
-	for folder in $(savegame-dirs)
-	do
+        for folder in $(savegame-dirs)
+        do
             local hash=${folder/$GAME_BASE/}
             local version_detail="$(hash-version-detail $hash)"
             local save_count="$(count-saves-in-dir "$folder" '')"
             local sprint_save_count="$(count-saves-in-dir "$folder" 'sprint')"
             local zotdef_save_count="$(count-saves-in-dir "$folder" 'zotdef')"
-	    /bin/ls -1tdl ${folder} 2>/dev/null | \
-		sed "s/$GAME_BASE//g;" | \
-		awk '{ printf "%3s %2s  %s    %17s %6s in trunk, %3s in sprint, %3s in zotdef", $6, $7, $8,
+            /bin/ls -1tdl ${folder} 2>/dev/null | \
+                sed "s/$GAME_BASE//g;" | \
+                awk '{ printf "%3s %2s  %s    %17s %6s in trunk, %3s in sprint, %3s in zotdef", $6, $7, $8,
                     "'"$version_detail"'",
                     "'"$save_count"'",
                     "'"$sprint_save_count"'",
                     "'"$zotdef_save_count"'" }'
-	    echo
-	done
+            echo
+        done
     fi
 }
 
@@ -152,8 +152,8 @@ PARAMS="$(echo "$*" | sed 's/[$*\/();|+]//g')"
 if test $# -eq 0
 then
     if prompts-enabled; then
-	echo "Usage: $(basename $0) [-q] [-v] [hash] [hash] ..."
-	echo
+        echo "Usage: $(basename $0) [-q] [-v] [hash] [hash] ..."
+        echo
     fi
     list_hashes
     echo
@@ -179,32 +179,32 @@ do
             echo "$GAME_SAVEDIR contains save games, use -f to delete anyway"
             exit 1
         fi
-        
-	if prompts-enabled; then
-	    while { ps -fC $GAME_VER | awk '{ print $1" "$2"\t "$5" "$7"\t "$8" "$9" "$10 }' | grep ^"$DGL_USER"; }
-	    do
-		echo "There are still active crawl processes running..."
-		echo "-- Press RETURN to try again --"
-		read
-	    done
 
-	    echo "Removing ${version} from repository..."
-	    echo "delete from versions where hash=\"${version}\";"| sqlite3 ${VERSIONS_DB}
-	    rm $BINPATH/$GAME_VER
-	    rm -r $BASE_DIR/$GAME_VER
-	else
-	    if { ps -fC $GAME_VER | awk '{ print $1" "$2"\t "$5" "$7"\t "$8" "$9" "$10 }' | grep ^"$DGL_USER" >/dev/null; }
-	    then
-		echo "Revision ${version} is being played..."
-	    else
-		echo "Removing ${version} from repository..."
-		echo "delete from versions where hash=\"${version}\";"| sqlite3 ${VERSIONS_DB}
-		rm $BINPATH/$GAME_VER
-		rm -r $BASE_DIR/$GAME_VER
-	    fi
-	fi
+        if prompts-enabled; then
+            while { ps -fC $GAME_VER | awk '{ print $1" "$2"\t "$5" "$7"\t "$8" "$9" "$10 }' | grep ^"$DGL_USER"; }
+            do
+                echo "There are still active crawl processes running..."
+                echo "-- Press RETURN to try again --"
+                read
+            done
+
+            echo "Removing ${version} from repository..."
+            echo "delete from versions where hash=\"${version}\";"| sqlite3 ${VERSIONS_DB}
+            rm $BINPATH/$GAME_VER
+            rm -r $BASE_DIR/$GAME_VER
+        else
+            if { ps -fC $GAME_VER | awk '{ print $1" "$2"\t "$5" "$7"\t "$8" "$9" "$10 }' | grep ^"$DGL_USER" >/dev/null; }
+            then
+                echo "Revision ${version} is being played..."
+            else
+                echo "Removing ${version} from repository..."
+                echo "delete from versions where hash=\"${version}\";"| sqlite3 ${VERSIONS_DB}
+                rm $BINPATH/$GAME_VER
+                rm -r $BASE_DIR/$GAME_VER
+            fi
+        fi
     else
-	echo "Revision ${version} not found..."
+        echo "Revision ${version} not found..."
     fi
 done
 
