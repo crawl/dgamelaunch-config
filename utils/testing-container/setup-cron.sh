@@ -2,7 +2,7 @@
 
 # Define the commands and their schedules
 command1="/home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk"
-schedule1="*5 4 * * *"  # Runs daily at 04:05 AM
+schedule1="5 4 * * *"  # Runs daily at 04:05 AM
 
 command2="/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc stoatsoup stoatsoup/master"
 schedule2="5 3 * * *"     # Runs daily at 03:05 AM
@@ -16,9 +16,9 @@ if [ ! -e "$HOME/crontab.txt" ]; then
 fi
 
 # Add the commands and schedules to the crontab file
-{ crontab -l 2>/dev/null; echo "$schedule1 $command1"; } >> "$HOME/crontab.txt"
-{ crontab -l 2>/dev/null; echo "$schedule2 $command2"; } >> "$HOME/crontab.txt"
-{ crontab -l 2>/dev/null; echo "$schedule3 $command3"; } >> "$HOME/crontab.txt"
+{ echo "$schedule1 $command1"; } >> "$HOME/crontab.txt"
+{ echo "$schedule2 $command2"; } >> "$HOME/crontab.txt"
+{ echo "$schedule3 $command3"; } >> "$HOME/crontab.txt"
 
 crontab -r
 # Install the updated crontab file
