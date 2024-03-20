@@ -64,7 +64,7 @@ copy-data-files() {
     cp -r README.txt README.md $DATADIR 2>/dev/null || true
     cp -r settings/. $DGL_SETTINGS_DIR/$GAME-settings
     cp -r source/webserver/game_data/. $DATADIR/web
-    cp -r source/webserver/!(config.py|game_data|templates) $WEBDIR
+    cp -r source/webserver/!(config.py|game_data|templates|games.d) $WEBDIR
     cp source/webserver/templates/client.html $WEBDIR/templates/
     cp source/webserver/templates/game_links.html $WEBDIR/templates/
 
