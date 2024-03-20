@@ -272,8 +272,9 @@ max_connections = 200
 # at the moment.
 init_player_program = "/bin/init-webtiles.sh"
 
-connection_timeout = 600
-max_idle_time = 5 * 60 * 60
+connection_timeout = 300
+max_idle_time = 2 * 60 * 60
+max_lobby_idle_time = 1 * 60 * 60
 
 # Seconds until stale HTTP connections are closed
 # This needs a patch currently not in mainline tornado.
