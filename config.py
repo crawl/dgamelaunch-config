@@ -6,9 +6,17 @@ except ImportError:
 
 dgl_mode = True
 
-bind_nonsecure = True # Set to false to only use SSL
+bind_nonsecure = "redirect" # Set to false to only use SSL
 bind_address = ""
 bind_port = 8080
+
+ssl_address = ""
+ssl_port = 8443
+ssl_options = {
+    "certfile": "/etc/ssl/crawl.akrasiac.org.cer",
+    "keyfile": "/etc/ssl/crawl.akrasiac.org.key",
+    "ca_certs": "/etc/ssl/fullchain.cer"
+}
 
 # new_accounts_disabled = True
 #new_accounts_hold = True
@@ -19,7 +27,7 @@ hup_reloads_config = True
 load_logging_rate = 30 # seconds, set to 0 to explicitly disable
 slow_callback_alert = 0.25 # seconds, set to None to explicitly disable
 
-lobby_url = "http://crawl.akrasiac.org:8080"
+lobby_url = "https://crawl.akrasiac.org:8443"
 
 logging_config = {
     "filename": "%%CHROOT_WEBDIR%%/run/webtiles.log",
@@ -52,7 +60,7 @@ templates = dict(
         show_save_info = True,
         allowed_with_hold = True,
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
-        morgue_url = "http://crawl.akrasiac.org/rawdata/%n/",
+        morgue_url = "https://crawl.akrasiac.org/rawdata/%n/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets",
         ),
@@ -69,7 +77,7 @@ templates = dict(
         rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-%v/",
         macro_path = "%%CHROOT_RCFILESDIR%%/crawl-%v/",
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
-        morgue_url = "http://crawl.akrasiac.org/rawdata/%n/",
+        morgue_url = "https://crawl.akrasiac.org/rawdata/%n/",
         inprogress_path = "%%CHROOT_INPROGRESSDIR%%-crawl%r/",
         ),
     stable_seeded = dict(
@@ -264,15 +272,6 @@ max_connections = 200
 # at the moment.
 init_player_program = "/bin/init-webtiles.sh"
 
-ssl_options = None # No SSL
-# ssl_options = {
-#     "certfile": "/etc/ssl/private/s-z.org.crt",
-#     "keyfile": "/etc/ssl/private/s-z.org.key",
-#     "ca_certs": "/etc/ssl/private/sub.class1.server.ca.pem"
-# }
-# ssl_address = ""
-# ssl_port = 8443
-
 connection_timeout = 600
 max_idle_time = 5 * 60 * 60
 
@@ -305,4 +304,4 @@ chroot = "%%DGL_CHROOT%%"
 pidfile = "%%CHROOT_WEBDIR%%/run/webtiles.pid"
 daemon = True # If true, the server will detach from the session after startup
 
-player_url = "http://crawl.akrasiac.org/scoring/players/%s.html"
+player_url = "https://crawl.akrasiac.org/scoring/players/%s.html"
