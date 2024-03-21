@@ -27,13 +27,13 @@ export LC_ALL=en_US.UTF-8
 
 set -o nounset
 
-VERSION=$1
+GAME_NAME=$1
 shift
 
 CRAWL_GIT_DIR="%%CHROOT_CRAWL_BASEDIR%%"
 USER_DB="%%CHROOT_LOGIN_DB%%"
 CRAWL_BINARY_PATH="%%CHROOT_CRAWL_BINARY_PATH%%"
-BINARY_BASE_NAME="crawl-$VERSION"
+BINARY_BASE_NAME="crawl-$GAME_NAME"
 USER_ID="%%DGL_UID%%"
 
 export HOME="%%CHROOT_COREDIR%%"
@@ -105,7 +105,7 @@ user-is-wizard() {
 BINARY_NAME="$CRAWL_BINARY_PATH/$BINARY_BASE_NAME"
 GAME_FOLDER="$CRAWL_GIT_DIR/$BINARY_BASE_NAME"
 
-if ( user-is-admin || user-is-wizard ) && [[ $* != *-wizard* ]]; then
+if ( user-is-admin || user-is-wizard ) && [[ "$*" != *-wizard* ]]; then
     set -- "$@" -wizard
 fi
 

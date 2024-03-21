@@ -27,13 +27,10 @@ export LC_ALL=en_US.UTF-8
 
 set -o nounset
 
-VERSION=$1
-shift
-
 CRAWL_GIT_DIR="%%CHROOT_CRAWL_BASEDIR%%"
 USER_DB="%%CHROOT_LOGIN_DB%%"
 CRAWL_BINARY_PATH="%%CHROOT_CRAWL_BINARY_PATH%%"
-BINARY_BASE_NAME="crawl-$VERSION"
+BINARY_BASE_NAME="crawl-bot-git"
 USER_ID="%%DGL_UID%%"
 
 export HOME="%%CHROOT_COREDIR%%"
@@ -56,6 +53,15 @@ cecho() {
 }
 wecho() {
     [[ -n "$WEBTILES" ]] && echo "$@"
+}
+
+wcat() {
+    if [[ -n "$WEBTILES" ]]; then
+        tr '\n' ' ' | sed -e 's/ $//'
+        echo
+    else
+	cat >/dev/null
+    fi
 }
 
 TRANSFER_ENABLED="1"
@@ -102,10 +108,32 @@ user-is-wizard() {
     [[ -n "$found" ]]
 }
 
+user-is-bot() {
+    local found="$(echo "SELECT username FROM dglusers
+                         WHERE username='$CHAR_NAME' AND (flags & 64) = 64;" |
+                   sqlite3 "$USER_DB")"
+    [[ -n "$found" ]]
+}
+
 BINARY_NAME="$CRAWL_BINARY_PATH/$BINARY_BASE_NAME"
 GAME_FOLDER="$CRAWL_GIT_DIR/$BINARY_BASE_NAME"
 
-if ( user-is-admin || user-is-wizard ) && [[ $* != *-wizard* ]]; then
+if ! user-is-bot; then
+    wecho '{"msg":"layer", "layer":"crt"}'
+    wecho -n '{"msg":"show_dialog", "html":"'
+    wcat <<EOF
+<p>You don't have permission to play this game.</p>
+<input type='button' class='button' value='Ok' data-key='Y' style='float:right;'>
+"}
+EOF
+    cecho "You don't have permission to play this game."
+    cecho -n "--- any key to continue ---"
+    read -n 1 -s
+    wecho '{"msg":"hide_dialog"}'
+    exit 1
+fi
+
+if ( user-is-admin || user-is-wizard ) && [[ "$*" != *-wizard* ]]; then
     set -- "$@" -wizard
 fi
 

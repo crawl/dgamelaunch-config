@@ -31,13 +31,12 @@ CHROOT="%%DGL_CHROOT%%"
 CHROOT_BINARIES="%%CHROOT_CRAWL_BINARY_PATH%%"
 CHROOT_CRAWL_BASEDIR="%%CHROOT_CRAWL_BASEDIR%%"
 DESTDIR="%%CRAWL_BASEDIR%%"
-VERSIONS_DB="%%VERSIONS_DB%%"
 CRAWL_UGRP="%%CRAWL_UGRP%%"
 DGL_SETTINGS_DIR="%%DGL_SETTINGS_DIR%%"
 
-VERSION="$1"
+GAME_NAME="$1"
 
-GAME="crawl-$VERSION"
+GAME="crawl-$GAME_NAME"
 
 # Safe path:
 PATH=/bin:/sbin:/usr/bin:/usr/sbin
@@ -75,23 +74,17 @@ copy-data-files() {
 }
 
 create-dgl-directories() {
-    local short_version
-    short_version="${VERSION//0./}"  # 0.17 --> 17
-    # TODO: use long version (0.17) for everything.
-    mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version-sprint/"
-    mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version-tut/"
-    mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version/"
-    mkdir -p "$CHROOT/dgldir/rcfiles/crawl-0.$short_version/"
-    mkdir -p "$CHROOT/dgldir/data/crawl-0.$short_version-settings/"
+        mkdir -p "$CHROOT/dgldir/inprogress/$GAME"
+        mkdir -p "$CHROOT/dgldir/data/$GAME-settings/"
 }
 
 fix-chroot-directory-permissions() {
-    chown -R crawl:crawl "$CHROOT/crawl-master"
-    chown -R crawl:crawl "$CHROOT/dgldir"
+        chown -R crawl:crawl "$CHROOT/crawl-master"
+        chown -R crawl:crawl "$CHROOT/dgldir"
 }
 
 install-game() {
-    mkdir -p $SAVEDIR/{,sprint}
+    mkdir -p $SAVEDIR
     rm -rf $DATADIR
     mkdir -p $DATADIR
 
@@ -113,12 +106,12 @@ assert-not-evil() {
     fi
 }
 
-if [[ -z "$VERSION" ]]; then
-    echo -e "Missing version argument"
+if [[ -z "$GAME_NAME" ]]; then
+    echo -e "Missing game name argument"
     exit 1
 fi
 
-assert-not-evil "$VERSION"
+assert-not-evil "$GAME_NAME"
 
 if [[ ! ( "$CRAWL_UGRP" =~ ^[a-z0-9]+:[a-z0-9]+$ ) ]]; then
     echo -e "Expected CRAWL_UGRP to be user:group, but got $CRAWL_UGRP"
