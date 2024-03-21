@@ -15,9 +15,11 @@ jobs:
 
     # Try to build the testing-container setup and see if it can
     # be started healthily
-    - name: Docker container test
+    - name: Docker container build
       run: |
         utils/build-testing-container.sh --no-tty
+    - name: Docker container test
+      run: |
         docker run -d --privileged dgl-test --background
         sleep 32 # TODO: can we check this more quickly?
         docker ps --filter "health=healthy" | grep `docker ps -lq`
