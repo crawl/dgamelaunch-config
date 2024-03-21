@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ "$1" = '--provision-chroot' ]; then
     /home/crawl-dev/dgamelaunch-config/utils/provision-chroot.sh
-    exit 0
+    exit $?
 fi
 
 if [ -d "/home/crawl/DGL/proc/" ]; then

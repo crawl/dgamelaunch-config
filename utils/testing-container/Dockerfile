@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:22.04
 
 # See README.md for what this does and why
 
@@ -12,9 +12,17 @@ ARG DEBIAN_FRONTEND=noninteractive
 ARG TERM=dumb
 
 # basic prerequisites
+RUN apt-get update
+RUN apt-get install -y locales locales-all
+ENV LANG=en_US.UTF-8
+RUN sed -i -e "s/# $LANG.*/$LANG.UTF-8 UTF-8/" /etc/locale.gen \
+    && dpkg-reconfigure --frontend=noninteractive locales \
+    && update-locale LANG=$LANG
+
 # TODO: actually set up ccache, this just installs it
-RUN apt-get update && apt-get install -y sudo git build-essential autoconf automake bison libncursesw5-dev flex liblua5.1-0-dev libsqlite3-dev libz-dev locales vim locales-all pkg-config python3 python3-pip python3-yaml ccache libpng-dev sqlite3 libpcre3 libpcre3-dev apache2 advancecomp pngcrush debootstrap openssh-server curl \
-    && pip3 install tornado \
+RUN apt-get install -y sudo git build-essential autoconf automake bison libncursesw5-dev flex liblua5.1-0-dev libsqlite3-dev libz-dev vim pkg-config python3 python3-pip python3-yaml ccache libpng-dev sqlite3 libpcre3 libpcre3-dev apache2 advancecomp pngcrush debootstrap openssh-server curl
+
+RUN pip3 install tornado \
     && ln -s /usr/bin/python3 /usr/bin/python \
     && useradd -m crawl \
     && useradd -m crawl-dev \
@@ -27,10 +35,6 @@ RUN apt-get update && apt-get install -y sudo git build-essential autoconf autom
     && usermod -G crawl-dev -a root \
     && usermod -G crawl-dev -a www-data
 
-ENV LANG=en_US.UTF-8
-RUN sed -i -e "s/# $LANG.*/$LANG.UTF-8 UTF-8/" /etc/locale.gen \
-    && dpkg-reconfigure --frontend=noninteractive locales \
-    && update-locale LANG=$LANG
 
 # allow crawl-dev to run various things with sudo without a password. These
 # permissions may be too open for a production server.

@@ -25,35 +25,54 @@ CDEV_USER=$(id -u crawl-dev)
 if [ $? -ne 0 ]; then echo "No 'crawl-dev' user!"; exit 1; fi
 CDEV_GROUP=$(id -g crawl-dev)
 
-# must match the outer distribution.
-debootstrap bionic $DGL_CHROOT
+# version here must match the outer distribution. `jammy` = ubuntu 22.04
+# note, this command is not really rerunnable without resetting the chroot
+# directory...
+debootstrap jammy $DGL_CHROOT
+if [ $? -ne 0 ]; then
+    echo "Provisioning failed in debootstrap."
+    exit 1
+fi
 cp /etc/resolv.conf $DGL_CHROOT/etc/resolv.conf
 cp /etc/apt/sources.list $DGL_CHROOT/etc/apt/
 
 # these bind mounts would need to be manually added to the fstab in some setups
-mount --bind /proc/ $DGL_CHROOT/proc/
-mount --bind /dev/pts/ $DGL_CHROOT/dev/pts/
+if [ ! -e $DGL_CHROOT/proc/ ]; then
+    mount --bind /proc/ $DGL_CHROOT/proc
+fi
+if [ ! -e $DGL_CHROOT/dev/pts ]; then
+    mount --bind /dev/pts/ $DGL_CHROOT/dev/pts/
+fi
 
 cat << EOF | chroot $DGL_CHROOT/
 # minimal package list for running crawl and doing some basic maintenance; you
 # may want to curate this further.
-apt-get update && apt-get -y install bzip2 python3-minimal ncurses-term locales locales-all sqlite3 libpcre3 liblua5.1-0 autoconf build-essential lsof bison libncursesw5-dev libsqlite3-dev flex sudo libbot-basicbot-perl vim
-sed -i -e "s/# $LANG.*/$LANG.UTF-8 UTF-8/" /etc/locale.gen
-dpkg-reconfigure --frontend=noninteractive locales
-update-locale LANG=$LANG
+apt-get update && \
+apt-get -y install locales locales-all && \
+sed -i -e "s/# $LANG.*/$LANG.UTF-8 UTF-8/" /etc/locale.gen && \
+dpkg-reconfigure --frontend=noninteractive locales && \
+update-locale LANG=$LANG && \
+apt-get -y install bzip2 python3-minimal ncurses-term sqlite3 libpcre3 liblua5.1-0 autoconf build-essential lsof bison libncursesw5-dev libsqlite3-dev flex sudo libbot-basicbot-perl vim && \
 # match the uids to the containing system
-groupadd crawl -g $CRAWL_GROUP
-groupadd crawl-dev -g $CDEV_GROUP
-useradd crawl -u $CRAWL_USER -g $CRAWL_GROUP
+groupadd crawl -g $CRAWL_GROUP && \
+groupadd crawl-dev -g $CDEV_GROUP && \
+useradd crawl -u $CRAWL_USER -g $CRAWL_GROUP && \
 useradd crawl-dev -u $CDEV_USER -g $CDEV_GROUP
 EOF
+
+if [ $? -ne 0 ]; then
+    echo "Provisioning failed while installing packages."
+    exit 1
+fi
 
 # In order for the webtiles server to work when chrooted, it needs access to
 # any packages that are dynamically imported. In general this is very few, but
 # Tornado versions >3 rely heavily on dynamic imports. So we copy it into the
 # chroot from outside.
 # An alternative would be to install a full python setup into the chroot,
-# including this package, but this is extremely heavy.
+# including this package, but this is extremely heavy. Another alternative might
+# be to simply copy the outer python library in (though note the python-minimal
+# install above). However, we do want tornado to exactly match...
 #
 # I'm not sure if this is a reliable recipe for finding package locations in
 # general, but it seems to work for tornado.
