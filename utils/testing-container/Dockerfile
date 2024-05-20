@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:22.04
 
 # See README.md for what this does and why
 
@@ -13,7 +13,13 @@ ARG DEBIAN_FRONTEND=noninteractive
 ARG TERM=dumb
 
 # basic prerequisites
-RUN apt-get update && apt-get install -y --no-install-recommends sudo git bash build-essential autoconf automake bison libncursesw5-dev flex liblua5.1-0-dev libsqlite3-dev libz-dev locales vim locales-all pkg-config python3 python3-pip python3-yaml ccache libpng-dev sqlite3 libpcre3 libpcre3-dev apache2 advancecomp pngcrush openssh-server gcc-6 g++-6 curl libfl-dev cron\
+RUN apt-get update
+RUN apt-get install -y locales locales-all
+ENV LANG=en_US.UTF-8
+RUN sed -i -e "s/# $LANG.*/$LANG.UTF-8 UTF-8/" /etc/locale.gen \
+    && dpkg-reconfigure --frontend=noninteractive locales \
+    && update-locale LANG=$LANG
+RUN apt-get install -y --no-install-recommends sudo git bash build-essential autoconf automake bison libncursesw5-dev flex liblua5.1-0-dev libsqlite3-dev libz-dev locales vim locales-all pkg-config python3 python3-pip python3-yaml ccache libpng-dev sqlite3 libpcre3 libpcre3-dev apache2 advancecomp pngcrush openssh-server gcc-6 g++-6 curl libfl-dev cron\
     && pip3 install tornado \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
@@ -29,10 +35,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends sudo git bash b
     && usermod -G crawl-dev -a root \
     && usermod -G crawl-dev -a www-data
 
-ENV LANG=en_US.UTF-8
-RUN sed -i -e "s/# $LANG.*/$LANG.UTF-8 UTF-8/" /etc/locale.gen \
-    && dpkg-reconfigure --frontend=noninteractive locales \
-    && update-locale LANG=$LANG
 
 # CCache
 # Update symlinks
