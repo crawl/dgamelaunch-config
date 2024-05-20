@@ -8,6 +8,8 @@ dgl_mode = True
 
 bind_nonsecure = True # Set to false to only use SSL
 
+games_config_dir = None # Don't try to load Base.yaml
+
 bind_pairs = (
     # for a docker setup, you will probably need to use 0.0.0.0.
     #("0.0.0.0", 8080),
@@ -16,7 +18,7 @@ bind_pairs = (
 
 logging_config = {
     "filename": "%%CHROOT_WEBDIR%%/run/webtiles.log",
-    "level": logging.INFO,
+    "level": logging.DEBUG,
     "format": "%(asctime)s %(levelname)s: %(message)s"
 }
 
@@ -40,46 +42,126 @@ watch_socket_dirs = True
 # Game configs
 # %n in paths is replaced by the current username
 games = OrderedDict([
-    ("dcss-0.25", dict(
-        name = "DCSS 0.25",
+    ("dcssca", dict(
+        name = "DCSS Circus Animals",
         crawl_binary = "/bin/crawl-stable-launcher.sh",
         send_json_options = True,
-        pre_options  = [ "0.25" ],
-        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
-        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
+        pre_options  = [ "dcssca" ],
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-dcssca/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-dcssca/",
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
-        # Update this with the URL where your server morgues are published.
-        morgue_url = None,
-        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-25/",
+        morgue_url = "http://crawl.uksouth.cloudapp.azure.com:8081/morgue/%n/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-dcssca/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets")),
-    ("spr-0.25", dict(
-        name = "Sprint 0.25",
+    ("hellcrawl", dict(
+        name = "HellCrawl",
         crawl_binary = "/bin/crawl-stable-launcher.sh",
         send_json_options = True,
-        pre_options  = [ "0.25" ],
-        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
-        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
+        pre_options  = [ "hellcrawl" ],
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-hellcrawl/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-hellcrawl/",
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
-        morgue_url = None,
-        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-25-sprint/",
+        morgue_url = "http://crawl.uksouth.cloudapp.azure.com:8081/morgue/%n/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-hellcrawl/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
-        socket_path = "%%CHROOT_WEBDIR%%/sockets",
-        options = ["-sprint"])),
-    ("tut-0.25", dict(
-        name = "Tutorial 0.25",
+        socket_path = "%%CHROOT_WEBDIR%%/sockets")),
+    ("gnollcrawl", dict(
+        name = "GnollCrawl",
         crawl_binary = "/bin/crawl-stable-launcher.sh",
         send_json_options = True,
-        pre_options  = [ "0.25" ],
-        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
-        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-0.25/",
+        pre_options  = [ "gnollcrawl" ],
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-gnollcrawl/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-gnollcrawl/",
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
-        morgue_url = None,
-        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-25-tut/",
+        morgue_url = "http://crawl.uksouth.cloudapp.azure.com:8081/morgue/%n/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-gnollcrawl/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
-        socket_path = "%%CHROOT_WEBDIR%%/sockets",
-        options = ["-tutorial"])),
-
+        socket_path = "%%CHROOT_WEBDIR%%/sockets")),
+    ("bloatcrawl2", dict(
+        name = "BloatCrawl 2",
+        crawl_binary = "/bin/crawl-stable-launcher.sh",
+        send_json_options = True,
+        pre_options  = [ "bloatcrawl2" ],
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-bloatcrawl2/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-bloatcrawl2/",
+        morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
+        morgue_url = "http://crawl.uksouth.cloudapp.azure.com:8081/morgue/%n/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-bloatcrawl2/",
+        ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
+        socket_path = "%%CHROOT_WEBDIR%%/sockets")),
+    ("gooncrawl", dict(
+        name = "GoonCrawl",
+        crawl_binary = "/bin/crawl-stable-launcher.sh",
+        send_json_options = True,
+        pre_options  = [ "gooncrawl" ],
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-gooncrawl/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-gooncrawl/",
+        morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
+        morgue_url = "http://crawl.uksouth.cloudapp.azure.com:8081/morgue/%n/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-gooncrawl/",
+        ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
+        socket_path = "%%CHROOT_WEBDIR%%/sockets")),
+    ("xcrawl", dict(
+        name = "X-Crawl",
+        crawl_binary = "/bin/crawl-stable-launcher.sh",
+        send_json_options = True,
+        pre_options  = [ "xcrawl" ],
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-xcrawl/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-xcrawl/",
+        morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
+        morgue_url = "http://crawl.uksouth.cloudapp.azure.com:8081/morgue/%n/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-xcrawl/",
+        ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
+        socket_path = "%%CHROOT_WEBDIR%%/sockets")),
+    ("stoatsoup", dict(
+        name = "Stoat Soup",
+        crawl_binary = "/bin/crawl-stable-launcher.sh",
+        send_json_options = True,
+        pre_options  = [ "stoatsoup" ],
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-stoatsoup/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-stoatsoup/",
+        morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
+        morgue_url = "http://crawl.uksouth.cloudapp.azure.com:8081/morgue/%n/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-stoatsoup/",
+        ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
+        socket_path = "%%CHROOT_WEBDIR%%/sockets")),
+    ("kimchicrawl", dict(
+        name = "KimchiCrawl",
+        crawl_binary = "/bin/crawl-stable-launcher.sh",
+        send_json_options = True,
+        pre_options  = [ "kimchicrawl" ],
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-kimchicrawl/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-kimchicrawl/",
+        morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
+        morgue_url = "http://crawl.uksouth.cloudapp.azure.com:8081/morgue/%n/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-kimchicrawl/",
+        ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
+        socket_path = "%%CHROOT_WEBDIR%%/sockets")),
+    ("testcrawl", dict(
+        name = "TestCrawl",
+        crawl_binary = "/bin/crawl-stable-launcher.sh",
+        send_json_options = True,
+        pre_options  = [ "testcrawl" ],
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-testcrawl/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-testcrawl/",
+        morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
+        morgue_url = "http://crawl.uksouth.cloudapp.azure.com:8081/morgue/%n/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-testcrawl/",
+        ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
+        socket_path = "%%CHROOT_WEBDIR%%/sockets")),
+    ("bcadrencrawl", dict(
+        name = "BcadrenCrawl",
+        crawl_binary = "/bin/crawl-stable-launcher.sh",
+        send_json_options = True,
+        pre_options  = [ "bcadrencrawl" ],
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-bcadrencrawl/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-bcadrencrawl/",
+        morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
+        morgue_url = "http://crawl.uksouth.cloudapp.azure.com:8081/morgue/%n/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-bcadrencrawl/",
+        ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
+        socket_path = "%%CHROOT_WEBDIR%%/sockets")),
     ("dcss-git", dict(
         name = "DCSS trunk",
         crawl_binary = "/bin/crawl-git-launcher.sh",
@@ -87,10 +169,22 @@ games = OrderedDict([
         rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
         macro_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
-        morgue_url = None,
+        morgue_url = "http://crawl.uksouth.cloudapp.azure.com:8081/morgue/%n/",
         inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-git/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets")),
+    ("descent-git", dict(
+        name = "DCSS Descent!",
+        crawl_binary = "/bin/crawl-git-launcher.sh",
+        send_json_options = True,
+        rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
+        macro_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
+        morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
+        morgue_url = "http://crawl.uksouth.cloudapp.azure.com:8081/morgue/%n/",
+        inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-git-descent/",
+        ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
+        socket_path = "%%CHROOT_WEBDIR%%/sockets",
+        options = ["-descent"])),
     ("spr-git", dict(
         name = "Sprint trunk",
         crawl_binary = "/bin/crawl-git-launcher.sh",
@@ -98,7 +192,7 @@ games = OrderedDict([
         rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
         macro_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
-        morgue_url = None,
+        morgue_url = "http://crawl.uksouth.cloudapp.azure.com:8081/morgue/%n/",
         inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-git-sprint/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets",
@@ -110,7 +204,7 @@ games = OrderedDict([
         rcfile_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
         macro_path = "%%CHROOT_RCFILESDIR%%/crawl-git/",
         morgue_path = "%%CHROOT_MORGUEDIR%%/%n/",
-        morgue_url = None,
+        morgue_url = "http://crawl.uksouth.cloudapp.azure.com:8081/morgue/%n/",
         inprogress_path = "%%CHROOT_INPROGRESSDIR%%/crawl-git-tut/",
         ttyrec_path = "%%CHROOT_TTYRECDIR%%/%n/",
         socket_path = "%%CHROOT_WEBDIR%%/sockets",
@@ -121,12 +215,20 @@ dgl_status_file = "%%CHROOT_WEBDIR%%/run/status"
 
 # Set to None not to read milestones
 milestone_file = [
-    "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.25/saves/milestones",
-    "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.25/saves/milestones-tutorial",
-    "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.25/saves/milestones-sprint",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-dcssca/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-hellcrawl/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-gnollcrawl/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-bloatcrawl2/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-gooncrawl/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-xcrawl/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-stoatsoup/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-kimchicrawl/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-testcrawl/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-bcadrencrawl/saves/milestones",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-tutorial",
-    "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-sprint"
+    "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-sprint",
+    "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-descent"
 ]
 
 status_file_update_rate = 5

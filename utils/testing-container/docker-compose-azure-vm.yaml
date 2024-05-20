@@ -1,0 +1,25 @@
+version: "2"
+services:
+  dlg-forks-server:
+    image: rytisgit/dgl-forks:latest
+    tty: true
+    stdin_open: true
+    entrypoint: /docker-entrypoint.sh
+    ports:
+      - "10.0.0.4:8080:8080"
+      - "10.0.0.4:22:22"
+      - "10.0.0.4:8081:80"
+    volumes:
+      - versionsdb:/versionsdb/
+      - crawl-master:/crawl-master/
+      - dgldir:/dgldir/
+      - usr-games:/usr/games
+volumes:
+  versionsdb:
+    external: true
+  crawl-master:
+    external: true
+  dgldir:
+    external: true
+  usr-games:
+    external: true

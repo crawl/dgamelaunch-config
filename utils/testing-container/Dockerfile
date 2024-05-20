@@ -7,7 +7,8 @@ FROM ubuntu:22.04
 
 COPY utils/testing-container/healthcheck.sh /
 
-ENV DGL_CHROOT=/home/crawl/DGL
+ENV DGL_CHROOT=""
+ENV DGL_CONF_HOME=/home/crawl-dev/dgamelaunch-config/
 ARG DEBIAN_FRONTEND=noninteractive
 ARG TERM=dumb
 
@@ -18,11 +19,10 @@ ENV LANG=en_US.UTF-8
 RUN sed -i -e "s/# $LANG.*/$LANG.UTF-8 UTF-8/" /etc/locale.gen \
     && dpkg-reconfigure --frontend=noninteractive locales \
     && update-locale LANG=$LANG
-
-# TODO: actually set up ccache, this just installs it
-RUN apt-get install -y sudo git build-essential autoconf automake bison libncursesw5-dev flex liblua5.1-0-dev libsqlite3-dev libz-dev vim pkg-config python3 python3-pip python3-yaml ccache libpng-dev sqlite3 libpcre3 libpcre3-dev apache2 advancecomp pngcrush debootstrap openssh-server curl
-
-RUN pip3 install tornado \
+RUN apt-get install -y --no-install-recommends sudo git bash build-essential autoconf automake bison libncursesw5-dev flex liblua5.1-0-dev libsqlite3-dev libz-dev locales vim locales-all pkg-config python3 python3-pip python3-yaml ccache libpng-dev sqlite3 libpcre3 libpcre3-dev apache2 advancecomp pngcrush openssh-server gcc-6 g++-6 curl libfl-dev cron\
+    && pip3 install tornado \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && ln -s /usr/bin/python3 /usr/bin/python \
     && useradd -m crawl \
     && useradd -m crawl-dev \
@@ -35,6 +35,15 @@ RUN pip3 install tornado \
     && usermod -G crawl-dev -a root \
     && usermod -G crawl-dev -a www-data
 
+
+# CCache
+# Update symlinks
+RUN /usr/sbin/update-ccache-symlinks
+
+# Prepend ccache into the PATH
+RUN echo 'export PATH="/usr/lib/ccache:$PATH"' | tee -a ~/.bashrc
+RUN ccache -F 0
+RUN ccache -M 0
 
 # allow crawl-dev to run various things with sudo without a password. These
 # permissions may be too open for a production server.
@@ -81,31 +90,27 @@ COPY --chown=crawl-dev:crawl-dev ./lib /home/crawl-dev/dgamelaunch-config/lib/
 COPY --chown=crawl-dev:crawl-dev ./games.d /home/crawl-dev/dgamelaunch-config/games.d/
 COPY --chown=crawl-dev:crawl-dev ./config.py ./crawl-git.conf ./dgamelaunch.conf ./dgl-manage.conf sh-utils /home/crawl-dev/dgamelaunch-config/
 COPY --chown=crawl-dev:crawl-dev ./utils/webtiles ./utils/trigger-rebuild.pl ./utils/auth-save-downloader.pl /home/crawl-dev/dgamelaunch-config/utils/
+RUN ls -al && sed -i -e 's/"127.0.0.1"/"0.0.0.0"/' /home/crawl-dev/dgamelaunch-config/config.py 
+COPY utils/testing-container/httpd.conf /etc/apache2/sites-available
 
-RUN ls dgamelaunch-config/bin -al && sed -i -e 's/"127.0.0.1"/"0.0.0.0"/' dgamelaunch-config/config.py \
-    && dgamelaunch-config/bin/dgl create-versions-db \
-    && dgamelaunch-config/bin/dgl create-crawl-gamedir \
-    && dgamelaunch-config/bin/dgl publish --confirm
-
-# set up trunk and one stable version
-# TODO: a bit more flexibility here
-RUN cp -a $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-0.25 \
-    && dgamelaunch-config/bin/dgl update-trunk \
-    && dgamelaunch-config/bin/dgl update-stable 0.25
-
+# this is taken from build-crawl-dirs to here because it's the only directory that's outside of volumes due to not storing state
+RUN mkdir -p /cores
 # TODO: could add apache setup here
-
-# at this point, the chroot still needs to be provisioned. You can trigger this
-# by calling the entrypoint script with --provision-chroot in a privileged
-# container, then committing the output.
 
 # set up entry point -- this script starts webtiles and sshd, and sets up the
 # bind mounts.
 COPY utils/testing-container/docker-entrypoint.sh /
+COPY utils/testing-container/docker-entrypoint-build-all.sh /
+COPY utils/testing-container/docker-entrypoint-build-trunk.sh /
+COPY utils/testing-container/enable-apache.sh /
+COPY utils/testing-container/setup-cron.sh /
+COPY utils/testing-container/install-crawl-versions.sh /
 
 # finally copy in utils, which will be often invalidated while working on the
 # docker setup itself.
 COPY utils/* /home/crawl-dev/dgamelaunch-config/utils/
 
+# Next steps for creating versionsdb/crawl gamedir/publishing dgl files and building crawl is done after starting,
+# because volumes need to be mounted to preserve state.
 ENTRYPOINT ["/docker-entrypoint.sh"]
 HEALTHCHECK CMD /healthcheck.sh
