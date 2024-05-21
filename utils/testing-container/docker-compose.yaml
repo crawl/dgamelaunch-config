@@ -4,6 +4,7 @@ services:
     image: dgl-forks:latest
     tty: true
     stdin_open: true
+    entrypoint: /docker-entrypoint.sh
     ports:
       - "127.0.0.1:8080:8080"
       - "127.0.0.1:2222:22"
