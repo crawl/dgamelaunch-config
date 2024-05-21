@@ -28,11 +28,11 @@ update-crawl-ref() {
     say "Updating git repository $REPO_DIR"
     ( cd $REPO_DIR && git checkout -f &&
         git fetch --all &&
-        git checkout -B $BRANCH refs/remotes/$BRANCH &&
+        git checkout -f -B $BRANCH refs/remotes/$BRANCH &&
         git pull )
     if [[ -n "$REVISION" ]]; then
         say "Checking out requested revision: $REVISION"
-        ( cd $REPO_DIR && git checkout "$REVISION" )
+        ( cd $REPO_DIR && git checkout -f "$REVISION" )
     fi
 }
 
