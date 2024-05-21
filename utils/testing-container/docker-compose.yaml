@@ -4,7 +4,7 @@ services:
     image: dgl-forks:latest
     tty: true
     stdin_open: true
-    entrypoint: /docker-entrypoint.sh
+    entrypoint: /docker-entrypoint-build-trunk.sh
     ports:
       - "127.0.0.1:8080:8080"
       - "127.0.0.1:2222:22"
@@ -16,10 +16,6 @@ services:
       - usr-games:/usr/games
 volumes:
   versionsdb:
-    external: true
   crawl-master:
-    external: true
   dgldir:
-    external: true
   usr-games:
-    external: true
