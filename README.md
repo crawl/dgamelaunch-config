@@ -1,3 +1,46 @@
+# Docker Server Usage Guide
+
+### First Run:
+* build the dockerfile using `docker build --tag dgl-forks -f utils/testing-container/Dockerfile .` from the root of the git repo. Or using the build-testing-container.sh script
+* Create the 4 volumes using `docker volume create (versionsdb, crawl-master, dgldir, usr-games)` to store persistent data.
+* update the entrypoint in docker-compose.yaml from `/docker-entrypoint.sh` to `/docker-entrypoint-build-trunk` or `/docker-entrypoint-build-all`
+* Run `docker-compose -f utils/testing-container/docker-compose.yaml up` from the root of the git repo to get a working server.
+* Register and play the trunk version at localhost:8080
+
+### Subsequent runs:
+
+The entrypoint can be updated to just `/docker-entrypoint.sh`, so that server starts without rebuilding outdated binaries.
+
+### Controlling and debugging the server
+
+Use `Docker exec -it [container-hash] /bin/bash` to get a shell inside the container, to be able to run the commands, either locally or after ssh into the server where the container is running.
+
+Full flow:
+* `docker ps` to find the container running this server, example output:
+```
+CONTAINER ID   IMAGE              COMMAND                  CREATED          STATUS                    PORTS                                                                      NAMES
+1c3b1928910b   dgl-forks:latest   "/docker-entrypoint.…"   19 minutes ago   Up 19 minutes (healthy)   127.0.0.1:8080->8080/tcp, 127.0.0.1:2222->22/tcp, 127.0.0.1:8081->80/tcp   testing-container-dlg-forks-server-1
+```
+
+* The Container ID is `1c3b1928910b`, only 3 letter is needed, so we can use `docker exec -it 1c3 /bin/bash` to get a shell.
+* Once bash is open in the container we can debug or execute command as if on a normal server. My most common usage is to test if the build of forks are succesful, taking a single line from the `install-crawl-versions.sh` file like `/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 gnollcrawl crawl-forks/gnollcrawl/bugfix` and running it directly in the server.
+
+* Editing shell files inside the container with vim also works, but It's best to keep this kind of configuration in code, by pushing images to a repository like dockerhub, then pulling in the new image on the server and restarting, otherwise configuration drift will occur between the production server and the git repo.
+
+# Other issues
+
+* When adding new forks/branches to already running server(if you want to add a totally new fork that is not in the current scripts), the data is copied from trunk and prefilled with milestones, etc. To fix this the files need to be copied, but all data needs to be removed in logfiles and similar. [Issue description](https://github.com/Rytisgit/dgamelaunch-dcss-forks-server/issues/4)
+* The crontab is set up unreliably. Restarting the server seems to write multiple times to the crontab, without clearing it correctly. And it doesn't seem to activate on just invoking it with the entrypoint. Something to figure out, might be fixed already.
+* ccache is installed, but not actually setup to be used in the compilation. Using `ccache --show-stats` shows that no files are being cached or hit when compiling. Need to set up for faster builds.
+* Make sure that when building the image, the checkout files have the correct line endings. I've had dgl perl scripts not working due to building with windows line ending checkout when the docker was running on linux. Had to figure out by googling.
+
+# Misc/TODO
+
+* The ssh user and password are currently both `crawler` and it doesnt ask for a key.
+* No SSL setup.
+* No rebuild url hook setup.(A few server have the `trigger-rebuild.pl` script available for devs with a login to call when they want to trigger a rebuild)
+* No Mail setup for password reset(Only some server have this setup, it's mostly optional).
+
 # dgamelaunch-config
 
 These scripts have been dockerised, with volumes to store permanent data, to allow for ease of deployment along with a very simple azure template to host the docker container on a vm.
