@@ -97,16 +97,16 @@ RUN mkdir -p /cores
 
 # set up entry point -- this script starts webtiles and sshd, and sets up the
 # bind mounts.
-COPY --chown=crawl-dev:crawl-dev utils/testing-container/docker-entrypoint.sh /
-COPY --chown=crawl-dev:crawl-dev utils/testing-container/docker-entrypoint-build-all.sh /
-COPY --chown=crawl-dev:crawl-dev utils/testing-container/docker-entrypoint-build-trunk.sh /
-COPY --chown=crawl-dev:crawl-dev utils/testing-container/enable-apache.sh /
-COPY --chown=crawl-dev:crawl-dev utils/testing-container/setup-cron.sh /
-COPY --chown=crawl-dev:crawl-dev utils/testing-container/install-crawl-versions.sh /
+COPY --chown=crawl-dev:crawl-dev --chmod=755 utils/testing-container/docker-entrypoint.sh /
+COPY --chown=crawl-dev:crawl-dev --chmod=755 utils/testing-container/docker-entrypoint-build-all.sh /
+COPY --chown=crawl-dev:crawl-dev --chmod=755 utils/testing-container/docker-entrypoint-build-trunk.sh /
+COPY --chown=crawl-dev:crawl-dev --chmod=755 utils/testing-container/enable-apache.sh /
+COPY --chown=crawl-dev:crawl-dev --chmod=755 utils/testing-container/setup-cron.sh /
+COPY --chown=crawl-dev:crawl-dev --chmod=755 utils/testing-container/install-crawl-versions.sh /
 
 # finally copy in utils, which will be often invalidated while working on the
 # docker setup itself.
-COPY --chown=crawl-dev:crawl-dev utils/* /home/crawl-dev/dgamelaunch-config/utils/
+COPY --chown=crawl-dev:crawl-dev --chmod=755 utils/* /home/crawl-dev/dgamelaunch-config/utils/
 
 # Next steps for creating versionsdb/crawl gamedir/publishing dgl files and building crawl is done after starting,
 # because volumes need to be mounted to preserve state.
