@@ -10,12 +10,7 @@ services:
       - "127.0.0.1:2222:22"
       - "127.0.0.1:8081:80"
     volumes:
-      - versionsdb:/versionsdb/
-      - crawl-master:/crawl-master/
-      - dgldir:/dgldir/
-      - usr-games:/usr/games
-volumes:
-  versionsdb:
-  crawl-master:
-  dgldir:
-  usr-games:
+      - ./versionsdb:/versionsdb/
+      - ./crawl-master:/crawl-master/
+      - ./dgldir:/dgldir/
+      - ./usr-games:/usr/games
