@@ -2,11 +2,15 @@
 
 These scripts have been dockerised, with volumes to store permanent data, to allow for ease of deployment along with a very simple azure template to host the docker container on a vm.
 
-### First Run:
-* build the dockerfile using `docker build --tag dgl-forks -f utils/testing-container/Dockerfile .` from the root of the git repo. Or using the build-testing-container.sh script
+### First Run Guide:
+#### Prerequisites
+* Docker
+
+#### Steps
+* build the dockerfile using `docker build --tag dgl-forks -f utils/testing-container/Dockerfile .` from the root of the git repo. Or using the `utils/build-testing-container.sh` script which does pretty much the same.
 * Create the 4 volumes using `docker volume create (versionsdb, crawl-master, dgldir, usr-games)` to store persistent data.
 * update the entrypoint in docker-compose.yaml from `/docker-entrypoint.sh` to `/docker-entrypoint-build-trunk` or `/docker-entrypoint-build-all`
-* Run `docker-compose -f utils/testing-container/docker-compose.yaml up` from the root of the git repo to get a working server.
+* Run `docker-compose -f utils/testing-container/docker-compose.yaml up` from the root of the git repo to start the server and wait either a little(if trunk only around 5 min, depending on specs) or a lot of time(if building all around an hour, again depending on specs), until the server finishes building the game binaries.
 * Register and play the trunk version at localhost:8080
 
 ### Subsequent runs:
@@ -15,7 +19,7 @@ The entrypoint can be updated to just `/docker-entrypoint.sh`, so that server st
 
 ### Controlling and debugging the server
 
-Use `Docker exec -it [container-hash] /bin/bash` to get a shell inside the container, to be able to run the commands, either locally or after ssh into the server where the container is running.
+Use `docker exec -it [container-hash] /bin/bash` to get a shell inside the container, to be able to run the commands, either locally or after ssh into the server where the container is running.
 
 Full flow:
 * `docker ps` to find the container running this server, example output:
