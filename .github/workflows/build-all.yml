@@ -1,4 +1,4 @@
-name: build-trunk
+name: build-all
 
 on:
   push:
