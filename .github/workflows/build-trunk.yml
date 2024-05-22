@@ -2,7 +2,7 @@ name: build-trunk
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, test-* ]
 
 jobs:
   build:
