@@ -15,7 +15,8 @@ These scripts have been dockerised, with volumes to store permanent data, to all
 
 ### Subsequent runs:
 
-The entrypoint can be updated to just `/docker-entrypoint.sh`, so that server starts without rebuilding outdated binaries.
+* The entrypoint can be updated to just `/docker-entrypoint.sh`, so that server starts fast without rebuilding outdated binaries.
+* Then, simpy run `docker-compose -f utils/testing-container/docker-compose.yaml up` from the root of the git repo to start the server, allowing it to reuse the binaries and other data already saved in the volumes.
 
 ### Controlling and debugging the server
 
