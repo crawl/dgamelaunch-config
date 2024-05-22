@@ -1,4 +1,4 @@
-name: build-test
+name: build-trunk
 
 on:
   push:
@@ -18,4 +18,5 @@ jobs:
     - name: Docker container test
       run: |
         cd utils/testing-container
+        sed -i 's|entrypoint:.*|entrypoint: /docker-entrypoint-build-all.sh|' docker-compose.yaml
         docker-compose up
