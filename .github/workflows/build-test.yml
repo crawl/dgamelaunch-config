@@ -1,0 +1,22 @@
+name: build-test
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10  # 10 minutes timeout for the job
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Docker container build
+      run: |
+        utils/build-testing-container.sh
+
+    - name: Docker container test
+      run: |
+        cd utils/testing-container
+        docker-compose up
