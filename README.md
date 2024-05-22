@@ -8,7 +8,7 @@ These scripts have been dockerised, with volumes to store permanent data, to all
 
 #### Steps
 * build the dockerfile using `docker build --tag dgl-forks -f utils/testing-container/Dockerfile .` from the root of the git repo. Or using the `utils/build-testing-container.sh` script which does pretty much the same.
-* Create the 4 volumes using `docker volume create (versionsdb, crawl-master, dgldir, usr-games)` to store persistent data.
+* Create the 4 volumes using `docker volume create [volume-name]` replacing volume name with one of: `versionsdb, crawl-master, dgldir, usr-games` to store persistent data.
 * update the entrypoint in docker-compose.yaml from `/docker-entrypoint.sh` to `/docker-entrypoint-build-trunk` or `/docker-entrypoint-build-all`
 * Run `docker-compose -f utils/testing-container/docker-compose.yaml up` from the root of the git repo to start the server and wait either a little(if trunk only around 5 min, depending on specs) or a lot of time(if building all around an hour, again depending on specs), until the server finishes building the game binaries.
 * Register and play the trunk version at localhost:8080
