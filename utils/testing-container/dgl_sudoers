@@ -4,5 +4,6 @@ crawl-dev ALL=(root) NOPASSWD: \
   /sbin/install-stable.sh, \
   /sbin/install-gcc.sh, \
   /sbin/install-gcc6.sh, \
+  /sbin/install-gcc7.sh, \
   /etc/init.d/webtiles, \
   /sbin/remove-trunks.sh
