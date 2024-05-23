@@ -25,7 +25,7 @@ RUN echo "deb [trusted=yes] http://archive.ubuntu.com/ubuntu/ bionic main univer
     apt-get update && \
     apt-get install -y gcc-6 g++-6 gcc-7 g++-7
 
-RUN pip3 install tornado \
+RUN pip3 install tornado --break-system-packages \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 && ln -s /usr/bin/python3 /usr/bin/python
 
