@@ -11,7 +11,7 @@ if [ "$1" = '--provision-chroot' ]; then
 fi
 
 if [ "$1" = '--provision-single' ]; then
-    cp -a -n $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-$2
+    cp -a --no-clobber $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-$2
     /home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk
     /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc $2 $3 
 fi
