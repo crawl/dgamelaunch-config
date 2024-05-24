@@ -6,9 +6,9 @@ services:
     stdin_open: true
     entrypoint: /docker-entrypoint-build-trunk.sh
     ports:
-      - "127.0.0.1:8080:8080"
-      - "127.0.0.1:2222:22"
-      - "127.0.0.1:8081:80"
+      - "8080:8080"
+      - "2222:22"
+      - "8081:80"
     volumes:
       - ./versionsdb:/versionsdb/
       - ./crawl-master:/crawl-master/
