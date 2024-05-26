@@ -12,8 +12,8 @@ services:
       - "2222:22"
       - "8081:80"
     volumes:
-      - ./data/versionsdb:/versionsdb/
-      - ./data/crawl-master:/crawl-master/
-      - ./data/dgldir:/dgldir/
+      - ./data/versionsdb:/versionsdb
+      - ./data/crawl-master:/crawl-master
+      - ./data/dgldir:/dgldir
       - ./data/usr-games:/usr/games
-      - ./data/ccache:/root/cache/.ccache/
+      - ./data/ccache:/root/.cache/ccache
