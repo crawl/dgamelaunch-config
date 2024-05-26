@@ -17,3 +17,4 @@ services:
       - ./data/crawl-master:/crawl-master/
       - ./data/dgldir:/dgldir/
       - ./data/usr-games:/usr/games
+      - ./data/ccache:/root/cache/.ccache/

@@ -63,7 +63,7 @@ prompt "compile ${GAME} (${REVISION})"
 # REMEMBER to adjust /var/lib/dgamelaunch/sbin/install-gcc7.sh as well if make parameters change!
 ##################################################################################################
 
-say-do crawl-do nice make CC=gcc-7 CXX=g++-7 -C source \
+say-do crawl-do nice make CC="ccache gcc-7" CXX="ccache g++-7" -C source \
     GAME=${GAME} \
     GAME_MAIN=${GAME} MCHMOD=0755 MCHMOD_SAVEDIR=755 \
     INSTALL_UGRP=$CRAWL_UGRP \
