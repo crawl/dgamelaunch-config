@@ -1,0 +1,3 @@
+services:
+  dcss:
+    entrypoint: /docker-entrypoint-build-trunk.sh
