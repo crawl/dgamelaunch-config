@@ -13,5 +13,5 @@ jobs:
     - name: Docker container test
       run: |
         cd server
-        sed -i 's|entrypoint:.*|entrypoint: /docker-entrypoint-build-all.sh|' docker-compose.yaml
+        cp docker-compose.build-all.yml docker-compose.override.yml
         docker-compose up
