@@ -1,0 +1,22 @@
+name: build-all
+
+on:
+  push:
+    branches: [ update-ccache ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Docker container test
+      run: |
+        cd server
+        ./download-ccache.sh
+        cp docker-compose.build-all.yml docker-compose.override.yml
+        docker-compose up -d
+        sleep 18000
+        ./upload-ccache.sh
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
