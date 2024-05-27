@@ -14,5 +14,6 @@ jobs:
     - name: Docker container test
       run: |
         cd server
+        ./download-ccache.sh
         cp docker-compose.build-trunk.yml docker-compose.override.yml
         docker-compose up
