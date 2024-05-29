@@ -7,19 +7,24 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+
+      - name: Download ccache
+        run: |
+          ./download-ccache.sh
+        working-directory: server
 
       - name: Build test
         run: |
-          cd server
-          ./download-ccache.sh
           cp docker-compose.build-trunk.yml docker-compose.override.yml
           sed -i 's/tail -f/cat/g' docker-entrypoint-build-trunk.sh
           docker-compose up 2>&1 | tee docker-compose.log
+        working-directory: server
+
       - name: Print result
         run: |
           grep -B 100 -A 3 "Error 1" docker-compose.log || true
           ls data/crawl-master | xargs
           ! grep -q "Error 1" docker-compose.log
+        working-directory: server
