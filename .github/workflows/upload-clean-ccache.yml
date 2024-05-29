@@ -1,8 +1,8 @@
-name: upload-ccache
+name: upload-clean-ccache
 
 on:
   push:
-    branches: [ upload-ccache ]
+    branches: [ upload-clean-ccache ]
 
 jobs:
   upload:
@@ -24,12 +24,11 @@ jobs:
     - name: Build & upload
       run: |
         cd server
-        ./download-ccache.sh
         cp docker-compose.build-all.yml docker-compose.override.yml
         sed -i 's/tail -f/cat/g' docker-entrypoint-build-all.sh
         docker-compose up 2>&1 | tee docker-compose.log
         grep -B 100 -A 3 "Error 1" docker-compose.log || true
         ls data/crawl-master
-        ./upload-ccache.sh "build-ccache (from Action)"
+        ./upload-ccache.sh "build-clean-ccache (from Action)"
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -11,9 +11,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Docker container test
+    - name: Build test
       run: |
         cd server
         ./download-ccache.sh
         cp docker-compose.build-trunk.yml docker-compose.override.yml
-        docker-compose up
+        sed -i 's/tail -f/cat/g' docker-entrypoint-build-trunk.sh
+        docker-compose up 2>&1 | tee docker-compose.log
+        grep -B 100 -A 3 "Error 1" docker-compose.log || true
+        ls data/crawl-master
