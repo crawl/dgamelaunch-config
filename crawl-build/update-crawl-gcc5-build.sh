@@ -2,6 +2,8 @@
 
 VERSION=${1:-}
 
+BRANCH=${2:-}
+
 # Quoting for =~ changed from bash 3.0 to 3.2; using a variable for the
 # regexp works with both.
 # VERS_RE='^[0-9]+.[0-9]+$'
@@ -18,10 +20,6 @@ source ~/.bashrc
 GAME=crawl-$VERSION
 
 export DESTDIR=$CRAWL_BASEDIR
-BRANCH=origin/stone_soup-$VERSION
-if [[ $VERSION != [0-9]* ]]; then
-    BRANCH=origin/$VERSION
-fi
 
 check-crawl-basedir-exists
 enable-prompts $*
@@ -40,38 +38,6 @@ REVISION_OLD="${VER_STR_OLD##*-g}"
 
 [[ "$REVISION" == "$REVISION_OLD" || "$VER_STR" = "$VER_STR_OLD" ]] && \
     abort-saying "Nothing new to install at the moment: you asked for $REVISION_FULL and it's already installed"
-
-# Legacy version patch & setting
-VERSION_INT=$(echo $VERSION | cut -d. -f2)
-CC="ccache gcc"
-CXX="ccache g++"
-
-if (( VERSION_INT <= 24 )); then
-  if [[ -f $CRAWL_REPOSITORY_DIR/crawl-ref/source/util/species-gen.py ]]; then
-    echo "Patching collections.MutableMapping to collections.abc.MutableMapping in species-gen.py..."
-    sed -i 's/collections.MutableMapping/collections.abc.MutableMapping/g' $CRAWL_REPOSITORY_DIR/crawl-ref/source/util/species-gen.py
-  fi
-
-  echo "Setting compiler to gcc-6 and g++-6..."
-  CC="ccache gcc-6"
-  CXX="ccache g++-6"
-fi
-
-if (( VERSION_INT <= 23 )); then
-  if [[ -f $CRAWL_REPOSITORY_DIR/crawl-ref/source/util/species-gen.py ]]; then
-    echo "Patching yaml.load(open(f_path)) to yaml.safe_load(open(f_path)) in species-gen.py..."
-    sed -i 's/yaml.load(open(f_path))/yaml.safe_load(open(f_path))/g' $CRAWL_REPOSITORY_DIR/crawl-ref/source/util/species-gen.py
-  fi
-
-  echo "Setting compiler to gcc-5 and g++-5..."
-  CC="ccache gcc-5"
-  CXX="ccache g++-5"
-fi
-
-if (( VERSION_INT <= 16 )) && [[ -f $CRAWL_REPOSITORY_DIR/crawl-ref/source/util/gen-mi-enum ]]; then
-  echo "Patching regex in gen-mi-enum..."
-  sed -i 's/monster_info_flags\\n{\\n/monster_info_flags\\n\\{\\n/' $CRAWL_REPOSITORY_DIR/crawl-ref/source/util/gen-mi-enum
-fi
 
 prompt "start update build"
 
@@ -94,10 +60,10 @@ fi
 
 prompt "compile ${GAME} (${REVISION})"
 
-# REMEMBER to adjust /var/lib/dgamelaunch/sbin/install-stable.sh as well if make parameters change!
+# REMEMBER to adjust /var/lib/dgamelaunch/sbin/install-gcc5.sh as well if make parameters change!
 ##################################################################################################
 
-say-do crawl-do nice make CC="$CC" CXX="$CXX" -C source \
+say-do crawl-do nice make CC="ccache gcc-5" CXX="ccache g++-5" -C source \
     GAME=${GAME} \
     GAME_MAIN=${GAME} MCHMOD=0755 MCHMOD_SAVEDIR=755 \
     INSTALL_UGRP=$CRAWL_UGRP \
@@ -111,7 +77,7 @@ say-do crawl-do nice make CC="$CC" CXX="$CXX" -C source \
 
 prompt "install ${GAME} (${REVISION})"
 
-say-do sudo -H $DGL_CHROOT/sbin/install-stable.sh "$VERSION"
+say-do sudo -H $DGL_CHROOT/sbin/install-gcc5.sh "$VERSION"
 
 if [[ $VERSION = [0-9]* ]]; then
     SUPER_VER="Stable"
