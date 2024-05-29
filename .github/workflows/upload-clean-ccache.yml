@@ -21,15 +21,19 @@ jobs:
 
       - uses: actions/checkout@v2
 
-      - name: Build & upload
+      - name: Build
         run: |
           cd server
           cp docker-compose.build-all.yml docker-compose.override.yml
           sed -i 's/tail -f/cat/g' docker-entrypoint-build-all.sh
           docker-compose up 2>&1 | tee docker-compose.log
+      - name: Print result
+        run: |
           grep -B 100 -A 3 "Error 1" docker-compose.log || true
-          ls data/crawl-master
+          ls data/crawl-master | xargs
+      - name: Upload ccache
+        run: |
           ./upload-ccache.sh "build-clean-ccache (from Action)"
-          grep -q "Error 1" docker-compose.log
+          ! grep -q "Error 1" docker-compose.log
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

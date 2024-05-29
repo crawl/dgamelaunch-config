@@ -18,6 +18,8 @@ jobs:
           cp docker-compose.build-trunk.yml docker-compose.override.yml
           sed -i 's/tail -f/cat/g' docker-entrypoint-build-trunk.sh
           docker-compose up 2>&1 | tee docker-compose.log
+      - name: Print result
+        run: |
           grep -B 100 -A 3 "Error 1" docker-compose.log || true
-          ls data/crawl-master
-          grep -q "Error 1" docker-compose.log
+          ls data/crawl-master | xargs
+          ! grep -q "Error 1" docker-compose.log
