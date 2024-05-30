@@ -22,4 +22,4 @@ done
 /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc7 gooncrawl gooncrawl/gooncrawl_stable
 /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc7 xcrawl crawl-forks/xcrawl/bugfix
 /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc7 kimchicrawl crawl-forks/kimchicrawl/bugfix
-# /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc bcadrencrawl bcadrencrawl/bCrawl #Currently bcadren crawl main branch `bCrawl` is simply not compiling due to a programming error. I've left a message to bcadren, no need to try compiling until it's fixed
+/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc bcadrencrawl bcadrencrawl/bCrawl
