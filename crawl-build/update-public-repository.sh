@@ -53,7 +53,6 @@ apply-patch() {
     echo "Patching yaml.load(open(f_path)) to yaml.safe_load(open(f_path)) in species-gen.py... (VERSION <= 0.23)"
     sed -i 's/yaml.load(open(f_path))/yaml.safe_load(open(f_path))/g' $REPO_DIR/crawl-ref/source/util/species-gen.py
   fi
-
   if [[ -f $REPO_DIR/crawl-ref/source/util/gen-mi-enum ]]; then
     echo "Patching regex in gen-mi-enum... (VERSION <= 0.16)"
     sed -i 's/monster_info_flags\\n{\\n/monster_info_flags\\n\\{\\n/' $REPO_DIR/crawl-ref/source/util/gen-mi-enum
