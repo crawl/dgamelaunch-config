@@ -11,9 +11,8 @@ bind_nonsecure = True # Set to false to only use SSL
 games_config_dir = None # Don't try to load Base.yaml
 
 bind_pairs = (
-    # for a docker setup, you will probably need to use 0.0.0.0.
-    #("0.0.0.0", 8080),
-    ("127.0.0.1", 8080),
+    ("0.0.0.0", 8080),
+    # ("127.0.0.1", 8080),
 )
 
 logging_config = {
