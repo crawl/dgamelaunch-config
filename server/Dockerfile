@@ -76,7 +76,8 @@ RUN cd dgamelaunch \
     && make install && cp ee virus $DGL_CHROOT/bin \
     && useradd crawler --shell /usr/local/sbin/dgamelaunch \
     && echo crawler:crawler | chpasswd \
-    && cat /tmp/crawler_sshdconfig >> /etc/ssh/sshd_config && rm /tmp/crawler_sshdconfig
+    && cat /tmp/crawler_sshdconfig >> /etc/ssh/sshd_config && rm /tmp/crawler_sshdconfig  \
+    && touch $DGL_CHROOT/dgamelaunch
 
 
 # dgamelaunch-config initialization
