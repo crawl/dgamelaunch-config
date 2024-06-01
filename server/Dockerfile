@@ -61,6 +61,7 @@ WORKDIR /home/crawl-dev
 # TODO: what are these directories in ~crawl-dev used for? `run` doesn't exist
 # on CAO?
 RUN git config --global url.https://github.com/.insteadOf git://github.com/
+RUN git config --global url.https://github.com/.insteadOf git://gitorious.org/
 # The unauthenticated git protocol on port 9418 is no longer supported.
 USER crawl-dev
 RUN mkdir logs \
@@ -96,7 +97,6 @@ COPY --chown=crawl-dev:crawl-dev ./lib /home/crawl-dev/dgamelaunch-config/lib/
 COPY --chown=crawl-dev:crawl-dev ./games.d /home/crawl-dev/dgamelaunch-config/games.d/
 COPY --chown=crawl-dev:crawl-dev ./config.py ./crawl-git.conf ./dgamelaunch.conf ./dgl-manage.conf sh-utils /home/crawl-dev/dgamelaunch-config/
 COPY --chown=crawl-dev:crawl-dev ./utils/webtiles ./utils/trigger-rebuild.pl ./utils/auth-save-downloader.pl /home/crawl-dev/dgamelaunch-config/utils/
-RUN ls -al && sed -i -e 's/"127.0.0.1"/"0.0.0.0"/' /home/crawl-dev/dgamelaunch-config/config.py
 COPY server/httpd.conf /etc/apache2/sites-available
 
 # this is taken from build-crawl-dirs to here because it's the only directory that's outside of volumes due to not storing state
