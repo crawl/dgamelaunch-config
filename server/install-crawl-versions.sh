@@ -15,12 +15,12 @@ cp -a --no-clobber $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/c
 for version in {31..11}; do
   /home/crawl-dev/dgamelaunch-config/bin/dgl update-stable 0.$version
 done
-/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 dcssca crawl-forks/dcssca/bugfix
-/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 hellcrawl crawl-forks/hellcrawl/bugfix
-/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 gnollcrawl crawl-forks/gnollcrawl/bugfix
-/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc7 bloatcrawl2 bloatcrawl2/master
+/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc dcssca crawl-forks/dcssca/bugfix 6
+/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc hellcrawl crawl-forks/hellcrawl/bugfix 6
+/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc gnollcrawl crawl-forks/gnollcrawl/bugfix 6
+/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc bloatcrawl2 bloatcrawl2/master 7
 /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc stoatsoup stoatsoup/master
-/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc7 gooncrawl gooncrawl/gooncrawl_stable
-/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc7 xcrawl crawl-forks/xcrawl/bugfix
-/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc7 kimchicrawl crawl-forks/kimchicrawl/bugfix
+/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc gooncrawl gooncrawl/gooncrawl_stable 7
+/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc xcrawl crawl-forks/xcrawl/bugfix 7
+/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc kimchicrawl crawl-forks/kimchicrawl/bugfix 7
 /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc bcadrencrawl bcadrencrawl/bCrawl

@@ -4,6 +4,16 @@ VERSION=${1:-}
 
 BRANCH=${2:-}
 
+GCC_VERSION=${3:-}
+
+if [[ -n $GCC_VERSION ]]; then
+    CC="ccache gcc-$GCC_VERSION"
+    CXX="ccache g++-$GCC_VERSION"
+else
+    CC="ccache gcc"
+    CXX="ccache g++"
+fi
+
 # Quoting for =~ changed from bash 3.0 to 3.2; using a variable for the
 # regexp works with both.
 # VERS_RE='^[0-9]+.[0-9]+$'
@@ -63,7 +73,7 @@ prompt "compile ${GAME} (${REVISION})"
 # REMEMBER to adjust /var/lib/dgamelaunch/sbin/install-gcc6.sh as well if make parameters change!
 ##################################################################################################
 
-say-do crawl-do nice make CC="ccache gcc" CXX="ccache g++" -C source \
+say-do crawl-do nice make CC="$CC" CXX="$CXX" -C source \
     GAME=${GAME} \
     GAME_MAIN=${GAME} MCHMOD=0755 MCHMOD_SAVEDIR=755 \
     INSTALL_UGRP=$CRAWL_UGRP \
