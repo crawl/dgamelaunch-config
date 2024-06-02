@@ -1,18 +1,17 @@
 #!/bin/bash
-#/home/crawl-dev/dgamelaunch-config/utils/provision-chroot.sh
 source "$DGL_CONF_HOME/dgl-manage.conf"
 /home/crawl-dev/dgamelaunch-config/bin/dgl create-versions-db
 /home/crawl-dev/dgamelaunch-config/bin/dgl create-crawl-gamedir
 /home/crawl-dev/dgamelaunch-config/bin/dgl publish --confirm
 
-if [ "$1" = '--provision-chroot' ]; then
+if [ "$COMMAND" = 'build-trunk' ]; then
+    /home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk
+elif [ "$COMMAND" = 'build-all' ]; then
     /install-crawl-versions.sh
 fi
 
-if [ "$1" = '--provision-single' ]; then
-    cp -a --no-clobber $DGL_CHROOT/crawl-master/crawl-git $DGL_CHROOT/crawl-master/crawl-$2
-    /home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk
-    /home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc $2 $3 
+if [ "$ONLY_BUILD" = 'true' ]; then
+    exit 0
 fi
 
 /enable-apache.sh
@@ -39,5 +38,5 @@ fi
 #Otherwise just tail the webtiles log
 # if you get an error, that's because the trunk version is not installed in the volumes
 # this means you should either use docker-entrypoint-build-trunk.sh
-# or docker-entrypoint-build-all.sh as entrypoint to build crawl data into volumes 
+# or docker-entrypoint-build-all.sh as entrypoint to build crawl data into volumes
 tail -f $DGL_CHROOT/crawl-master/webserver/run/webtiles.log

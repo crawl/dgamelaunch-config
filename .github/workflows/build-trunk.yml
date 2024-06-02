@@ -17,9 +17,7 @@ jobs:
 
       - name: Build test
         run: |
-          cp docker-compose.build-trunk.yml docker-compose.override.yml
-          sed -i 's/tail -f/cat/g' docker-entrypoint-build-trunk.sh
-          docker-compose up 2>&1 | tee docker-compose.log
+          ONLY_BUILD=true COMMAND=build-trunk docker-compose up 2>&1 | tee docker-compose.log
         working-directory: server
 
       - name: Print result

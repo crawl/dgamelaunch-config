@@ -28,9 +28,7 @@ jobs:
 
       - name: Build test
         run: |
-          cp docker-compose.build-all.yml docker-compose.override.yml
-          sed -i 's/tail -f/cat/g' docker-entrypoint-build-all.sh
-          docker-compose up 2>&1 | tee docker-compose.log
+          ONLY_BUILD=true COMMAND=build-all docker-compose up 2>&1 | tee docker-compose.log
         working-directory: server
 
       - name: Print result

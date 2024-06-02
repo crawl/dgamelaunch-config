@@ -106,8 +106,6 @@ RUN mkdir -p /cores
 # set up entry point -- this script starts webtiles and sshd, and sets up the
 # bind mounts.
 COPY --chown=crawl-dev:crawl-dev --chmod=755 server/docker-entrypoint.sh /
-COPY --chown=crawl-dev:crawl-dev --chmod=755 server/docker-entrypoint-build-all.sh /
-COPY --chown=crawl-dev:crawl-dev --chmod=755 server/docker-entrypoint-build-trunk.sh /
 COPY --chown=crawl-dev:crawl-dev --chmod=755 server/enable-apache.sh /
 COPY --chown=crawl-dev:crawl-dev --chmod=755 server/setup-cron.sh /
 COPY --chown=crawl-dev:crawl-dev --chmod=755 server/install-crawl-versions.sh /
