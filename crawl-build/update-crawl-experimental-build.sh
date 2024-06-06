@@ -1,34 +1,36 @@
 #!/bin/bash
 
-VERSION=${1:-}
+BRANCH="$1"
+GAME_NAME="$2"
 
 # Quoting for =~ changed from bash 3.0 to 3.2; using a variable for the
 # regexp works with both.
-VERS_RE='^[0-9]+.[0-9]+$'
-if [[ ! $VERSION =~ $VERS_RE ]]; then
-   echo "Bad crawl version $VERSION"
-   exit 1
+BRANCH_RE='^[[:alnum:]][-._[:alnum:]]+$'
+if [[ ! $BRANCH =~ $BRANCH_RE ]]; then
+    echo "Bad git branch name $BRANCH"
+    exit 1
+fi
+
+if [[ ! $GAME_NAME =~ $BRANCH_RE ]]; then
+    echo "Bad crawl game name $GAME_NAME"
+    exit 1
 fi
 
 set -e
 lock-or-die crawl-update "someone is already updating the crawl build"
 
 source $DGL_CONF_HOME/crawl-git.conf
-GAME=crawl-$VERSION
+GAME=crawl-$GAME_NAME
 
 export DESTDIR=$CRAWL_BASEDIR
-BRANCH=stone_soup-$VERSION
-if [[ $VERSION != [0-9]* ]]; then
-    BRANCH=$VERSION
-fi
 
 check-crawl-basedir-exists
 enable-prompts $*
 
 TODAY="$(dgl-today)"
 
-# Second argument can be a revision (SHA) to build
-REVISION="$2"
+# Third argument can be a revision (SHA) to build
+REVISION="$3"
 ./update-public-repository.sh $BRANCH "$REVISION"
 
 REVISION="$(git-do rev-parse HEAD | cut -c 1-7)"
@@ -78,9 +80,9 @@ say-do crawl-do nice make -C source \
 
 prompt "install ${GAME} (${REVISION})"
 
-say-do sudo -H $DGL_CHROOT/sbin/install-stable.sh "$VERSION"
+say-do sudo -H $DGL_CHROOT/sbin/install-experimental.sh "$GAME_NAME"
 
-announce "Stable ($VERSION) branch on $DGL_SERVER updated to: ${REVISION_FULL}"
+announce "Experimental ($BRANCH) branch on $DGL_SERVER updated to: ${REVISION_FULL}"
 
 echo "All done."
 echo

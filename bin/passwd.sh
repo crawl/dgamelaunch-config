@@ -71,12 +71,12 @@ echo "Password hint for $USER: '$(password-hint "$USER")'"
 
 if [[ "$UID" == "0" ]]; then
     echo
-    read -s -p -r "Enter new password for $USER: " PASSWORD
+    read -s -r -p "Enter new password for $USER: " PASSWORD
     echo
     if [[ -z "$PASSWORD" ]]; then
         abort-saying "Empty password"
     fi
-    read -s -p -r "Retype password for $USER: " CONFIRM_PASSWORD
+    read -s -r -p "Retype password for $USER: " CONFIRM_PASSWORD
     echo
 
     if [[ "$PASSWORD" != "$CONFIRM_PASSWORD" ]]; then

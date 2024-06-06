@@ -37,7 +37,7 @@ DGL_SETTINGS_DIR="%%DGL_SETTINGS_DIR%%"
 
 VERSION="$1"
 
-GAME="crawl-$VERSION"
+GAME="crawl-bot-$VERSION"
 
 # Safe path:
 PATH=/bin:/sbin:/usr/bin:/usr/sbin
@@ -53,7 +53,7 @@ copy-game-binary() {
     if [[ -f $BINARIES_DIR/$GAME_BINARY ]]; then
         mv $BINARIES_DIR/$GAME_BINARY $BINARIES_DIR/$GAME_BINARY.old
     fi
-    if cp source/$GAME_BINARY $BINARIES_DIR; then
+    if cp source/$GAME_BINARY $BINARIES_DIR/$GAME_BINARY; then
         rm $BINARIES_DIR/$GAME_BINARY.old || true
     else
         local ERR=$?
@@ -75,19 +75,20 @@ copy-data-files() {
 }
 
 create-dgl-directories() {
-    local short_version
-    short_version="${VERSION//0./}"  # 0.17 --> 17
-    # TODO: use long version (0.17) for everything.
-    mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version-sprint/"
-    mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version-tut/"
-    mkdir -p "$CHROOT/dgldir/inprogress/crawl-$short_version/"
-    mkdir -p "$CHROOT/dgldir/rcfiles/crawl-0.$short_version/"
-    mkdir -p "$CHROOT/dgldir/data/crawl-0.$short_version-settings/"
+        local short_version
+        short_version="${VERSION//0./}"  # 0.17 --> 17
+        # TODO: use long version (0.17) for everything.
+        mkdir -p "$CHROOT/dgldir/inprogress/crawl-bot-$short_version-sprint/"
+        mkdir -p "$CHROOT/dgldir/inprogress/crawl-bot-$short_version-tut/"
+        mkdir -p "$CHROOT/dgldir/inprogress/crawl-bot-$short_version-seeded/"
+        mkdir -p "$CHROOT/dgldir/inprogress/crawl-bot-$short_version/"
+        mkdir -p "$CHROOT/dgldir/rcfiles/crawl-bot-0.$short_version/"
+        mkdir -p "$CHROOT/dgldir/data/crawl-bot-0.$short_version-settings/"
 }
 
 fix-chroot-directory-permissions() {
-    chown -R crawl:crawl "$CHROOT/crawl-master"
-    chown -R crawl:crawl "$CHROOT/dgldir"
+        chown -R crawl:crawl "$CHROOT/crawl-master"
+        chown -R crawl:crawl "$CHROOT/dgldir"
 }
 
 install-game() {

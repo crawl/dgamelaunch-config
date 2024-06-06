@@ -14,7 +14,7 @@ set -e
 lock-or-die crawl-update "someone is already updating the crawl build"
 
 source $DGL_CONF_HOME/crawl-git.conf
-GAME=crawl-$VERSION
+GAME=crawl-bot-$VERSION
 
 export DESTDIR=$CRAWL_BASEDIR
 BRANCH=stone_soup-$VERSION
@@ -61,7 +61,7 @@ fi
 
 prompt "compile ${GAME} (${REVISION})"
 
-# REMEMBER to adjust /var/lib/dgamelaunch/sbin/install-stable.sh as well if make parameters change!
+# REMEMBER to adjust /var/lib/dgamelaunch/sbin/install-bot-stable.sh as well if make parameters change!
 ##################################################################################################
 
 say-do crawl-do nice make -C source \
@@ -78,9 +78,7 @@ say-do crawl-do nice make -C source \
 
 prompt "install ${GAME} (${REVISION})"
 
-say-do sudo -H $DGL_CHROOT/sbin/install-stable.sh "$VERSION"
-
-announce "Stable ($VERSION) branch on $DGL_SERVER updated to: ${REVISION_FULL}"
+say-do sudo -H $DGL_CHROOT/sbin/install-bot-stable.sh "$VERSION"
 
 echo "All done."
 echo

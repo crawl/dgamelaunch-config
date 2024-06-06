@@ -1,26 +1,12 @@
 #!/bin/bash
 
-VERSION=${1:-}
-
-# Quoting for =~ changed from bash 3.0 to 3.2; using a variable for the
-# regexp works with both.
-VERS_RE='^[0-9]+.[0-9]+$'
-if [[ ! $VERSION =~ $VERS_RE ]]; then
-   echo "Bad crawl version $VERSION"
-   exit 1
-fi
-
 set -e
 lock-or-die crawl-update "someone is already updating the crawl build"
 
 source $DGL_CONF_HOME/crawl-git.conf
-GAME=crawl-$VERSION
+GAME=crawl-bot-git
 
 export DESTDIR=$CRAWL_BASEDIR
-BRANCH=stone_soup-$VERSION
-if [[ $VERSION != [0-9]* ]]; then
-    BRANCH=$VERSION
-fi
 
 check-crawl-basedir-exists
 enable-prompts $*
@@ -28,13 +14,13 @@ enable-prompts $*
 TODAY="$(dgl-today)"
 
 # Second argument can be a revision (SHA) to build
-REVISION="$2"
+REVISION="$1"
 ./update-public-repository.sh $BRANCH "$REVISION"
 
-REVISION="$(git-do rev-parse HEAD | cut -c 1-7)"
+REVISION="$(git-do rev-parse HEAD | cut -c 1-10)"
 REVISION_FULL="$(git-do describe --long HEAD)"
 VER_STR="$(git-do describe HEAD)"
-VER_STR_OLD="$(($CRAWL_BINARY_PATH/$GAME -version 2>/dev/null || true) | sed -ne 's/Crawl version //p')"
+VER_STR_OLD="$( ($CRAWL_BINARY_PATH/$GAME -version 2>/dev/null || true) | sed -ne 's/Crawl version //p')"
 REVISION_OLD="${VER_STR_OLD##*-g}"
 
 [[ "$REVISION" == "$REVISION_OLD" || "$VER_STR" = "$VER_STR_OLD" ]] && \
@@ -61,7 +47,7 @@ fi
 
 prompt "compile ${GAME} (${REVISION})"
 
-# REMEMBER to adjust /var/lib/dgamelaunch/sbin/install-stable.sh as well if make parameters change!
+# REMEMBER to adjust /var/lib/dgamelaunch/sbin/install-bot-trunk.sh as well if make parameters change!
 ##################################################################################################
 
 say-do crawl-do nice make -C source \
@@ -78,9 +64,7 @@ say-do crawl-do nice make -C source \
 
 prompt "install ${GAME} (${REVISION})"
 
-say-do sudo -H $DGL_CHROOT/sbin/install-stable.sh "$VERSION"
-
-announce "Stable ($VERSION) branch on $DGL_SERVER updated to: ${REVISION_FULL}"
+say-do sudo -H $DGL_CHROOT/sbin/install-bot-trunk.sh
 
 echo "All done."
 echo
