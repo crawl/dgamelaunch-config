@@ -3,6 +3,7 @@
 REPO="refracta/dcss-server"
 SPLIT_SIZE="1GiB"
 KEEP_FILES=false
+SAME_OWNER=false
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
@@ -54,6 +55,9 @@ while [[ "$#" -gt 0 ]]; do
             LAST="$2"
             shift
             ;;
+        -o|--same-owner)
+            SAME_OWNER=true
+            ;;
         *)
             echo "Unknown parameter: $1"
             exit 1
@@ -102,7 +106,12 @@ download_files() {
     cat "$PATH_DIR/binary_"* > "$PATH_DIR/binary.tar.gz"
     rm "$PATH_DIR/binary_"*
 
-    tar -xvzf "$PATH_DIR/binary.tar.gz" -C "$PATH_DIR"
+    if [ "$SAME_OWNER" = true ]; then
+        tar -xvzf "$PATH_DIR/binary.tar.gz" -C "$PATH_DIR" --same-owner
+    else
+        tar -xvzf "$PATH_DIR/binary.tar.gz" -C "$PATH_DIR"
+    fi
+
     if [ "$KEEP_FILES" = false ]; then
         rm "$PATH_DIR/binary.tar.gz"
     fi

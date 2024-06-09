@@ -16,7 +16,7 @@ git clone https://github.com/refracta/dcss-server
 cd dcss-server/server
 
 # 사전 빌드된 게임 바이너리와 설정 다운로드
-./release.sh download -p data -n game-data
+sudo ./release.sh download -o -p data -n game-data
 # 랜덤 포트와 함께 실행
 docker compose up -d && docker compose logs -f
 # 지정된 포트에서 실행
