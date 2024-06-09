@@ -100,9 +100,7 @@ download_files() {
     done
 
     cat "$PATH_DIR/binary_"* > "$PATH_DIR/binary.tar.gz"
-    if [ "$KEEP_FILES" = false ]; then
-        rm "$PATH_DIR/binary_"*
-    fi
+    rm "$PATH_DIR/binary_"*
 
     tar -xvzf "$PATH_DIR/binary.tar.gz" -C "$PATH_DIR"
     if [ "$KEEP_FILES" = false ]; then

@@ -58,7 +58,6 @@ jobs:
           ./release.sh upload -p data/ccache -n ccache -T "ccache (from Action)" -b ${{ github.sha }}
           ./release.sh delete -n ccache -l 3
           rm -rf data/ccache
-          sudo chown -R $(docker run --rm --entrypoint "" refracta/dcss-server sh -c "id -u crawl") data
           ./release.sh upload -p data -n game-data -T "game-data (from Action)" -b ${{ github.sha }}
           ./release.sh delete -n game-data -l 3
         env:
