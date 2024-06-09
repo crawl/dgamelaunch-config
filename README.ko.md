@@ -41,7 +41,7 @@ COMMAND=build-all docker compose -f docker-compose.yml -f docker-compose.build.y
 ```
 
 #### Server Data
-모든 서버 데이터는 `server/{versionsdb,crawl-master,dgldir,games}`에 저장됩니다.
+모든 서버 데이터는 `server/data/{versionsdb,crawl-master,dgldir,games}`에 저장됩니다.
 
 ### Repository Management
 * 이 레포지토리는 crawl.nemelex.cards 운영을 위해서 사용됩니다.
@@ -58,4 +58,4 @@ COMMAND=build-all docker compose -f docker-compose.yml -f docker-compose.build.y
 
 DCSS IRC `#crawl-dev` 채널의 많은 개발자 분의 도움으로, 본 프로젝트의 구현 목표가 성공적으로 달성될 수 있었습니다. 
 특히 서버 세팅과 관련해서 많은 도움을 주신 gammafunk, [DCSSReplay](https://github.com/rytisgit/dcssreplay)의 개발자이자 dgamelaunch-dcss-forks-server의 메인테이너로서
-서버 설정 진행 과정을 모니터링하며 아낌없는 조언과 이슈 해결을 도와준 Rytisgit에게 감사를 전하고 싶습니다.
+서버 설정 진행 과정을 모니터링하며 아낌없는 조언과 이슈 해결을 도와준 Sentei에게 감사를 전하고 싶습니다.

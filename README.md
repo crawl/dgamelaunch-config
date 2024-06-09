@@ -43,7 +43,7 @@ COMMAND=build-all docker compose -f docker-compose.yml -f docker-compose.build.y
 ```
 
 #### Server Data
-All server data is stored in `server/{versionsdb,crawl-master,dgldir,games}`.
+All server data is stored in `server/data/{versionsdb,crawl-master,dgldir,games}`.
 
 ### Repository Management
 * This repository is used for operating crawl.nemelex.cards.
@@ -59,4 +59,4 @@ All server data is stored in `server/{versionsdb,crawl-master,dgldir,games}`.
 ### Thanks to
 
 Thanks to the many developers in the DCSS IRC `#crawl-dev` channel, the implementation goals of this project were successfully achieved. 
-I especially want to thank gammafunk for his extensive help with server setup, and Rytisgit, the developer of [DCSSReplay](https://github.com/rytisgit/dcssreplay) and main maintainer of dgamelaunch-dcss-forks-server, for monitoring the server setup process and providing invaluable advice and issue resolution.
+I especially want to thank gammafunk for his extensive help with server setup, and Sentei, the developer of [DCSSReplay](https://github.com/rytisgit/dcssreplay) and main maintainer of dgamelaunch-dcss-forks-server, for monitoring the server setup process and providing invaluable advice and issue resolution.
