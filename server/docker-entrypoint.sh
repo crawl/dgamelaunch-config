@@ -1,4 +1,10 @@
 #!/bin/bash
+if [ "$COMMAND" = 'clean-ccache' ]; then
+    ccache -s
+    ccache --evict-older-than 7d
+    exit 0
+fi
+
 source "$DGL_CONF_HOME/dgl-manage.conf"
 /home/crawl-dev/dgamelaunch-config/bin/dgl create-versions-db
 /home/crawl-dev/dgamelaunch-config/bin/dgl create-crawl-gamedir
