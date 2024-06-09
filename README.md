@@ -43,7 +43,7 @@ COMMAND=build-all docker compose -f docker-compose.yml -f docker-compose.build.y
 ```
 
 #### Server Data
-All server data is stored in `server/{versionsdb,crawl-master,dgldir,games}`.
+All server data is stored in `server/data/{versionsdb,crawl-master,dgldir,games}`.
 
 ### Repository Management
 * This repository is used for operating crawl.nemelex.cards.
