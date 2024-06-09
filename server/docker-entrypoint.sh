@@ -2,6 +2,7 @@
 if [ "$COMMAND" = 'clean-ccache' ]; then
     ccache -s
     ccache --evict-older-than 7d
+    ccache -s
     exit 0
 fi
 
