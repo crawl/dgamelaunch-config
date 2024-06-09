@@ -1,9 +1,8 @@
 services:
   dcss:
-    image: dcss-server:latest
+    image: refracta/dcss-server:latest
     tty: true
     stdin_open: true
-    entrypoint: /docker-entrypoint.sh
     build:
       context: ../
       dockerfile: server/Dockerfile
@@ -11,13 +10,15 @@ services:
       - "0:8080"
       - "0:22"
       - "0:80"
+      - "0:81"
     volumes:
       - ./data/versionsdb:/versionsdb
       - ./data/crawl-master:/crawl-master
       - ./data/dgldir:/dgldir
-      - ./data/usr-games:/usr/games
+      - ./data/games:/usr/games
       - ./data/ccache:/root/.cache/ccache
     environment:
       - COMMAND
       - ONLY_BUILD
       - USE_REVERSE_PROXY
+      - USE_DWEM
