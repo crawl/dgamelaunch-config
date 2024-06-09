@@ -18,6 +18,8 @@ if [ "$USE_REVERSE_PROXY" = 'true' ]; then
 fi
 
 /enable-apache.sh
+sudo spawn-fcgi -s /var/run/fcgiwrap.socket -U www-data -G www-data /usr/sbin/fcgiwrap
+service nginx start
 
 /setup-cron.sh
 

@@ -16,10 +16,13 @@ ARG TERM=dumb
 RUN apt-get update
 RUN apt-get install -y locales locales-all
 ENV LANG=en_US.UTF-8
+ENV LANG=en_US.UTF-8
 RUN sed -i -e "s/# $LANG.*/$LANG.UTF-8 UTF-8/" /etc/locale.gen \
     && dpkg-reconfigure --frontend=noninteractive locales \
     && update-locale LANG=$LANG
-RUN apt-get install -y --no-install-recommends sudo git bash build-essential autoconf automake bison libncursesw5-dev flex liblua5.1-0-dev libsqlite3-dev libz-dev locales vim nano locales-all pkg-config python3 python3-pip python3-yaml ccache libpng-dev sqlite3 libpcre3 libpcre3-dev apache2 advancecomp pngcrush openssh-server curl libfl-dev cron
+RUN apt-get install -y --no-install-recommends sudo git bash build-essential autoconf automake bison libncursesw5-dev flex liblua5.1-0-dev libsqlite3-dev libz-dev locales vim nano locales-all pkg-config python3 python3-pip python3-yaml ccache libpng-dev sqlite3 libpcre3 libpcre3-dev advancecomp pngcrush openssh-server curl libfl-dev cron
+RUN apt-get install -y apache2 libcgi-pm-perl libdbi-perl libdbd-sqlite3-perl cpanminus && cpanm Linux::Inotify2
+RUN apt-get install -y nginx nginx-extras fcgiwrap spawn-fcgi && mkdir -p /var/run/fcgiwrap
 RUN echo "deb [trusted=yes] http://archive.ubuntu.com/ubuntu/ bionic main universe" >> /etc/apt/sources.list && \
     echo "deb [trusted=yes] http://archive.ubuntu.com/ubuntu/ focal main universe" >> /etc/apt/sources.list && \
     apt-get update && \
@@ -65,19 +68,26 @@ RUN git config --global url.https://github.com/.insteadOf git://gitorious.org/
 # The unauthenticated git protocol on port 9418 is no longer supported.
 USER crawl-dev
 RUN mkdir logs \
+    && touch announcements.log \
     && mkdir run \
     && mkdir dgamelaunch-config dgamelaunch-config/utils/ \
     && git clone https://github.com/crawl/dgamelaunch.git \
     && cd dgamelaunch && ./autogen.sh --enable-debugfile --enable-sqlite --enable-shmem && make
 
 USER root
-COPY server/crawler_sshdconfig /tmp
+COPY server/sshd_config /tmp
+COPY server/cao_key.pub /tmp
 RUN cd dgamelaunch \
     && mkdir -p $DGL_CHROOT/bin \
     && make install && cp ee virus $DGL_CHROOT/bin \
-    && useradd crawler --shell /usr/local/sbin/dgamelaunch \
-    && echo crawler:crawler | chpasswd \
-    && cat /tmp/crawler_sshdconfig >> /etc/ssh/sshd_config && rm /tmp/crawler_sshdconfig  \
+    && useradd nemelex --shell /usr/local/sbin/dgamelaunch \
+    && echo nemelex:xobeh | chpasswd \
+    && mkdir -p /home/nemelex/.ssh \
+    && cat /tmp/cao_key.pub >> /home/nemelex/.ssh/authorized_keys \
+    && chown -R nemelex:nemelex /home/nemelex/.ssh \
+    && chmod 700 /home/nemelex/.ssh \
+    && chmod 600 /home/nemelex/.ssh/authorized_keys \
+    && cat /tmp/sshd_config >> /etc/ssh/sshd_config && rm /tmp/sshd_config  \
     && touch $DGL_CHROOT/dgamelaunch
 
 
@@ -98,6 +108,7 @@ COPY --chown=crawl-dev:crawl-dev ./games.d /home/crawl-dev/dgamelaunch-config/ga
 COPY --chown=crawl-dev:crawl-dev ./config.py ./crawl-git.conf ./dgamelaunch.conf ./dgl-manage.conf sh-utils /home/crawl-dev/dgamelaunch-config/
 COPY --chown=crawl-dev:crawl-dev ./utils/webtiles ./utils/trigger-rebuild.pl ./utils/auth-save-downloader.pl /home/crawl-dev/dgamelaunch-config/utils/
 COPY server/httpd.conf /etc/apache2/sites-available
+COPY server/nginx-default.conf /etc/nginx/sites-available/default
 
 # this is taken from build-crawl-dirs to here because it's the only directory that's outside of volumes due to not storing state
 RUN mkdir -p /cores
