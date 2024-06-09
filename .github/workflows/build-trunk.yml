@@ -8,16 +8,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@v10
+        with:
+          root-reserve-mb: 32768
+          swap-size-mb: 1024
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+          remove-docker-images: 'true'
+          remove-codeql: 'true'
+
       - uses: actions/checkout@v4
 
       - name: Download ccache
         run: |
-          ./download-ccache.sh
+          ./release.sh download -p data/ccache -n ccache
         working-directory: server
 
-      - name: Build test
+      - name: Build
         run: |
-          ONLY_BUILD=true COMMAND=build-trunk docker-compose up 2>&1 | tee docker-compose.log
+          ONLY_BUILD=true COMMAND=build-trunk docker-compose -f docker-compose.yml -f docker-compose.build.yml up 2>&1 | tee docker-compose.log
         working-directory: server
 
       - name: Print result
