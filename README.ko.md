@@ -41,7 +41,7 @@ COMMAND=build-all docker compose -f docker-compose.yml -f docker-compose.build.y
 ```
 
 #### Server Data
-모든 서버 데이터는 `server/{versionsdb,crawl-master,dgldir,games}`에 저장됩니다.
+모든 서버 데이터는 `server/data/{versionsdb,crawl-master,dgldir,games}`에 저장됩니다.
 
 ### Repository Management
 * 이 레포지토리는 crawl.nemelex.cards 운영을 위해서 사용됩니다.
