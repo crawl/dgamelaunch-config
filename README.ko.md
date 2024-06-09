@@ -1,5 +1,7 @@
 # dcss-server
 
+`README.md` 문서는 ChatGPT로 `README.ko.md`를 자동 번역하여 생성되었습니다. 
+
 이 스크립트는 던전 크롤 스톤 수프의 서버를 한번에 간단히 배포 및 관리할 수 있게 하기 위해 제작되었습니다. 최신 리눅스 환경에서 가능한 많은 포크 버전(DCSS CA, HellCrawl, GnollCrawl, BloatCrawl2, GoonCrawl, X-Crawl, StoatSoup, KimchiCrawl, BcadrenCrawl)과 정식 릴리즈 버전(0.11 ~ 0.31)을 포함합니다.
 
 ### First Run Guide:
