@@ -7,7 +7,7 @@
 ### First Run Guide:
 #### Prerequisites
 * Docker (with Docker Compose)
-* 참고사항: release.sh 스크립트의 다운로드 기능을 사용하기 위해서는 해당 환경에 `jq`와 `curl`이 설치되어 있어야 합니다. (데비안 환경에서 `apt install jq curl -y`를 이용하여 설치할 수 있습니다.)
+* 참고사항: `release.sh` 스크립트의 다운로드 기능을 사용하기 위해서는 해당 환경에 `jq`와 `curl`이 설치되어 있어야 합니다. (데비안 환경에서 `apt install jq curl -y`를 이용하여 설치할 수 있습니다.)
 
 #### Fast Deploy
 ```bash
