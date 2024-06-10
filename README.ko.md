@@ -42,7 +42,7 @@ COMMAND=build-all docker compose -f docker-compose.yml -f docker-compose.build.y
 
 #### Notes
  - 모든 서버 데이터는 `server/data/{versionsdb,crawl-master,dgldir,games}`에 저장됩니다.
- - 8080으로 크롤 웹타일, 8081 (Apache)과 8082 (Nginx)번 포트로 게임 로그에 접근할 수 있습니다. 2222번 포트로 SSH 접속이 가능합니다. (nemelex:xobeh 또는 [CAO 키](https://crawl.dcss.io/crawl/cao_key)를 이용한 접속이 가능합니다)
+ - 8080으로 크롤 웹타일, 8081 (Apache)과 8082 (Nginx)번 포트로 게임 로그에 접근할 수 있습니다. 2222번 포트로 SSH 접속이 가능합니다. (nemelex:xobeh 또는 [CAO 키](https://crawl.develz.org/cao_key)를 이용한 접속이 가능합니다)
  - [trigger-rebuild.pl](utils/trigger-rebuild.pl), [auth-save-downloader.pl](utils/auth-save-downloader.pl)의 사용이 가능합니다. (참고: [httpd.conf](server/httpd.conf), [nginx-default.conf](server/nginx-default.conf))
  - 15분마다 trunk와 일부 fork의 빌드를 실행합니다. (참고: [setup-cron.sh](server/setup-cron.sh))
  - 이 레포지토리를 포크하여 개인화된 빌드 구성을 릴리즈로 관리할 수 있습니다. (참고: [release.sh](server/release.sh), [upload-data.yml](.github/workflows/upload-data.yml))
