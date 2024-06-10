@@ -78,12 +78,17 @@ get_release_info() {
         curl -s "https://api.github.com/repos/$REPO/releases/tags/${NAME}-${VERSION}"
     elif [ -n "$NAME" ]; then
         latest_tag=$(get_latest_tag "$NAME")
-        if [ -n "$latest_tag" ]; then
-            curl -s "https://api.github.com/repos/$REPO/releases/tags/$latest_tag"
-        else
-            echo "No releases found for name prefix: $NAME"
-            exit 1
-        fi
+        while [ -n "$latest_tag" ]; do
+            release_info=$(curl -s "https://api.github.com/repos/$REPO/releases/tags/$latest_tag")
+            release_title=$(echo $release_info | jq -r '.name')
+            if [[ "$release_title" != "[Uploading]"* ]]; then
+                echo "$release_info"
+                return
+            fi
+            latest_tag=$(curl -s "https://api.github.com/repos/$REPO/tags" | jq -r ".[].name" | grep "^${name}-" | sort -rV | grep -A 1 "^${latest_tag}$" | tail -n 1)
+        done
+        echo "No suitable releases found for name prefix: $NAME"
+        exit 1
     else
         echo "Either tag (-t) or name (-n) must be specified."
         exit 1
@@ -96,11 +101,6 @@ download_files() {
     release_info=$(get_release_info)
     release_tag=$(echo $release_info | jq -r '.tag_name')
     release_title=$(echo $release_info | jq -r '.name')
-
-    if [[ "$release_title" == "[Uploading]"* ]]; then
-        echo "Skipping release with title starting with '[Uploading]': $release_title"
-        exit 0
-    fi
 
     echo "Release: $release_title ($release_tag)"
 
@@ -170,7 +170,7 @@ delete_releases() {
         exit 1
     fi
 
-    releases=$(curl -s "https://api.github.com/repos/$REPO/releases" | jq -r ".[] | select(.tag_name | startswith(\"$NAME\")) | select(.name | startswith(\"[Uploading]\") | not) | .tag_name")
+    releases=$(curl -s "https://api.github.com/repos/$REPO/releases" | jq -r ".[] | select(.tag_name | startswith(\"$NAME\")) | .tag_name")
     tags=($(echo "$releases" | sort -rV))
     if [ -n "$LAST" ]; then
         tags=(${tags[@]:$LAST})
