@@ -54,7 +54,7 @@ jobs:
 
       - name: Upload data
         run: |
-          COMMAND=clean-ccache docker-compose -f docker-compose.yml up
+          COMMAND=clean-ccache docker-compose up
           ./release.sh upload -p data/ccache -n ccache -T "ccache (from Action)" -b ${{ github.sha }}
           ./release.sh delete -n ccache -l 3
           rm -rf data/ccache
