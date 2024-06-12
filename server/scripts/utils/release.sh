@@ -77,15 +77,14 @@ get_release_info() {
     elif [ -n "$NAME" ] && [ -n "$VERSION" ]; then
         curl -s "https://api.github.com/repos/$REPO/releases/tags/${NAME}-${VERSION}"
     elif [ -n "$NAME" ]; then
-        latest_tag=$(get_latest_tag "$NAME")
-        while [ -n "$latest_tag" ]; do
+        tags=$(curl -s "https://api.github.com/repos/$REPO/tags" | jq -r ".[].name" | grep "^${NAME}-" | sort -rV)
+        for latest_tag in $tags; do
             release_info=$(curl -s "https://api.github.com/repos/$REPO/releases/tags/$latest_tag")
             release_title=$(echo $release_info | jq -r '.name')
             if [[ "$release_title" != "[Uploading]"* ]]; then
                 echo "$release_info"
                 return
             fi
-            latest_tag=$(curl -s "https://api.github.com/repos/$REPO/tags" | jq -r ".[].name" | grep "^${name}-" | sort -rV | grep -A 1 "^${latest_tag}$" | tail -n 1)
         done
         echo "No suitable releases found for name prefix: $NAME"
         exit 1
@@ -102,16 +101,30 @@ download_files() {
     release_tag=$(echo $release_info | jq -r '.tag_name')
     release_title=$(echo $release_info | jq -r '.name')
 
+    if [ -z "$release_tag" ]; then
+        echo "No valid release found. Exiting."
+        exit 1
+    fi
+
     echo "Release: $release_title ($release_tag)"
 
     assets=$(echo $release_info | jq -r '.assets[] | select(.name | test("^binary_")) | .browser_download_url')
+
+    if [ -z "$assets" ]; then
+        echo "No assets to download for the release $release_title ($release_tag). Exiting."
+        exit 1
+    fi
 
     for url in $assets; do
         echo "Downloading $url"
         curl -L -o "$PATH_DIR/$(basename $url)" $url
     done
 
-    cat "$PATH_DIR/binary_"* > "$PATH_DIR/binary.tar.gz"
+    if ! cat "$PATH_DIR/binary_"* > "$PATH_DIR/binary.tar.gz"; then
+        echo "Failed to concatenate downloaded parts. Exiting."
+        exit 1
+    fi
+
     rm "$PATH_DIR/binary_"*
 
     if [ "$SAME_OWNER" = true ]; then
