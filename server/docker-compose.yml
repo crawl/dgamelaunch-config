@@ -1,5 +1,5 @@
 services:
-  dcss:
+  dcss-server:
     image: refracta/dcss-server:latest
     tty: true
     stdin_open: true
@@ -12,6 +12,7 @@ services:
       - "0:80"
       - "0:81"
     volumes:
+      - ./data/config:/home/crawl-dev/dgamelaunch-config
       - ./data/versionsdb:/versionsdb
       - ./data/crawl-master:/crawl-master
       - ./data/dgldir:/dgldir
@@ -22,3 +23,4 @@ services:
       - CMD
       - USE_REVERSE_PROXY
       - USE_DWEM
+      - GH_TOKEN

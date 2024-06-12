@@ -1,3 +1,0 @@
-services:
-  dcss:
-    pull_policy: build

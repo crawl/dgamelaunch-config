@@ -14,7 +14,7 @@ git clone https://github.com/refracta/dcss-server
 cd dcss-server/server
 
 # 사전 빌드된 게임 바이너리와 설정 다운로드
-CMD='$SCRIPTS/utils/release.sh download -o -p data -n game-data' docker compose up
+docker compose run --rm -e CMD='$SCRIPTS/utils/release.sh download -o -p data -n game-data' dcss-server
 # 랜덤 포트와 함께 실행
 docker compose up -d && docker compose logs -f
 # 지정된 포트에서 실행
@@ -26,24 +26,31 @@ docker compose -f docker-compose.yml -f docker-compose.ports.yml up -d && docker
 git clone https://github.com/refracta/dcss-server
 cd dcss-server/server
 
+# Docker Hub에 저장된 이미지를 다운로드하지 않고 빌드가 필요한 경우 다음 명령어를 사용할 수 있습니다.
+docker compose build
+
 # 이 명령은 선택적으로 사용할 수 있습니다, ccache 파일을 다운로드하여 컴파일 속도를 가속할 수 있습니다. 
 # 미적용시 GitHub Action Runner의 ubuntu-24.04 이미지 기준, 전체 빌드에 6시간 이상이 소요되며, 적용시 45분 정도로 가속됩니다.
-CMD='$SCRIPTS/utils/release.sh download -p /data/ccache -n ccache' docker compose up
+docker compose run --rm -e CMD='$SCRIPTS/utils/release.sh download -p /data/ccache -n ccache' dcss-server
 
 # USE_DWEM: https://github.com/refracta/dcss-webtiles-extension-module 사용을 적용합니다.
 # USE_REVERSE_PROXY: X-Forwarded-For 아이피를 로그에 기록하기 위한 패치를 적용합니다.
-# COMMAND: "build-all"=전체 버전을 모두 빌드합니다, "build-trunk"= 트렁크 버전만 빌드합니다, ""=빌드 없이 바로 서버를 실행합니다.
-USE_DWEM=true USE_REVERSE_PROXY=true CMD='$SCRIPTS/game/install-crawl-versions.sh' docker-compose up -d && docker compose logs -f
-
-# Docker Hub에 저장된 이미지를 다운로드하지 않고 빌드가 필요한 경우 다음 명령어를 사용할 수 있습니다.
-CMD='$SCRIPTS/game/install-crawl-versions.sh' docker-compose -f docker-compose.yml -f docker-compose.build.yml up -d && docker compose logs -f
+# CMD: 컨테이너 내부의 스크립트를 실행시키는데 사용할 수 있습니다.
+# "$SCRIPTS/game/install-crawl-versions.sh"=전체 크롤 버전을 빌드합니다, "$SCRIPTS/game/install-trunk.sh"= 트렁크 버전만 빌드합니다, ""=빌드 없이 바로 서버를 실행합니다. (기존에 빌드된 데이터가 존재 시)
+docker compose run --rm -e CMD='$SCRIPTS/game/install-crawl-versions.sh' dcss-server
+USE_DWEM=true USE_REVERSE_PROXY=true docker compose up -d && docker compose logs -f
 ```
 
 #### Notes
- - 모든 서버 데이터는 `server/data/{versionsdb,crawl-master,dgldir,games}`에 저장됩니다.
- - 8080으로 크롤 웹타일, 8081 (Apache)과 8082 (Nginx)번 포트로 게임 로그에 접근할 수 있습니다. 2222번 포트로 SSH 접속이 가능합니다. (nemelex:xobeh 또는 [CAO 키](https://crawl.develz.org/cao_key)를 이용한 접속이 가능합니다)
+ - 모든 서버 데이터는 `server/data/{config,versionsdb,crawl-master,dgldir,games}`에 저장됩니다.
+ - `config`에는 이미지 빌드 시점의 본 리포지토리의 내용이 `clone`되어 생성됩니다. 사전에 이 폴더를 이 저장소(또는 포크하여 수정한 리포지토리)의 내용으로 설정한 경우, 컨테이너는 해당 내용을 설정에 사용합니다. [server/scripts](server/scripts)에 있는 스크립트 들을 수정해서, 서버 설정을 바꿀 수 있습니다.
+ - `versiondb`에는 빌드된 게임의 버전 정보가 담긴 데이터베이스 파일이 저장됩니다.
+ - `crawl-master`에는 게임 설정과 Milestone, Morgue 등이 저장됩니다.
+ - `dgldir`에는 `dgamelaunch`가 사용하는 데이터가 저장됩니다.
+ - `games`에는 빌드된 게임 바이너리가 저장됩니다.
+ - `8080`으로 크롤 웹타일, `8081 (Apache)`과 `8082 (Nginx)`번 포트로 게임 로그에 접근할 수 있습니다. 2222번 포트로 SSH 접속이 가능합니다. (`nemelex:xobeh` 또는 [CAO 키](https://crawl.develz.org/cao_key)를 이용한 접속이 가능합니다)
  - [trigger-rebuild.pl](utils/trigger-rebuild.pl), [auth-save-downloader.pl](utils/auth-save-downloader.pl)의 사용이 가능합니다. (참고: [apache.conf](server/scripts/web/conf/apache.conf), [nginx.conf](server/scripts/web/conf/nginx-default.conf))
- - 15분마다 trunk와 일부 fork의 빌드를 실행합니다. (참고: [setup-cron.sh](server/scripts/utils/setup-cron.sh))
+ - 15분마다 trunk와 일부 fork의 빌드를 실행합니다. (참고: [setup-cron.sh](server/scripts/game/setup-cron.sh))
  - 이 레포지토리를 포크하여 개인화된 빌드 구성을 릴리즈로 관리할 수 있습니다. (참고: [release.sh](server/scripts/utils/release.sh), [upload-data.yml](.github/workflows/upload-data.yml))
 
 ### Repository Management

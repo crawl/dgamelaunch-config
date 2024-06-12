@@ -14,7 +14,7 @@ git clone https://github.com/refracta/dcss-server
 cd dcss-server/server
 
 # Download pre-built game binaries and configurations
-CMD='$SCRIPTS/utils/release.sh download -o -p data -n game-data' docker compose up
+CMD='$SCRIPTS/utils/release.sh download -o -p data -n game-data' docker compose up && docker compose down 
 # Run with random ports
 docker compose up -d && docker compose logs -f
 # Run on specified ports
@@ -28,15 +28,15 @@ cd dcss-server/server
 
 # This command is optional; you can download ccache files to speed up compilation.
 # Without it, the full build takes over 6 hours on the GitHub Action Runner's ubuntu-24.04 image, but with it, it speeds up to about 45 minutes.
-CMD='$SCRIPTS/utils/release.sh download -p /data/ccache -n ccache' docker compose up
+CMD='$SCRIPTS/utils/release.sh download -p /data/ccache -n ccache' docker compose up && docker compose down
 
 # USE_DWEM: Apply https://github.com/refracta/dcss-webtiles-extension-module.
 # USE_REVERSE_PROXY: Apply a patch to log the X-Forwarded-For IP.
 # COMMAND: "build-all"=build all versions, "build-trunk"=build trunk version only, ""=run the server without building.
-USE_DWEM=true USE_REVERSE_PROXY=true CMD='$SCRIPTS/game/install-crawl-versions.sh' docker-compose up -d && docker compose logs -f
+USE_DWEM=true USE_REVERSE_PROXY=true CMD='$SCRIPTS/game/install-crawl-versions.sh' docker compose up -d && docker compose logs -f
 
 # If you need to build without downloading images from Docker Hub, use the following command.
-CMD='$SCRIPTS/game/install-crawl-versions.sh' docker-compose -f docker-compose.yml -f docker-compose.build.yml up -d && docker compose logs -f
+CMD='$SCRIPTS/game/install-crawl-versions.sh' docker compose -f docker-compose.yml -f docker-compose.build.yml up -d && docker compose logs -f
 ```
 
 #### Notes

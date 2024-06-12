@@ -28,12 +28,12 @@ jobs:
 
       - name: Download ccache
         run: |
-          CMD='$SCRIPTS/utils/release.sh download -p /data/ccache -n ccache' docker compose up 2>&1 | tee docker-compose.log
+          docker compose run --rm -e CMD='$SCRIPTS/utils/release.sh download -p /data/ccache -n ccache' dcss-server 2>&1 | tee docker-compose.log
         working-directory: server
 
       - name: Build trunk
         run: |
-          CMD='dgl update-trunk' docker-compose up 2>&1 | tee docker-compose.log
+          docker compose run --rm -e CMD='$SCRIPTS/game/install-crawl-versions.sh' dcss-server 2>&1 | tee docker-compose.log
         working-directory: server
 
       - name: Print result
