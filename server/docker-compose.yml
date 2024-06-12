@@ -23,4 +23,5 @@ services:
       - CMD
       - USE_REVERSE_PROXY
       - USE_DWEM
+      - USE_CNC_CONFIG
       - GH_TOKEN

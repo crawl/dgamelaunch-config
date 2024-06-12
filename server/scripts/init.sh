@@ -13,3 +13,6 @@ fi
 if [ "$USE_DWEM" = 'true' ]; then
   "$SCRIPTS"/util/setup-dwem.sh
 fi
+if [ "$USE_CNC_CONFIG" = 'true' ]; then
+  "$SCRIPTS"/util/setup-cnc-config.sh
+fi
