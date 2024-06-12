@@ -6,9 +6,9 @@ FROM ubuntu:24.04
 # do an early COPY step to ensure that build is being invoked correctly.
 
 ENV DGL_CHROOT=""
-ENV DGL_CONF_HOME=/home/crawl-dev/dgamelaunch-config/
-ENV SCRIPTS="$DGL_CONF_HOME/server/scripts/"
-ENV SRC_SCRIPTS=/usr/src/dgamelaunch-config/server/scripts/
+ENV DGL_CONF_HOME=/home/crawl-dev/dgamelaunch-config
+ENV SCRIPTS="$DGL_CONF_HOME/server/scripts"
+ENV SRC_SCRIPTS=/usr/src/dgamelaunch-config/server/scripts
 ARG DEBIAN_FRONTEND=noninteractive
 ARG TERM=dumb
 

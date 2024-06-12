@@ -1,5 +1,5 @@
 services:
-  dcss:
+  dcss-server:
     ports:
       - "8080:8080"
       - "8081:8081"
