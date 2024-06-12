@@ -48,7 +48,7 @@ USE_DWEM=true USE_REVERSE_PROXY=true docker compose up -d && docker compose logs
  - The `crawl-master` folder stores game settings, Milestones, Morgue, etc.
  - The `dgldir` folder stores data used by `dgamelaunch`.
  - The `games` folder stores the built game binaries.
- - You can access the crawl webtiles on port `8080`, game logs on ports `8081 (Apache)` and `8082 (Nginx)`. SSH access is available on port 2222 (using `nemelex:xobeh` or the [CAO key](https://crawl.develz.org/cao_key)).
+ - You can access the crawl webtiles on port `8080`, game logs on ports `8081 (Apache)` and `8082 (Nginx)`. SSH access is available on port 12222 (using `nemelex:xobeh` or the [CAO key](https://crawl.develz.org/cao_key)).
  - You can use [trigger-rebuild.pl](utils/trigger-rebuild.pl) and [auth-save-downloader.pl](utils/auth-save-downloader.pl). (Refer to: [apache.conf](server/scripts/web/conf/apache.conf), [nginx.conf](server/scripts/web/conf/nginx-default.conf))
  - Trunk and some fork builds are executed every 15 minutes. (Refer to: [setup-cron.sh](server/scripts/game/setup-cron.sh))
  - You can fork this repository to manage personalized build configurations as releases. (Refer to: [release.sh](server/scripts/utils/release.sh), [upload-data.yml](.github/workflows/upload-data.yml))
