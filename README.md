@@ -59,7 +59,7 @@ USE_DWEM=true USE_REVERSE_PROXY=true docker compose up -d && docker compose logs
  - You can fork this repository to manage personalized build configurations as releases. (Refer to: [release.sh](server/scripts/utils/release.sh), [upload-data.yml](.github/workflows/upload-data.yml))
 
 ### Repository Management
-* This repository is used for operating crawl.nemelex.cards.
+* This repository is used for operating [crawl.nemelex.cards](https://crawl.nemelex.cards).
 * If you need to add a new fork or version, you can request it via a Pull-Request.
 
 ### Upstream Projects

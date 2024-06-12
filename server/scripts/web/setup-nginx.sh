@@ -1,3 +1,3 @@
 #!/bin/bash
 
-copy web/conf/nginx.conf /etc/nginx/sites-available/default
+cp web/conf/nginx.conf /etc/nginx/sites-available/default
