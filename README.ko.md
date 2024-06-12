@@ -8,6 +8,11 @@
 #### Prerequisites
 * Docker (with Docker Compose)
 
+#### One-Line Deploy
+```bash
+curl -fsSL https://refracta.github.io/dcss-server/server/scripts/deploy/one-line-deploy.sh | sudo -E sh -
+```
+
 #### Fast Deploy
 ```bash
 git clone https://github.com/refracta/dcss-server
