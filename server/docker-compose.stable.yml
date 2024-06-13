@@ -1,0 +1,3 @@
+services:
+  dcss-server:
+    image: refracta/dcss-server:stable

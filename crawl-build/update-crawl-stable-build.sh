@@ -47,30 +47,15 @@ CC="ccache gcc"
 CXX="ccache g++"
 
 if (( VERSION_INT <= 24 )); then
-  if [[ -f $CRAWL_REPOSITORY_DIR/crawl-ref/source/util/species-gen.py ]]; then
-    echo "Patching collections.MutableMapping to collections.abc.MutableMapping in species-gen.py..."
-    sed -i 's/collections.MutableMapping/collections.abc.MutableMapping/g' $CRAWL_REPOSITORY_DIR/crawl-ref/source/util/species-gen.py
-  fi
+  echo "Setting compiler to gcc-7 and g++-7..."
+  CC="ccache gcc-7"
+  CXX="ccache g++-7"
+fi
 
+if (( VERSION_INT <= 17 )); then
   echo "Setting compiler to gcc-6 and g++-6..."
   CC="ccache gcc-6"
   CXX="ccache g++-6"
-fi
-
-if (( VERSION_INT <= 23 )); then
-  if [[ -f $CRAWL_REPOSITORY_DIR/crawl-ref/source/util/species-gen.py ]]; then
-    echo "Patching yaml.load(open(f_path)) to yaml.safe_load(open(f_path)) in species-gen.py..."
-    sed -i 's/yaml.load(open(f_path))/yaml.safe_load(open(f_path))/g' $CRAWL_REPOSITORY_DIR/crawl-ref/source/util/species-gen.py
-  fi
-
-  echo "Setting compiler to gcc-5 and g++-5..."
-  CC="ccache gcc-5"
-  CXX="ccache g++-5"
-fi
-
-if (( VERSION_INT <= 16 )) && [[ -f $CRAWL_REPOSITORY_DIR/crawl-ref/source/util/gen-mi-enum ]]; then
-  echo "Patching regex in gen-mi-enum..."
-  sed -i 's/monster_info_flags\\n{\\n/monster_info_flags\\n\\{\\n/' $CRAWL_REPOSITORY_DIR/crawl-ref/source/util/gen-mi-enum
 fi
 
 prompt "start update build"

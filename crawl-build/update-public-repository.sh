@@ -29,20 +29,36 @@ update-crawl-ref() {
     say "Updating git repository $REPO_DIR"
     ( cd $REPO_DIR && git checkout -f &&
         git reset --hard &&
+        git clean -fdx &&
         git fetch --all &&
         git checkout -f -B $BRANCH refs/remotes/$BRANCH &&
         git pull )
     if [[ -n "$REVISION" ]]; then
         say "Checking out requested revision: $REVISION"
-        ( cd $REPO_DIR && git checkout -f "$REVISION" && git reset --hard )
+        ( cd $REPO_DIR && git checkout -f "$REVISION" && git reset --hard && git clean -fdx )
     fi
 }
 
 update-submodules() {
     say "Updating git submodules in $REPO_DIR"
-    # Legacy support (VERSION <= 0.15)
-    sed -i 's/git:\/\/gitorious.org/https:\/\/github.com/g' $REPO_DIR/.gitmodules
     ( cd $REPO_DIR && git submodule update --init )
+}
+
+apply-patch() {
+  if [[ -f $REPO_DIR/crawl-ref/source/util/species-gen.py ]]; then
+    echo "Patching collections.MutableMapping to collections.abc.MutableMapping in species-gen.py... (VERSION <= 0.24)"
+    sed -i 's/collections.MutableMapping/collections.abc.MutableMapping/g' $REPO_DIR/crawl-ref/source/util/species-gen.py
+    echo "Patching yaml.load(open(f_path)) to yaml.safe_load(open(f_path)) in species-gen.py... (VERSION <= 0.23)"
+    sed -i 's/yaml.load(open(f_path))/yaml.safe_load(open(f_path))/g' $REPO_DIR/crawl-ref/source/util/species-gen.py
+  fi
+  if [[ -f $REPO_DIR/crawl-ref/source/util/gen-mi-enum ]]; then
+    echo "Patching regex in gen-mi-enum... (VERSION <= 0.16)"
+    sed -i 's/monster_info_flags\\n{\\n/monster_info_flags\\n\\{\\n/' $REPO_DIR/crawl-ref/source/util/gen-mi-enum
+  fi
+  if [[ "$BRANCH" == "bcadrencrawl/bCrawl" ]] && [[ -f $REPO_DIR/crawl-ref/source/describe-spells.cc ]]; then
+    echo "Patching broken if condition in describe-spells.cc... (BcadrenCrawl)"
+    sed -i 's/if (!testbits(get_spell_flags(spell), spflag::MR_check) || spell == SPELL_PAIN))$/if (!testbits(get_spell_flags(spell), spflag::MR_check) || spell == SPELL_PAIN)/' $REPO_DIR/crawl-ref/source/describe-spells.cc
+  fi
 }
 
 BRANCH=$1
@@ -51,3 +67,4 @@ REVISION="$2"
 clone-crawl-ref
 update-crawl-ref
 update-submodules
+apply-patch

@@ -1,151 +1,114 @@
-# Docker Server Usage Guide
+# dcss-server
 
-These scripts have been dockerised, with volumes to store permanent data, to allow for ease of deployment along with a very simple azure template to host the docker container on a vm.
+> This [README.md](README.md) is based on the automatically translated [README.ko.md](README.ko.md) via ChatGPT.
+
+This script is designed to simplify the deployment and management of a Dungeon Crawl Stone Soup server, including various fork versions (DCSS CA, HellCrawl, GnollCrawl, BloatCrawl2, GoonCrawl, X-Crawl, StoatSoup, KimchiCrawl, BcadrenCrawl) and official release versions (0.11 ~ 0.31) in a modern Ubuntu environment.
 
 ### First Run Guide:
 #### Prerequisites
-* Docker
+* Docker (with Docker Compose)
 
-#### Steps
-* build the dockerfile using `docker build --tag dgl-forks -f utils/testing-container/Dockerfile .` from the root of the git repo. Or using the `utils/build-testing-container.sh` script which does pretty much the same.
-* Create the 4 volumes using `docker volume create [volume-name]` replacing volume name with one of: `versionsdb, crawl-master, dgldir, usr-games` to store persistent data.
-* update the entrypoint in docker-compose.yaml from `/docker-entrypoint.sh` to `/docker-entrypoint-build-trunk` or `/docker-entrypoint-build-all`
-* Run `docker-compose -f utils/testing-container/docker-compose.yaml up` from the root of the git repo to start the server and wait either a little(if trunk only around 5 min, depending on specs) or a lot of time(if building all around an hour, again depending on specs), until the server finishes building the game binaries.
-* Register and play the trunk version at localhost:8080
-
-### Subsequent runs:
-
-* The entrypoint can be updated to just `/docker-entrypoint.sh`, so that server starts fast without rebuilding outdated binaries.
-* Then, simpy run `docker-compose -f utils/testing-container/docker-compose.yaml up` from the root of the git repo to start the server, allowing it to reuse the binaries and other data already saved in the volumes.
-
-### Controlling and debugging the server
-
-Use `docker exec -it [container-hash] /bin/bash` to get a shell inside the container, to be able to run the commands, either locally or after ssh into the server where the container is running.
-
-Full flow:
-* `docker ps` to find the container running this server, example output:
+#### One-Line Deploy
+```bash
+curl -fsSL https://refracta.github.io/dcss-server/server/scripts/deploy/stable.sh | sudo -E sh -
 ```
-CONTAINER ID   IMAGE              COMMAND                  CREATED          STATUS                    PORTS                                                                      NAMES
-1c3b1928910b   dgl-forks:latest   "/docker-entrypoint.…"   19 minutes ago   Up 19 minutes (healthy)   127.0.0.1:8080->8080/tcp, 127.0.0.1:2222->22/tcp, 127.0.0.1:8081->80/tcp   testing-container-dlg-forks-server-1
+<details>
+<summary>develop</summary>
+ 
+```bash
+curl -fsSL https://refracta.github.io/dcss-server/server/scripts/deploy/develop.sh | sudo -E sh -
 ```
 
-* The Container ID is `1c3b1928910b`, only 3 letters are needed if they are unique, so we can use `docker exec -it 1c3 /bin/bash` to get a shell.
-* Once bash is open in the container we can debug or execute command as if on a normal server. My most common usage is to test if the build of forks are succesful, taking a single line from the `install-crawl-versions.sh` file, like `/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc6 gnollcrawl crawl-forks/gnollcrawl/bugfix` and running it directly in the server.
+</details>
 
-* Editing shell files inside the container with vim also works, but It's best to keep this kind of configuration in code, by pushing images to a repository like dockerhub, then pulling in the new image on the server and restarting, otherwise configuration drift will occur between the production server and the git repo.
+#### Fast Deploy
+```bash
+git clone https://github.com/refracta/dcss-server -b stable
+cd dcss-server/server
 
-# Other issues
+# Update to the latest settings (use if you wish to update)
+docker compose run --rm -e CMD='cd $DGL_CONF_HOME && git pull' dcss-server
+# Download pre-built game binaries and settings
+docker compose run --rm -e CMD='$SCRIPTS/utils/release.sh download -o -p /data -n stable-game-data' dcss-server
+# Run with random ports
+docker compose up -d && docker compose logs -f
+# Run on specified ports
+docker compose -f docker-compose.yml -f docker-compose.ports.yml up -d && docker compose logs -f
+```
+<details>
+<summary>develop</summary>
+ 
+```bash
+git clone https://github.com/refracta/dcss-server -b develop
+cd dcss-server/server
 
-* When adding new forks/branches to already running server(if you want to add a totally new fork that is not in the current scripts), the data is copied from trunk files which is prefilled with data of the trunk milestones, etc. To fix this the files need to be copied, but all data needs to be removed in logfiles and similar. [Issue description](https://github.com/Rytisgit/dgamelaunch-dcss-forks-server/issues/4)
-* The crontab is set up unreliably. Restarting the server seems to write multiple times to the crontab, without clearing it correctly. And it doesn't seem to activate on just invoking it with the entrypoint. Something to figure out how to have it work corrctly.
-* ccache is installed, but not actually setup to be used in the compilation. Using `ccache --show-stats` shows that no files are being cached or hit when compiling. This would be good to set up for faster builds.
-* Make sure that when building the image, the checked out files have the correct line endings. I've had dgl perl scripts not working due to building with windows line ending checkout when the docker was running on linux. Had to figure out by googling.
+docker compose run --rm -e CMD='cd $DGL_CONF_HOME && git pull' dcss-server
+docker compose run --rm -e CMD='$SCRIPTS/utils/release.sh download -o -p /data -n game-data' dcss-server
+docker compose up -d && docker compose logs -f
+docker compose -f docker-compose.yml -f docker-compose.ports.yml up -d && docker compose logs -f
+```
 
-# Misc/TODO
+</details>
 
-* The ssh user and password are currently both `crawler` and it doesnt ask for a key.
-* No SSL setup.
-* No rebuild url hook setup.(A few servers have the `trigger-rebuild.pl` script available for devs with a login to call when they want to trigger a rebuild).
-* No Mail setup for password reset(Only some server have this setup, it's mostly optional).
+#### Deploy with Build
+```bash
+git clone https://github.com/refracta/dcss-server -b stable
+cd dcss-server/server
 
-# dgamelaunch-config
+# If you need to build without downloading images from Docker Hub, you can use the following command.
+docker compose build
 
-This is a collection of scripts to manage a dgamelaunch
-(http://nethackwiki.com/wiki/Dgamelaunch) install, all run from an
-umbrella `dgl` script.
+# This command is optional; you can download ccache files to speed up compilation.
+# Without it, the full build takes over 6 hours on the GitHub Action Runner's ubuntu-24.04 image, and about 45 minutes with it.
+docker compose run --rm -e CMD='$SCRIPTS/utils/release.sh download -p /data/ccache -n stable-ccache' dcss-server
 
-These are still very incomplete, WIP.
+# USE_DWEM: Apply https://github.com/refracta/dcss-webtiles-extension-module.
+# USE_REVERSE_PROXY: Apply a patch to log the X-Forwarded-For IP.
+# CMD: Can be used to run scripts inside the container.
+# "$SCRIPTS/game/install-crawl-versions.sh"=Build all Crawl versions, "$SCRIPTS/game/install-trunk.sh"=Build only the trunk version, ""=Run the server without building (if pre-built data exists).
+docker compose run --rm -e CMD='$SCRIPTS/game/install-crawl-versions.sh' dcss-server
+USE_DWEM=true USE_REVERSE_PROXY=true docker compose up -d && docker compose logs -f
+```
 
-Currently available commands:
+<details>
+<summary>develop</summary>
+ 
+```bash
+git clone https://github.com/refracta/dcss-server -b develop
+cd dcss-server/server
 
-1. Update your dgamelaunch config from the repository:
-   ```
-   $ sudo dgl publish --confirm
-   ```
+docker compose build
+docker compose run --rm -e CMD='$SCRIPTS/utils/release.sh download -p /data/ccache -n ccache' dcss-server
+docker compose run --rm -e CMD='$SCRIPTS/game/install-crawl-versions.sh' dcss-server
+USE_DWEM=true USE_REVERSE_PROXY=true docker compose up -d && docker compose logs -f
+```
 
-2. Change a dgl user's password:
-   ```
-   $ sudo dgl passwd johndoe
-   ```
+</details>
 
-3. Update Crawl alpha build from git master:
-   ```
-   $ dgl update-trunk
-   ```
+#### Notes
+ - All server data is stored in `server/data/{config,versionsdb,crawl-master,dgldir,games}`.
+ - `config` is created by cloning the contents of this repository at the time of image build. If you set this folder with the contents of this repository (or a forked and modified repository) in advance, the container will use those contents for configuration. You can modify the scripts in [server/scripts](server/scripts) to change the server settings.
+ - `versiondb` stores the database file containing the version information of the built games.
+ - `crawl-master` stores game settings, Milestones, Morgue, etc.
+ - `dgldir` stores data used by `dgamelaunch`.
+ - `games` stores the built game binaries.
+ - You can access Crawl Webtiles on port `8080`, game logs on ports `8081 (Apache)` and `8082 (Nginx)`, and SSH on port 12222. (You can connect using `nemelex:xobeh` or the [CAO key](https://crawl.develz.org/cao_key))
+ - You can use [trigger-rebuild.pl](utils/trigger-rebuild.pl) and [auth-save-downloader.pl](utils/auth-save-downloader.pl). (Refer to: [apache.conf](server/scripts/web/conf/apache.conf), [nginx.conf](server/scripts/web/conf/nginx.conf))
+ - Trunk and some fork builds are executed every 15 minutes. (Refer to: [setup-cron.sh](server/scripts/game/setup-cron.sh))
+ - You can fork this repository to manage personalized build configurations as releases. (Refer to: [release.sh](server/scripts/utils/release.sh), [upload-data.yml](.github/workflows/upload-data.yml))
 
-4. Remove stale Crawl alpha versions:
-   ```
-   $ dgl remove-trunks
-   ```
+### Repository Management
+* This repository is used for the operation of [crawl.nemelex.cards](https://crawl.nemelex.cards).
+* If you need to add a new fork or version, you can request it via a Pull-Request.
 
-5. Run dgl-whereis inotify daemon:
-   ```
-   $ sudo dgl crawl-inotify-dglwhere
-   ```
+### Upstream Projects
+* https://github.com/crawl/dgamelaunch-config
+* Scripts necessary for operating a Dungeon Crawl Stone Soup server. `utils/testing-container` contains the container environment configuration created for Crawl's CI/CD verification work.
 
-   This inotify daemon monitors the dgamelaunch in-progress dirs to keep
-   track of active players, and monitors their morgue directories for
-   changes to their .where files. When a .where changes, the daemon reads
-   it and writes a human-readable .dglwhere file in the same directory.
+* https://github.com/Rytisgit/dgamelaunch-dcss-forks-server
+* This project is based on dgamelaunch-config and is designed to easily configure multiple forks in a containerized environment. *This project was started based on this project.*
 
-   You may configure dgamelaunch to show this .dglwhere information
-   using the dgamelaunch extra_info_file option.
+### Thanks to
 
-   You may also run the crawl-inotify-dglwhere script standalone (without
-   the rest of the dgamelaunch-config setup) by starting it as:
 
-      sudo -u dgl perl crawl-inotify-dglwhere.pl <dgldir> <morguedir>
-
-Note: Some of these commands will probably change names soon.
-
-The ultimate goal for this project is to become a one-stop shop for
-all your dgamelaunch+Crawl needs, starting from installing dgamelaunch
-itself
-
-# TODO
-
-1. `dgl install-dgl` command to fetch and install the latest dgamelaunch.
-
-2. `dgl create-chroot` command to set up a basic chroot jail with all the
-   fixtures dgamelaunch wants (dgamelaunch already has a skeleton script
-   that can serve as a basis, although this is unfortunately NetHack-biased).
-
-3. Support for installing different games, including fetching their sources
-   from their respective source repositories, compiling, installing into the
-   chroot, etc.
-   ```
-   dgl install crawl master`
-   dgl install nethack 3.4.3`
-   ```
-   Etc.
-
-   Installing a game should also (eventually) add a suitable entry to
-   the various menu files and update the dgamelaunch config
-   appropriately.
-
-4. Support for tracking development versions of games (such as Crawl
-   master) using a system similar to CDO's for creating versioned
-   directories, migrating saves to newer versions, and deleting old
-   versions with no remaining save games.
-
-5. Module system so that management of say, crawl-git is a
-   self-contained module. Each module should be able to contribute dgl
-   commands and provide files that will be installed to the chroot or
-   root filesystem.
-
-6. Each dgl command that affects the machine or chroot should update a
-   manifest. The manifest could be a file or a directory containing
-   multiple manifest files.
-
-   Given a manifest, I should be able to install dgamelaunch-config
-   on a brand new machine and use one dgl command to recreate the manifest.
-
-   For instance, something like:
-   `dgl replicate-manifest <path-to-manifest>`
-
-   The manifest should include information like this:
-   * What dgamelaunch version is installed, and from where (install-dgl module)
-   * chroot configuration: what binaries and libraries have been installed
-     into the chroot, with the exception of game binaries, i.e. the state of
-     the chroot minus games (chroot module)
-   * Game configuration (handled by the various game modules)
+Thanks to the help of many developers in the `#crawl-dev` IRC channel, the implementation goals of this project were successfully achieved. I would especially like to thank [gammafunk](https://github.com/gammafunk) and [Sentei](https://github.com/Rytisgit), the developer of [DCSSReplay](https://github.com/Rytisgit/dcssreplay) and maintainer of [dgamelaunch-dcss-forks-server](https://github.com/Rytisgit/dgamelaunch-dcss-forks-server), for their invaluable advice and assistance in resolving issues, particularly with server setup.
