@@ -22,6 +22,8 @@ jobs:
           remove-codeql: 'true'
 
       - uses: actions/checkout@v4
+        with:
+          ref: stable
 
       - name: Build image
         run: |
