@@ -10,13 +10,13 @@
 
 #### One-Line Deploy
 ```bash
-curl -fsSL https://refracta.github.io/dcss-server/server/scripts/deploy/stable.sh | sudo -E sh -
+curl -fsSL https://raw.githubusercontent.com/refracta/dcss-server/stable/server/scripts/deploy/stable.sh | sudo -E sh -
 ```
 <details>
 <summary>develop</summary>
  
 ```bash
-curl -fsSL https://refracta.github.io/dcss-server/server/scripts/deploy/develop.sh | sudo -E sh -
+curl -fsSL https://raw.githubusercontent.com/refracta/dcss-server/develop/server/scripts/deploy/stable.sh | sudo -E sh -
 ```
 
 </details>
