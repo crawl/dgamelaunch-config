@@ -51,7 +51,7 @@ RUN ccache -F 0
 RUN ccache -M 0
 
 RUN git clone https://github.com/refracta/dcss-server /usr/src/dgamelaunch-config
-RUN chown -R crawl-dev /usr/src/dgamelaunch-config
+RUN chown -R crawl-dev:crawl-dev /usr/src/dgamelaunch-config
 ENV PATH="$DGL_CONF_HOME/bin:$PATH"
 
 WORKDIR /home/crawl-dev
