@@ -64,14 +64,12 @@ COPY server/etc/dgl_sudoers /etc/sudoers.d/
 # TODO: what are these directories in ~crawl-dev used for? `run` doesn't exist
 # TODO: Fix logs, announcements.log, run
 USER crawl-dev
-RUN mkdir logs \
-    && touch announcements.log \
-    && mkdir run \
+RUN mkdir logs run \
+    && touch logs/announcements.log \
     && git clone https://github.com/crawl/dgamelaunch.git \
     && cd dgamelaunch && ./autogen.sh --enable-debugfile --enable-sqlite --enable-shmem && make
 
 RUN git config --global url.https://github.com/.insteadOf git://github.com/
-RUN git config --global url.https://github.com/.insteadOf git://gitorious.org/
 
 USER root
 RUN cd dgamelaunch \
