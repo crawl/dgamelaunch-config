@@ -4,7 +4,7 @@ on:
   push:
     branches: [ stable, upload-stable-data ]
   schedule:
-    - cron: '0 * * * *'
+    - cron: '0 0 * * *'
 
 jobs:
   upload:
@@ -22,6 +22,8 @@ jobs:
           remove-codeql: 'true'
 
       - uses: actions/checkout@v4
+        with:
+          ref: stable
 
       - name: Build image
         run: |
@@ -41,7 +43,10 @@ jobs:
       - name: Print result
         run: |
           grep -B 100 -A 3 -e "Error 1" -e "\[fail\]" docker-compose.log || true
+          echo 'crawl-master'
           ls data/crawl-master | xargs
+          echo 'games'
+          ls data/games | xargs
           ! grep -q -e "Error 1" -e "\[fail\]" docker-compose.log
         working-directory: server
 

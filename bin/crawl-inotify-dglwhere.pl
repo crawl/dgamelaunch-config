@@ -121,7 +121,7 @@ sub inprog_morgue_dir($) {
   $dir =~ s{/$}{};
   ($dir) = $dir =~ m{.*/(.*)};
   # Strip alt qualifiers:
-  $dir =~ s/\b(?:spr|zd|tut)-//;
+  $dir =~ s/-(?:descent|seed|sprint|tutorial|zotdef)$//;
   $dir
 }
 
