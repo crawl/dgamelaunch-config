@@ -51,7 +51,7 @@ template_game = {
     "rcfile_path": "%%CHROOT_RCFILESDIR%%/crawl-{}/",
     "macro_path": "%%CHROOT_RCFILESDIR%%/crawl-{}/",
     "morgue_path": "%%CHROOT_MORGUEDIR%%/%n/",
-    "morgue_url": "https://archive.nemelex.cards/morgue/%n/",
+    "morgue_url": "CONFIG_MORGUE_URL",
     "inprogress_path": "%%CHROOT_INPROGRESSDIR%%/crawl-{}/",
     "ttyrec_path": "%%CHROOT_TTYRECDIR%%/%n/",
     "socket_path": "%%CHROOT_WEBDIR%%/sockets",
@@ -104,8 +104,9 @@ forks_data = [
     ("gooncrawl", {"name": "GoonCrawl", "allowed_mods": ["Tutorial", "Sprint"]}),
     ("xcrawl", {"name": "X-Crawl", "allowed_mods": ["Tutorial", "Sprint"]}),
     ("stoatsoup", {"name": "Stoat Soup", "allowed_mods": ["Tutorial", "Sprint"]}),
+    ("bcadrencrawl", {"name": "BcadrenCrawl", "allowed_mods": ["Tutorial", "Sprint", "Seeded"]}),
     ("kimchicrawl", {"name": "KimchiCrawl", "allowed_mods": ["Tutorial", "Sprint", "Seeded"]}),
-    ("bcadrencrawl", {"name": "BcadrenCrawl", "allowed_mods": ["Tutorial", "Sprint", "Seeded"]})
+    ("addedcrawl", {"name": "AddedCrawl", "allowed_mods": ["Tutorial", "Sprint", "Seeded"]})
 ]
 variants = [fork[0] for fork in forks_data] + [f"0.{i}" for i in versions]
 
@@ -162,9 +163,7 @@ forks = [
 games = OrderedDict(trunk + stable_versions + forks)
 
 dgl_status_file = "%%CHROOT_WEBDIR%%/run/status"
-
-# Set to None not to read milestones
-milestone_file = [
+forks_milestones = [
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-dcssca/saves/milestones",
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-hellcrawl/saves/milestones",
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-gnollcrawl/saves/milestones",
@@ -172,13 +171,25 @@ milestone_file = [
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-gooncrawl/saves/milestones",
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-xcrawl/saves/milestones",
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-stoatsoup/saves/milestones",
-    "%%CHROOT_CRAWL_BASEDIR%%/crawl-kimchicrawl/saves/milestones",
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-bcadrencrawl/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-kimchicrawl/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-addedcrawl/saves/milestones"
+]
+
+version_milestones = [
+    f"%%CHROOT_CRAWL_BASEDIR%%/crawl-0.{version}/saves/milestones"
+    for version in version_range
+]
+
+trunk_milestones = [
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-tutorial",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-sprint",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-descent"
 ]
+milestone_file = [*forks_milestones, *version_milestones, *trunk_milestones]
+
+# Set to None not to read milestones
 
 status_file_update_rate = 5
 

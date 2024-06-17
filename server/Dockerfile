@@ -11,6 +11,7 @@ ENV SCRIPTS="$DGL_CONF_HOME/server/scripts"
 ENV SRC_SCRIPTS=/usr/src/dgamelaunch-config/server/scripts
 ARG DEBIAN_FRONTEND=noninteractive
 ARG TERM=dumb
+ARG BRANCH
 
 # basic prerequisites
 RUN apt-get update
@@ -50,8 +51,10 @@ ENV PATH="/usr/lib/ccache:$PATH"
 RUN ccache -F 0
 RUN ccache -M 0
 
-RUN git clone https://github.com/refracta/dcss-server /usr/src/dgamelaunch-config
+RUN git clone ${BRANCH:+-b $BRANCH} https://github.com/refracta/dcss-server /usr/src/dgamelaunch-config
+RUN git config --global --add safe.directory /usr/src/dgamelaunch-config
 RUN chown -R crawl-dev:crawl-dev /usr/src/dgamelaunch-config
+RUN git config --global --add safe.directory $DGL_CONF_HOME
 ENV PATH="$DGL_CONF_HOME/bin:$PATH"
 
 WORKDIR /home/crawl-dev
@@ -64,9 +67,8 @@ COPY server/etc/dgl_sudoers /etc/sudoers.d/
 # TODO: what are these directories in ~crawl-dev used for? `run` doesn't exist
 # TODO: Fix logs, announcements.log, run
 USER crawl-dev
-RUN mkdir logs run \
-    && touch logs/announcements.log \
-    && git clone https://github.com/crawl/dgamelaunch.git \
+RUN mkdir logs && touch logs/announcements.log
+RUN git clone https://github.com/crawl/dgamelaunch.git \
     && cd dgamelaunch && ./autogen.sh --enable-debugfile --enable-sqlite --enable-shmem && make
 
 RUN git config --global url.https://github.com/.insteadOf git://github.com/
