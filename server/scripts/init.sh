@@ -8,11 +8,14 @@
 "$SCRIPTS"/web/setup-nginx.sh
 
 if [ "$USE_REVERSE_PROXY" = 'true' ]; then
-  "$SCRIPTS"/util/setup-reverse-proxy.sh
+  echo "Run setup-reverse-proxy.sh"
+  "$SCRIPTS"/utils/setup-reverse-proxy.sh
 fi
 if [ "$USE_DWEM" = 'true' ]; then
-  "$SCRIPTS"/util/setup-dwem.sh
+  echo "Run setup-dwem.sh"
+  "$SCRIPTS"/utils/setup-dwem.sh
 fi
 if [ "$USE_CNC_CONFIG" = 'true' ]; then
-  "$SCRIPTS"/util/setup-cnc-config.sh
+  echo "Run setup-cnc-config.sh"
+  "$SCRIPTS"/utils/setup-cnc-config.sh
 fi
