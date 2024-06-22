@@ -9,4 +9,5 @@ sed -i 's|<script type="text/javascript">|<script  type="text/javascript">\
       localStorage.DWEM_MODULES = JSON.stringify(\
         ["../modules/io-hook/index.js", "../modules/module-manager/index.js", "../modules/legacy-module-support/index.js"]\
       );|g' "$WEBDIR/templates/client.html"
+grep -qxF '# CRAWL.NEMELEX.CARDS' /dgldir/data/crawl-git-settings/init.txt || sed -i '1i# CRAWL.NEMELEX.CARDS' /dgldir/data/crawl-git-settings/init.txt
 dgl publish --confirm > /dev/null 2>&1
