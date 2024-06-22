@@ -7,7 +7,7 @@ sed -i 's|CONFIG_WEB_SAVEDUMP_URL|https://archive.nemelex.cards/saves|g' "$DGL_C
 cp -r $DGL_CONF_HOME/server/etc/webserver/* $WEBDIR
 sed -i 's|<script type="text/javascript">|<script  type="text/javascript">\
       localStorage.DWEM_MODULES = JSON.stringify(\
-        ["io-hook", "site-information", "cnc-banner", "legacy-module-support"].map(m => "../modules/" + m + "/index.js")\
+        ["io-hook", "site-information", "module-manager", "cnc-banner", "legacy-module-support"].map(m => "../modules/" + m + "/index.js")\
       );|g' "$WEBDIR/templates/client.html"
 grep -qxF '# CRAWL.NEMELEX.CARDS' /dgldir/data/crawl-git-settings/init.txt || sed -i '1i# CRAWL.NEMELEX.CARDS' /dgldir/data/crawl-git-settings/init.txt
 dgl publish --confirm > /dev/null 2>&1
