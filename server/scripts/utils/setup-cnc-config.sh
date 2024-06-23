@@ -5,7 +5,9 @@ sed -i 's|CONFIG_MORGUE_URL|https://archive.nemelex.cards/morgue/%n/|g' "$DGL_CO
 sed -i 's|CONFIG_DGL_SERVER|crawl.nemelex.cards|g' "$DGL_CONF_HOME/dgl-manage.conf"
 sed -i 's|CONFIG_WEB_SAVEDUMP_URL|https://archive.nemelex.cards/saves|g' "$DGL_CONF_HOME/dgl-manage.conf"
 cp -r $DGL_CONF_HOME/server/etc/webserver/* $WEBDIR
+# TODO: localStorage.clear() should be removed (temporal setting)
 sed -i 's|<script type="text/javascript">|<script  type="text/javascript">\
+      localStorage.clear();\
       localStorage.DWEM_MODULES = JSON.stringify(\
         ["io-hook", "site-information", "module-manager", "cnc-banner", "legacy-module-support"].map(m => "../modules/" + m + "/index.js")\
       );|g' "$WEBDIR/templates/client.html"
