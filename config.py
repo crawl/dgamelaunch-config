@@ -55,6 +55,7 @@ template_game = {
     "inprogress_path": "%%CHROOT_INPROGRESSDIR%%/crawl-{}/",
     "ttyrec_path": "%%CHROOT_TTYRECDIR%%/%n/",
     "socket_path": "%%CHROOT_WEBDIR%%/sockets",
+    "show_save_info": True
 }
 
 
