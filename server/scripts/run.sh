@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cron
 service apache2 start
 
 spawn-fcgi -s /var/run/fcgiwrap.socket -U www-data -G www-data /usr/sbin/fcgiwrap
