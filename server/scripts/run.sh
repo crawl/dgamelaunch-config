@@ -7,6 +7,7 @@ spawn-fcgi -s /var/run/fcgiwrap.socket -U www-data -G www-data /usr/sbin/fcgiwra
 service nginx start
 
 /etc/init.d/ssh start
+sudo -u crawl nohup ttyd -p 8022 -W dgamelaunch &
 
 dgl crawl-inotify-dglwhere
 

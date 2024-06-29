@@ -79,6 +79,8 @@ RUN cd dgamelaunch \
     && make install && cp ee virus $DGL_CHROOT/bin \
     && touch $DGL_CHROOT/dgamelaunch
 
+RUN curl -L https://github.com/tsl0922/ttyd/releases/download/1.7.7/ttyd.x86_64 -o /usr/bin/ttyd && chmod +x /usr/bin/ttyd
+
 # this is taken from build-crawl-dirs to here because it's the only directory that's outside of volumes due to not storing state
 RUN mkdir -p /cores
 # TODO: could add apache setup here
