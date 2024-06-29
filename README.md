@@ -26,7 +26,7 @@ curl -fsSL https://raw.githubusercontent.com/refracta/dcss-server/develop/server
 ```bash
 git clone https://github.com/refracta/dcss-server -b stable
 cd dcss-server/server
-docker compose -f docker-compose.yml -f docker-compose.ports.yml -f docker-compose.stable.yml config > docker-compose.combine.yml \ && 
+docker compose -f docker-compose.yml -f docker-compose.stable.yml config > docker-compose.combine.yml && \
 mv docker-compose.combine.yml docker-compose.yml
 
 # Update with the latest settings (use if you want to update)
@@ -44,12 +44,12 @@ docker compose -f docker-compose.yml -f docker-compose.ports.yml up -d && docker
 ```bash
 git clone https://github.com/refracta/dcss-server -b develop
 cd dcss-server/server
-docker compose -f docker-compose.yml -f docker-compose.ports.yml config > docker-compose.combine.yml \ && 
-mv docker-compose.combine.yml docker-compose.yml
 
 docker compose run --rm -e CMD='cd $DGL_CONF_HOME && git pull' dcss-server
 docker compose run --rm -e CMD='$SCRIPTS/utils/release.sh download -o -p /data -n game-data' dcss-server
+# Run with random ports
 docker compose up -d && docker compose logs -f
+# Run with specified ports
 docker compose -f docker-compose.yml -f docker-compose.ports.yml up -d && docker compose logs -f
 ```
 
@@ -59,7 +59,7 @@ docker compose -f docker-compose.yml -f docker-compose.ports.yml up -d && docker
 ```bash
 git clone https://github.com/refracta/dcss-server -b stable
 cd dcss-server/server
-docker compose -f docker-compose.yml -f docker-compose.ports.yml -f docker-compose.stable.yml config > docker-compose.combine.yml \ && 
+docker compose -f docker-compose.yml -f docker-compose.ports.yml -f docker-compose.stable.yml config > docker-compose.combine.yml && \
 mv docker-compose.combine.yml docker-compose.yml
 
 # If you need to build without downloading the image stored in Docker Hub, you can use the following command.
@@ -83,7 +83,7 @@ USE_DWEM=true USE_REVERSE_PROXY=true docker compose up -d && docker compose logs
 ```bash
 git clone https://github.com/refracta/dcss-server -b develop
 cd dcss-server/server
-docker compose -f docker-compose.yml -f docker-compose.ports.yml config > docker-compose.combine.yml \ && 
+docker compose -f docker-compose.yml -f docker-compose.ports.yml config > docker-compose.combine.yml && \
 mv docker-compose.combine.yml docker-compose.yml
 
 docker compose build
