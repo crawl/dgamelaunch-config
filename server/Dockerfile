@@ -79,7 +79,11 @@ RUN cd dgamelaunch \
     && make install && cp ee virus $DGL_CHROOT/bin \
     && touch $DGL_CHROOT/dgamelaunch
 
-RUN curl -L https://github.com/tsl0922/ttyd/releases/download/1.7.7/ttyd.x86_64 -o /usr/bin/ttyd && chmod +x /usr/bin/ttyd
+RUN set -e && \
+    TTYD_CHECKSUM="8a217c968aba172e0dbf3f34447218dc015bc4d5e59bf51db2f2cd12b7be4f55" && \
+    curl -L https://github.com/tsl0922/ttyd/releases/download/1.7.7/ttyd.x86_64 -o /usr/bin/ttyd && \
+    echo "$TTYD_CHECKSUM  /usr/bin/ttyd" | sha256sum -c - && \
+    chmod +x /usr/bin/ttyd
 
 # this is taken from build-crawl-dirs to here because it's the only directory that's outside of volumes due to not storing state
 RUN mkdir -p /cores
