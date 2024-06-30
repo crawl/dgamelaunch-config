@@ -19,6 +19,7 @@ services:
       - ./data/dgldir:/dgldir
       - ./data/games:/usr/games
       - ./data/ccache:/root/.cache/ccache
+      - ./data/ssh-keys:/etc/ssh/keys
       - ./data/:/data
     environment:
       - CMD
