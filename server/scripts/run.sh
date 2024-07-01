@@ -10,6 +10,9 @@ service nginx start
 /etc/init.d/ssh start
 sudo -u crawl nohup ttyd -p 8022 -t 'theme={"background": "#000000"}' -W dgamelaunch &
 
+# Limits CPU usage for builds performed with cron.
+nohup cpulimit -e cc1plus -l 20 &
+
 dgl crawl-inotify-dglwhere
 
 rm "$CHROOT_WEBDIR/run/webtiles.pid" #in case the container was stopped without cleaning up pid file in volume
