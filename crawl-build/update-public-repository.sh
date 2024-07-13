@@ -61,6 +61,13 @@ apply-patch() {
     echo "Patching broken if condition in describe-spells.cc... (BcadrenCrawl)"
     sed -i 's/if (!testbits(get_spell_flags(spell), spflag::MR_check) || spell == SPELL_PAIN))$/if (!testbits(get_spell_flags(spell), spflag::MR_check) || spell == SPELL_PAIN)/' $REPO_DIR/crawl-ref/source/describe-spells.cc
   fi
+  if [[ "$BRANCH" == origin* ]]; then
+    echo "Patching SRC_BRANCH variable... (DCSS 'master' & 'stone_soup-%' branches)"
+    sed -i 's#git rev-parse --abbrev-ref HEAD || echo release#(git rev-parse --abbrev-ref HEAD || echo release) | sed "s|^heads/origin/||"#' $REPO_DIR/crawl-ref/source/Makefile
+  else
+    echo "Patching SRC_BRANCH variable... (Forks, Disable EXPERIMENTAL_BRANCH options)"
+    sed -i 's#git rev-parse --abbrev-ref HEAD || echo release#echo release#' $REPO_DIR/crawl-ref/source/Makefile
+  fi
 }
 
 BRANCH=$1
