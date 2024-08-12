@@ -30,9 +30,8 @@ function safe-exit {
     echo "Exiting script."
     exit 0
 }
-trap 'safe-exit' SIGTERM
+trap 'safe-exit' EXIT
 
 "$SCRIPTS"/run.sh
 
-tail -f "$DGL_CHROOT/crawl-master/webserver/run/webtiles.log" &
-wait $!
+tail -f "$DGL_CHROOT/crawl-master/webserver/run/webtiles.log"
