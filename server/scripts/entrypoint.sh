@@ -21,6 +21,8 @@ if [ ! -f "$INIT_FLAG_FILE" ]; then
 fi
 
 function safe-exit {
+    echo "Removing crawl-update.lock..."
+    rm -rf /home/crawl-dev/dgamelaunch-config/locks/crawl-update.lock
     echo "Stopping SSH service..."
     service ssh stop
     echo "Restarting webtiles service..."
