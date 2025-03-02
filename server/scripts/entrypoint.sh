@@ -1,5 +1,6 @@
 #!/bin/bash
 
+git config --global --add safe.directory '*'
 if [ -z "$CMD" ]; then
     "$SCRIPTS"/dgl/generate-conf.sh
     dgl create-versions-db
