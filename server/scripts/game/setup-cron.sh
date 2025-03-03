@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the commands and their schedules
-command1="/home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk"
+command1="env - \$(cat /proc/1/environ | tr '\\0' '\\n') /home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk"
 schedule1="*/15 * * * *"
 
 command2="/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc stoatsoup stoatsoup/master"
