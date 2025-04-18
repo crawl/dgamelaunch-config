@@ -26,8 +26,9 @@ function safe-exit {
     rm -rf /home/crawl-dev/dgamelaunch-config/locks/crawl-update.lock
     echo "Stopping SSH service..."
     service ssh stop
-    echo "Restarting webtiles service..."
+    echo "Stopping webtiles service..."
     /etc/init.d/webtiles stop
+    rm -rf "$DGL_CHROOT/crawl-master/webserver/run/webtiles.pid"
     echo "Waiting for 5 seconds..."
     sleep 5
     echo "Exiting script."
