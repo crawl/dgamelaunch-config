@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # Define the commands and their schedules
-command1="env - \$(cat /proc/1/environ | tr '\\0' '\\n') /home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk"
+command1="env - \$(cat /proc/1/environ | tr '\\0' '\\n') /home/crawl-dev/dgamelaunch-config/bin/dgl update-trunk >> /home/crawl-dev/logs/trunk.log 2>&1"
 schedule1="*/15 * * * *"
 
-command2="/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc stoatsoup stoatsoup/master"
+command2="/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc stoatsoup stoatsoup/master >> /home/crawl-dev/logs/stoatsoup.log 2>&1"
 schedule2="0 6 * * *"
 
-command3="/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc bcadrencrawl bcadrencrawl/bCrawl"
+command3="/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc bcadrencrawl bcadrencrawl/bCrawl >> /home/crawl-dev/logs/bcadrencrawl.log 2>&1"
 schedule3="0 7 * * *"
 
-command4="/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc bcrawl bcrawl/master"
+command4="/home/crawl-dev/dgamelaunch-config/bin/dgl update-gcc bcrawl bcrawl/master >> /home/crawl-dev/logs/bcrawl.log 2>&1"
 schedule4="0 8 * * *"
 
 command5="/home/crawl-dev/dgamelaunch-config/bin/dgl compress-ttyrecs"
