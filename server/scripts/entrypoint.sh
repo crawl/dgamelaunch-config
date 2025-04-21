@@ -11,6 +11,7 @@ else
     dgl create-versions-db > /dev/null 2>&1
     dgl create-crawl-gamedir > /dev/null 2>&1
     dgl publish --confirm > /dev/null 2>&1
+    echo
     eval "$CMD"
     exit 0
 fi
