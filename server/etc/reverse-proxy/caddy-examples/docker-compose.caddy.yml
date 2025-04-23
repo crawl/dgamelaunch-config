@@ -1,5 +1,8 @@
 name: server
 services:
+  dcss-server:
+    networks:
+      internal: null
   caddy:
     image: caddy:alpine
     networks:
