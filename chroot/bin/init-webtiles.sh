@@ -1,7 +1,7 @@
 #! /bin/sh
 
 NAME=$1
-VERSIONS="git $(seq 11 32 | sed 's/^/0./')"
+VERSIONS="git $(seq 11 33 | sed 's/^/0./')"
 
 for v in $VERSIONS; do
     cp --no-clobber "%%CHROOT_DGLDIR%%/data/crawl-$v-settings/init.txt" "%%CHROOT_RCFILESDIR%%/crawl-$v/$NAME.rc"
