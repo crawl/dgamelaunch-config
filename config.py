@@ -135,15 +135,11 @@ games = dict([
     ("seeded-0.32", dict(template = "stable_seeded", version = "0.32")),
     ("spr-0.32", dict(template = "stable_sprint", version = "0.32")),
 
-    ("dcss-0.31", dict(
-        template = "stable", version = "0.31",
-        name = "DCSS %v (current release)")),
+    ("dcss-0.31", dict(template = "stable", version = "0.31")),
     ("seeded-0.31", dict(template = "stable_seeded", version = "0.31")),
     ("spr-0.31", dict(template = "stable_sprint", version = "0.31")),
 
-    ("dcss-0.30", dict(
-        template = "stable", version = "0.30",
-        name = "DCSS %v (current release)")),
+    ("dcss-0.30", dict(template = "stable", version = "0.30")),
     ("seeded-0.30", dict(template = "stable_seeded", version = "0.30")),
     ("spr-0.30", dict(template = "stable_sprint", version = "0.30")),
 
