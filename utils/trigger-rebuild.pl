@@ -151,7 +151,7 @@ sub main() {
   my $ver = param('v');
 
   if (not $ver) {
-    do_prompt 'trunk', 'dcssca', 'hellcrawl', 'gnollcrawl', 'bcrawl', 'bloatcrawl2', 'gooncrawl', 'xcrawl', 'stoatsoup', 'bcadrencrawl', 'kimchicrawl', 'addedcrawl', map { "0.$_" } (11 .. 33);
+    do_prompt 'trunk', 'dcssca', 'hellcrawl', 'gnollcrawl', 'bcrawl', 'bloatcrawl2', 'gooncrawl', 'xcrawl', 'stoatsoup', 'bcadrencrawl', 'kimchicrawl', 'addedcrawl', 'dcst', map { "0.$_" } (11 .. 33);
   } elsif ($ver eq 'trunk') {
     do_update 'trunk';
   } elsif ($ver =~ /^0\.\d+$/) {
@@ -178,6 +178,8 @@ sub main() {
     do_update 'gcc', 'kimchicrawl crawl-forks/kimchicrawl/bugfix 7';
   } elsif ($ver eq 'addedcrawl') {
     do_update 'gcc', 'addedcrawl crawl-forks/addedcrawl/bugfix 7';
+  } elsif ($ver eq 'dcst') {
+    do_update 'gcc', 'dcst dcst/test';
   } else {
     do_fail "Unknown version " . escapeHTML($ver);
   }

@@ -18,6 +18,7 @@ clone-crawl-ref() {
     say "Crawl-forks" && git --git-dir="./$CRAWL_REPOSITORY_DIR/.git" remote add crawl-forks https://github.com/refracta/crawl-forks.git
     say "GoonCrawl" && git --git-dir="./$CRAWL_REPOSITORY_DIR/.git" remote add gooncrawl https://github.com/Floodkiller/crawl.git
     say "BloatCrawl 2" && git --git-dir="./$CRAWL_REPOSITORY_DIR/.git" remote add bloatcrawl2 https://github.com/Hellmonk/bloatcrawl2.git
+    say "DCST" && git --git-dir="./$CRAWL_REPOSITORY_DIR/.git" remote add dcst https://github.com/Hellmonk/dcst.git
     say "Stoat Soup" && git --git-dir="./$CRAWL_REPOSITORY_DIR/.git" remote add stoatsoup https://github.com/damerell/crawl.git
     say "BcadrenCrawl" && git --git-dir="./$CRAWL_REPOSITORY_DIR/.git" remote add bcadrencrawl https://github.com/Bcadren/crawl.git
     say "B-Crawl" && git --git-dir="./$CRAWL_REPOSITORY_DIR/.git" remote add bcrawl https://github.com/b-crawl/bcrawl.git

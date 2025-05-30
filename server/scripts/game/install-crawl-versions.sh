@@ -24,3 +24,4 @@ dgl update-gcc xcrawl crawl-forks/xcrawl/bugfix 7
 dgl update-gcc bcadrencrawl bcadrencrawl/bCrawl
 dgl update-gcc kimchicrawl crawl-forks/kimchicrawl/bugfix 7
 dgl update-gcc addedcrawl crawl-forks/addedcrawl/bugfix 7
+dgl update-gcc dcst dcst/test

@@ -108,7 +108,8 @@ forks_data = [
     ("stoatsoup", {"name": "Stoat Soup", "allowed_mods": ["Tutorial", "Sprint"]}),
     ("bcadrencrawl", {"name": "BcadrenCrawl", "allowed_mods": ["Tutorial", "Sprint", "Seeded"]}),
     ("kimchicrawl", {"name": "KimchiCrawl", "allowed_mods": ["Tutorial", "Sprint", "Seeded"]}),
-    ("addedcrawl", {"name": "AddedCrawl", "allowed_mods": ["Tutorial", "Sprint", "Seeded"]})
+    ("addedcrawl", {"name": "AddedCrawl", "allowed_mods": ["Tutorial", "Sprint", "Seeded"]}),
+    ("dcst", {"name": "DCST", "allowed_mods": ["Tutorial", "Sprint", "Seeded"]})
 ]
 variants = [fork[0] for fork in forks_data] + [f"0.{i}" for i in versions]
 
@@ -176,7 +177,8 @@ forks_milestones = [
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-stoatsoup/saves/milestones",
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-bcadrencrawl/saves/milestones",
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-kimchicrawl/saves/milestones",
-    "%%CHROOT_CRAWL_BASEDIR%%/crawl-addedcrawl/saves/milestones"
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-addedcrawl/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-dcst/saves/milestones"
 ]
 
 version_milestones = [
