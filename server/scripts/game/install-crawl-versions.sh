@@ -6,7 +6,7 @@ for v in $VERSIONS; do
     if [ "$v" == "git" ]; then
         continue
     fi
-    cp -a --no-clobber "$DGL_CHROOT/crawl-master/crawl-init" "$DGL_CHROOT/crawl-master/crawl-$v"
+    cp -a --update=none "$DGL_CHROOT/crawl-master/crawl-init" "$DGL_CHROOT/crawl-master/crawl-$v"
 done
 
 dgl update-trunk
