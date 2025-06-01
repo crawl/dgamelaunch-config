@@ -87,8 +87,8 @@ apply-patch() {
 
 BRANCH=$1
 REVISION="$2"
-[[ -n "$BRANCH" ]] || abort-saying "$0: Checkout branch not specified!"
 clone-crawl-ref
+[[ -n "$BRANCH" ]] || abort-saying "$0: Checkout branch not specified!"
 update-crawl-ref
 update-submodules
 apply-patch
