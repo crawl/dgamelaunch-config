@@ -109,7 +109,11 @@ forks_data = [
     ("bcadrencrawl", {"name": "BcadrenCrawl", "allowed_mods": ["Tutorial", "Sprint", "Seeded"]}),
     ("kimchicrawl", {"name": "KimchiCrawl", "allowed_mods": ["Tutorial", "Sprint", "Seeded"]}),
     ("addedcrawl", {"name": "AddedCrawl", "allowed_mods": ["Tutorial", "Sprint", "Seeded"]}),
-    ("dcst", {"name": "DCST", "allowed_mods": ["Tutorial", "Sprint", "Seeded"]})
+    ("dcst", {"name": "DCST", "allowed_mods": ["Tutorial", "Sprint", "Seeded"]}),
+    ("nostalgia", {"name": "Stone Soup Nostalgia", "allowed_mods": ["Tutorial", "Sprint", "Zot Defense"]}),
+    ("yiufcrawl", {"name": "YiufCrawl", "allowed_mods": ["Tutorial", "Sprint"]}),
+    ("oofcrawl", {"name": "OOFCrawl", "allowed_mods": ["Tutorial", "Sprint"]}),
+    ("boggartcrawl", {"name": "BoggartCrawl", "allowed_mods": ["Tutorial", "Sprint"]})
 ]
 variants = [fork[0] for fork in forks_data] + [f"0.{i}" for i in versions]
 
@@ -178,7 +182,11 @@ forks_milestones = [
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-bcadrencrawl/saves/milestones",
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-kimchicrawl/saves/milestones",
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-addedcrawl/saves/milestones",
-    "%%CHROOT_CRAWL_BASEDIR%%/crawl-dcst/saves/milestones"
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-dcst/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-nostalgia/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-yiufcrawl/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-oofcrawl/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-boggartcrawl/saves/milestones"
 ]
 
 version_milestones = [
