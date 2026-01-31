@@ -129,9 +129,13 @@ games = dict([
         inprogress_path = "%%CHROOT_INPROGRESSDIR%%-crawl-git-sprint/",
         options = ["-sprint"])),
 
-    ("dcss-0.33", dict(
-        template = "stable", version = "0.33",
+    ("dcss-0.34", dict(
+        template = "stable", version = "0.34",
         name = "DCSS %v (current release)")),
+    ("seeded-0.34", dict(template = "stable_seeded", version = "0.34")),
+    ("spr-0.34", dict(template = "stable_sprint", version = "0.34")),
+
+    ("dcss-0.33", dict(template = "stable", version = "0.33")),
     ("seeded-0.33", dict(template = "stable_seeded", version = "0.33")),
     ("spr-0.33", dict(template = "stable_sprint", version = "0.33")),
 
@@ -275,6 +279,8 @@ milestone_file = [
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.32/saves/milestones-sprint",
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.33/saves/milestones",
     "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.33/saves/milestones-sprint",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.34/saves/milestones",
+    "%%CHROOT_CRAWL_BASEDIR%%/crawl-0.34/saves/milestones-sprint",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones",
     "%%CHROOT_CRAWL_GAMEDIR%%/saves/milestones-sprint"
 ]
