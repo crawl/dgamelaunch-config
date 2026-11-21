@@ -15,6 +15,6 @@ Old Crawl Versions
 6) 0.16   7) 0.17   8) 0.18   9) 0.19   0) 0.20
 a) 0.21   b) 0.22   c) 0.23   d) 0.24
 
-B)ack to previous menu
+q) Return to main menu
 
 => 
