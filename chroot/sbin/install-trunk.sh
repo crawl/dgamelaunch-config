@@ -94,8 +94,8 @@ create-dgl-directories() {
 }
 
 fix-chroot-directory-permissions() {
-    chown -R crawl:crawl "$CHROOT/crawl-master"
-    chown -R crawl:crawl "$CHROOT/dgldir"
+    find $CHROOT/crawl-master/ -maxdepth 1 -type d -iname "crawl-git-$REVISION" -exec chown -R crawl:crawl {} +
+    find $CHROOT/dgldir/ \( -name '*.db*' -o -path '*/data/crawl-git-settings' -o -path '*/inprogress/crawl-git*' -o -path '*/rcfiles/crawl-git' \) -exec chown -R crawl:crawl {} +
 }
 
 install-game() {
